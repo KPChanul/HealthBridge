@@ -1,0 +1,95 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito:wght@300;400;600&display=swap');
+
+*{
+    margin:0;
+    padding: 0;
+}
+.about-container {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-family:'Nunito', 'Poppins', sans-serif;
+  color: #1c3f66;
+  background: #f4f8ff;
+}
+
+/* Hero Section */
+.about-hero {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 10px 25px rgba(0, 60, 112, 0.15);
+}
+
+.about-hero img {
+  width: 100%;
+  height: 150%;
+  object-fit: cover;
+  filter: brightness(90%);
+  transform: scale(1.1);
+  transition: transform 0.3s ease-out;
+}
+
+.hero-title {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;  /* Inter bold for hero */
+  text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.65);
+  letter-spacing: 2px;
+}
+
+/* Section Boxes */
+.info-section {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 50px 30px;
+  background: #e9f2ff;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 70, 150, 0.12);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out;
+  border-top: 6px solid #2e6ac7;
+}
+
+.info-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Headings */
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.4rem;
+  color: #2a5dac;
+  margin-bottom: 15px;
+  font-weight: 600;
+  margin-top: -5px;
+}
+
+/* Paragraphs */
+p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.25rem;
+  color: #2f4f75;
+  margin-bottom: 14px;
+  line-height: 1.7;
+  margin-top: 25px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .info-section {
+    padding: 35px 20px;
+  }
+}
