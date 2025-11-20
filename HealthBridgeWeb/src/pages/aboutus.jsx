@@ -1,9 +1,9 @@
-
+import Abt from "../../public/src1/AboutUs"
 
 
 function About(){
     return(
-    <><h1>About us</h1></>
+    <><Abt/></>
     )
 }
 
