@@ -1,9 +1,15 @@
-
+import React from 'react'
+import Header from "../components/header/Header"
 
 
 function Donations(){
     return(
-    <><h1>DOnations</h1></>
+    <>
+
+        <Header/>
+        <h1>Donations</h1>
+
+    </>
     )
 }
 
