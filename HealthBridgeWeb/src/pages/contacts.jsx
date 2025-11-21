@@ -1,10 +1,10 @@
-
+import ContactUsForm from "../components/Feedback-Form/FeedBack.jsx";
 
 
 function Contacts(){
     return(
-    <><h1>Contact us</h1></>
+    <ContactUsForm/>
     )
 }
 
-export default Contacts
+export default Contacts;
