@@ -46,7 +46,7 @@ window.addEventListener("scroll", () => {
 
   return (
     
-    <div className="about-container">
+    <main className="main-container">
       
       {/* Fixed header */}
       <div style={{width: "100%",height: "60px", backgroundColor: "#007BFF", position: "fixed",top: 0,left: 0,display: "flex",alignItems: "center",justifyContent: "center",zIndex: 1000}}>
@@ -80,7 +80,7 @@ window.addEventListener("scroll", () => {
           without being burdened by sudden medical expenses.
         </p>
       </section>
-      <section class="box-container">
+      <section className="box-container">
       {/* Mission */}
       <div
         id="mission-section"
@@ -120,7 +120,7 @@ window.addEventListener("scroll", () => {
         </p>
       </div>
       </section>
-    </div>
+    </main>
   );
 }
 
