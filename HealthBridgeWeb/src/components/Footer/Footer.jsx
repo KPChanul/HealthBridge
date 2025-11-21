@@ -1,8 +1,12 @@
 import styles from './Footer.module.css';
-import logo from './logo.PNG';
-import { Mail, Phone, MapPin,Fingerprint,ShieldAlert,BookOpenText} from "lucide-react";
+import logo from '../../assets/logo.PNG';
+import { Mail, Phone, MapPin,Fingerprint,ShieldAlert,BookOpenText, Space} from "lucide-react";
 
+function copyrightYearTxt(){
+    let currentYear=new Date().getFullYear();
+    return currentYear=="2024"? "2025" : `2024-${currentYear}`
 
+}
 
 
 function Footer() {
@@ -49,21 +53,21 @@ function Footer() {
                         <ul className={styles.linkList}>
                             <li className={styles.iconRow}>
                                 <Fingerprint size={18} className={styles.icon} />
-                                 <a href="src/components/Footer/Privacy-Policy.pdf"  target="_blank" className={styles.link}>
+                                 <a href="/Privacy-Policy.pdf"  target="_blank" className={styles.link}>
                                     Privacy Policy
                                 </a>
                             </li>
 
                             <li className={styles.iconRow}>
                                 <BookOpenText size={18} className={styles.icon} />
-                                <a href="src/components/Footer/Terms & Conditions.pdf" target="_blank" className={styles.link}>
+                                <a href="/Terms & Conditions.pdf" target="_blank" className={styles.link}>
                                     Terms & Conditions
                                 </a>
                             </li> 
 
                             <li className={styles.iconRow}>
                                 <ShieldAlert size={18} className={styles.icon} />
-                                <a href="src/components/Footer/Disclaimer.pdf"  target="_blank"  className={styles.link}>Disclaimer</a>
+                                <a href="/Disclaimer.pdf"  target="_blank"  className={styles.link}>Disclaimer</a>
                             </li>
 
                         </ul>
@@ -75,7 +79,7 @@ function Footer() {
 
 
                 <div className={styles.copyright}>
-                    <p>&copy; {new Date().getFullYear()} HealthBridge. All rights reserved.</p>
+                    <p>&copy; {copyrightYearTxt()} <Space style={{width: "4px", color:"rgba(255, 255, 255, 0)"}}></Space>  HealthBridge. All rights reserved.</p>
                 </div>
 
 
