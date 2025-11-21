@@ -6,6 +6,7 @@ import Contacts from "./pages/contacts.jsx";
 import Admin from "./pages/admin.jsx";
 import Donations from "./pages/donations.jsx";
 
+
 function App() {
  
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin" element={< Admin />}/>    {/*this page is include both sysadmin and admin pages after loging in*/}
         
       </Routes>
+      
     </Router>
   )
 }

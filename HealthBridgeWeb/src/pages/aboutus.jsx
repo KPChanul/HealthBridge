@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./about.css";
+import "./about.module.css";
 import healthImage from "../assets/HealthBridge.png";
 
 
