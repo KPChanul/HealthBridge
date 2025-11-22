@@ -10,6 +10,7 @@
     position: fixed;
     background-color: #F9F9F9;
     transition: 0.5s linear;
+    z-index: 10000;
     
     
 }
@@ -35,11 +36,9 @@
   top: -15rem;
   left: 2.5rem;
   right: 2.5rem;
-  background-color: transparent; /* look*/
-  background: transparent; /* look*/
-  background-color: #f9f9f9;
-  border-radius: 5%;
+  background-color: rgba(0, 0, 0, 0.5);
   transition: 0.3s all linear;
+  z-index: 10000;
 
 }
 
@@ -69,6 +68,7 @@
 
         padding: 18px 45px;
     }
+    
 }
 
 @media (max-width:991px) {
@@ -90,8 +90,6 @@
     .headIcon {
 
         display: initial;
-        background-color: transparent;
-        background: transparent;   /* look*/
         position: fixed;
         top: 2rem;
         left: 2rem;
@@ -101,14 +99,17 @@
         width: 60px;
         text-align: center;
         border-radius: 10%;
-        background-color:black;
+        background-color:rgba(0, 0, 0, 0.5);
         color: white;
+        z-index: 10000;
 
     }
 
     .menuBar-active {
-    top: 6rem;
-    transition: 0.3s all linear;          
+        top: 6rem;
+        position: fixed;
+        z-index: 10000;
+        transition: 0.3s all linear;          
 
     }
 
@@ -133,16 +134,30 @@
     .about-link:hover::after {
 
         width: 13%;
+        background-color: white;
+    }
+    .about-link {
+        color: white;
     }
 
     .contactUs-link:hover::after {
 
         width: 16%;
+        background-color: white;
+    }
+    .contactUs-link {
+        
+        color: white;
     }
 
     .howitworks-link:hover::after {
 
         width: 19%;
+        background-color: white;
+    }
+    .howitworks-link {
+
+        color: white;
     }
 
     .home-link:hover {
