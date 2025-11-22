@@ -1,0 +1,77 @@
+.loginContainer{
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.loginForm{
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto;
+    width: 300px;
+}
+.loginForm h2{
+    margin-bottom: 20px;
+    color: #333333;
+    
+    text-align: center;
+}
+.loginForm label{
+    display: block;
+    margin-bottom: 8px;
+    color: #555555;
+    font-weight: bold;
+}
+.loginForm input{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.loginForm button{
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+.loginForm button:hover{
+    background-color: #0056b3;
+}
+.errorMessage{
+    color: #ff0000;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .loginForm {
+        width: 90%;
+        padding: 16px;
+    }
+    .loginForm h2 {
+        font-size: 18px;
+    }
+    
+
+    .loginForm input, .loginForm button,.errorMessage {
+        font-size: 12px;
+    }
+    .loginForm label{
+        font-size: 14px;
+    }
+    
+    
+}  
