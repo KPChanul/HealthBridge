@@ -1,12 +1,23 @@
 <?php
-require 'cors.php'; // Include CORS headers
-?>
-
-<?php
 // this file is used to send feedback to HealthBridge Email
 
-// Allow requests from any origin (for development, React frontend hosted on localhost)
-header("Access-Control-Allow-Origin: *");
+
+$frontendOrigin = 'http://localhost:5173'; //host
+if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $frontendOrigin) {
+    header("Access-Control-Allow-Origin: $frontendOrigin");
+} else {
+    // For strictness use the specific origin above. During development you can use '*'.
+    header("Access-Control-Allow-Origin: $frontendOrigin");
+}
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Max-Age: 86400");
+
+// Reply to preflight and stop further processing
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Tell the browser that we are returning JSON
 header("Content-Type: application/json");
@@ -40,7 +51,7 @@ try {
     $mail->Host = 'smtp.gmail.com';        // Gmail SMTP server
     $mail->SMTPAuth = true;                // Enable SMTP authentication
     $mail->Username = 'noreply.feedback.hb@gmail.com'; // Your Gmail address
-    $mail->Password = 'pdayixepiqnbiusl';    // Your Gmail App Password
+    $mail->Password = 'vbtievjvvaodvenu';    // Your Gmail App Password
     $mail->SMTPSecure = 'tls';             // Encryption method
     $mail->Port = 587;                     // SMTP port for TLS
 
@@ -48,7 +59,7 @@ try {
     $mail->setFrom('noreply.feedback.hb@gmail.com', 'Feedback Form'); // Sender info
     $mail->addAddress('healthbridge.uom@gmail.com');               // Recipient (your inbox)
     $mail->isHTML(true);                                     // Send HTML email
-    $mail->Subject = 'New Feedback Submission';             // Email subject
+    $mail->Subject = "New Feedback Submission by $name ";             // Email subject
     $mail->Body = "
         <h3>New Feedback</h3>
         <p><strong>Name:</strong> $name</p>
@@ -60,11 +71,35 @@ try {
 
     // Send the email
     $mail->send();
-
     // Return JSON success message to frontend
-    echo json_encode(['status' => 'success', 'message' => 'Message sent successfully']);
+    echo json_encode([
+        'status' => 'success',
+        'message' => 'Thank you! Your feedback has been sent successfully.'
+    ]);
+
+    
+    
 } catch (Exception $e) {
-    // Return JSON error message if email fails
-    echo json_encode(['status' => 'error', 'message' => $mail->ErrorInfo]);
+    // Default friendly message
+    
+
+    // Map some common errors to simpler, user-friendly messages
+    $msg = $e->getMessage();
+
+    if (strpos($msg, 'getaddrinfo') !== false) {
+        $friendly = "We are having trouble connecting to our email server. Please try again later.";
+    } elseif (strpos($msg, 'SMTP connect() failed') !== false) {
+        $friendly = "We cannot send emails right now. Please check your internet connection or try again later.";
+    } elseif (strpos($msg, 'Invalid address') !== false) {
+        $friendly = "It looks like you entered an invalid email address. Please check and try again.";
+    }
+    else{
+        $friendly = "Oops! We couldn't send your feedback at the moment. Please try again later.";
+    }
+
+    echo json_encode([
+        'status' => 'error',
+        'message' => $friendly
+    ]);
 }
 ?>

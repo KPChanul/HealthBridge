@@ -26,7 +26,7 @@ export default function FeedbackForm() {
 
     try {
       // Send form data to PHP backend
-      const response = await fetch("http://localhost/myproject/send.php", {
+      const response = await fetch("http://localhost/ServerHB/send.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
