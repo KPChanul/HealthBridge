@@ -1,0 +1,2 @@
+for FeedBAck Mailing, PHPMailer + Gmail SMTP have been used.
+
