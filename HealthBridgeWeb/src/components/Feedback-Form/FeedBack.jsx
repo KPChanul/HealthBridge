@@ -34,6 +34,18 @@ export default function FeedbackForm() {
 
       const result = await response.json();
       setStatus(result.message); // Show success/error message
+      
+      // Reset the form, if it is sent succesfully
+      if (result.status === "success") {
+        setFormData({
+        name: "",
+        email: "",
+        role: "",
+        type: "",
+        message: ""
+      });
+    }
+
     } catch (error) {
       setStatus("Error sending feedback. Please try again.");
     }
@@ -121,7 +133,7 @@ export default function FeedbackForm() {
       </form>
 
       {/* Show status message */}
-      {status && <p>{status}</p>}
+      {status && <p id="status">{status}</p>}
     </div>
   );
 }

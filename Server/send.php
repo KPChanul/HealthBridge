@@ -1,23 +1,9 @@
 <?php
+include("cors.php")
+?>
+
+<?php
 // this file is used to send feedback to HealthBridge Email
-
-
-$frontendOrigin = 'http://localhost:5173'; //host
-if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $frontendOrigin) {
-    header("Access-Control-Allow-Origin: $frontendOrigin");
-} else {
-    // For strictness use the specific origin above. During development you can use '*'.
-    header("Access-Control-Allow-Origin: $frontendOrigin");
-}
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
-header("Access-Control-Max-Age: 86400");
-
-// Reply to preflight and stop further processing
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
 
 // Tell the browser that we are returning JSON
 header("Content-Type: application/json");
@@ -80,26 +66,31 @@ try {
     
     
 } catch (Exception $e) {
-    // Default friendly message
+
+    $msg = "Something went wrong. Please try again later.";
+
+    $errorText = (string)$e;
+
+    // Group 1: SMTP connection problems (covers many variations)
+    if (
+        strpos($errorText, 'SMTP connect() failed') !== false ||
+        strpos($errorText, 'Could not connect to SMTP host') !== false ||
+        strpos($errorText, 'Failed to connect to server') !== false ||
+        strpos($errorText, 'Connection failed') !== false
+    ) {
+        $msg = "We cannot reach our email server. Please check your connection and try again.";
+    }
+
+    // Group 2: DNS / Internet issues
+    elseif (strpos($errorText, 'getaddrinfo') !== false) {
+        $msg = "We are unable to connect to the email server. Please try again later.";
+    }
+
     
-
-    // Map some common errors to simpler, user-friendly messages
-    $msg = $e->getMessage();
-
-    if (strpos($msg, 'getaddrinfo') !== false) {
-        $friendly = "We are having trouble connecting to our email server. Please try again later.";
-    } elseif (strpos($msg, 'SMTP connect() failed') !== false) {
-        $friendly = "We cannot send emails right now. Please check your internet connection or try again later.";
-    } elseif (strpos($msg, 'Invalid address') !== false) {
-        $friendly = "It looks like you entered an invalid email address. Please check and try again.";
-    }
-    else{
-        $friendly = "Oops! We couldn't send your feedback at the moment. Please try again later.";
-    }
-
     echo json_encode([
-        'status' => 'error',
-        'message' => $friendly
+        "status" => "error",
+        "message" => $msg
     ]);
 }
+
 ?>
