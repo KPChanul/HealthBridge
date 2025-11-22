@@ -111,7 +111,7 @@
     color: var(--color-accent-teal);  
 }
 
-
+/* Tablet Portrait / Small Laptop */
 @media (max-width: 900px) {
     .grid {
         /* Allow gap to fill space, but ensure columns stack better */
@@ -129,6 +129,7 @@
     }
 }
 
+/* Portrait Mobile */
 @media (max-width: 600px) {
     .grid {
         flex-direction: column;
@@ -142,5 +143,25 @@
     
     .logo {
         max-width: 250px;
+    }
+}
+
+/* Landscape Mobile / Intermediate Screen Size (600px - 900px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .grid {
+        
+        justify-content: space-between;
+    }
+    
+    
+    .grid > .column:nth-child(2), 
+    .grid > .column:nth-child(3) {
+        flex: 1 1 48%; 
+        min-width: 48%;
+    }
+    
+    
+    .grid > .column:first-child {
+        min-width: 100%;
     }
 }

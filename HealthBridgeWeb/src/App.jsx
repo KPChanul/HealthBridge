@@ -5,6 +5,7 @@ import About from "./pages/aboutus.jsx";
 import Contacts from "./pages/contacts.jsx";
 import Admin from "./pages/admin.jsx";
 import Donations from "./pages/donations.jsx";
+import Footer from './components/Footer/Footer.jsx'
 
 
 function App() {
@@ -18,8 +19,11 @@ function App() {
         <Route path="/contacts" element={<Contacts />}/>   {/*this page is include a feedback form and contact details*/}
         <Route path="/donations" element={< Donations />}/>   {/*this page is include a donation cards*/}
         <Route path="/admin" element={< Admin />}/>    {/*this page is include both sysadmin and admin pages after loging in*/}
-        
+
       </Routes>
+      
+
+      <Footer />
       
     </Router>
   )
