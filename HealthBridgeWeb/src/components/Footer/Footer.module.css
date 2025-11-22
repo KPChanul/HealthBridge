@@ -12,7 +12,7 @@
 
 
 .footer{
-
+    width: auto;
     background-color: var(--background-color);
     padding: var(--padding-vertical) var(--padding-horizontal);
     font-family: system-ui, sans-serif;

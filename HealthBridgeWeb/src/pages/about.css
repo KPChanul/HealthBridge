@@ -60,7 +60,6 @@
 /* Section Boxes */
 .info-section {
   width: 30vw;
-  margin: 50px auto;
   padding: 40px 40px 20px 40px;
   background: #e9f2ff;
   border-radius: 18px;
@@ -119,7 +118,7 @@ p {
   .box-container{
   display: flex;
   flex-direction: column;
-  width: 90vw;
+  width: 80%;
   margin:auto;
   
 }
@@ -131,7 +130,7 @@ p {
   }
   p {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.85em;
   
   
   line-height: 1;
