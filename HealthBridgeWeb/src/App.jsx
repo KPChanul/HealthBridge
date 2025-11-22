@@ -5,7 +5,7 @@ import About from "./pages/aboutus.jsx";
 import Contacts from "./pages/contacts.jsx";
 import Admin from "./pages/admin.jsx";
 import Donations from "./pages/donations.jsx";
-import Footer from './components/Footer/Footer.jsx'
+
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
       </Routes>
       
 
-      <Footer />
+      
       
     </Router>
   )
