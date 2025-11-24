@@ -1,4 +1,4 @@
-function SysAdmin(){
+function SysAdmin({onLogOut}){
     return(
     <><h2>Sys-Admin Interface</h2></>
     )
