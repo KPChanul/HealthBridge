@@ -8,7 +8,7 @@ if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $frontendOrigi
     header("Access-Control-Allow-Origin: $frontendOrigin");
 }
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: *");
 
 
 // Reply to preflight and stop further processing
