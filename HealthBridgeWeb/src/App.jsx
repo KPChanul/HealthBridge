@@ -16,7 +16,7 @@ function App() {
         <Route path="/about-us" element={<About />}/>
         <Route path="/contacts" element={<Contacts />}/>   {/*this page is include a feedback form and contact details*/}
         <Route path="/donations" element={< Donations />}/>   {/*this page is include a donation cards*/}
-        <Route path="/admin" element={< Admin />}/>    {/*this page is include both sysadmin and admin pages after loging in*/}
+        <Route path="/admin" element={< AdminPage />}/>    {/*this page is include both sysadmin and admin pages after loging in*/}
         
       </Routes>
     </Router>
