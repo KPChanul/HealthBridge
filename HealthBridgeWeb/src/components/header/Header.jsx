@@ -1,6 +1,6 @@
 /*import React from 'react'*/
 import React, { useState } from 'react'
-import logo from '../../assets/HealthBridge Logo with Teal Accent.png'
+import logo from '../../assets/logo.png'
 import MenuLinks from './MenuLinks'
 import './Header.css'
 import { CiMenuBurger } from "react-icons/ci";
