@@ -13,7 +13,7 @@ function Login({onLoginSuccess}) {
 
         
         // Send POST request to PHP backend
-        const response = await fetch("localhost/login.php", {
+        const response = await fetch("localhost/serverHB/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
 
@@ -24,18 +24,13 @@ function Login({onLoginSuccess}) {
         const data = await response.json();
         
         // if login failed → show error
-        if (!data.success){
+        if (!data.success) {
             setErrorMessage(data.message);
+        } else {
+            sessionStorage.setItem("sessionID", data.sessionID);
+            onLoginSuccess({ role: data.role, admin_id: data.admin_id });
         }
-        else{
-            sessionStorage.setItem("sessionID", data.sessionID); // save session
-            onLoginSuccess(data.role); // notify parent
-        }
-
-    }
-
-
-
+  };
 
     return (
     <div className={styles.loginContainer}>

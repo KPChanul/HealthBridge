@@ -1,6 +1,6 @@
 
 
-function Admin({onLogOut}){
+function Admin({admin_id, onLogOut}){
     return(
     <><h2>Admin Interface</h2></>
     )

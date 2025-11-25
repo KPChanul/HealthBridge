@@ -7,22 +7,22 @@ import { useState } from 'react';
 
 function AdminPage() {
 
-    // this state stores the logged-in user's role
+    // this state stores the logged-in user's data
 
-    const [role, setRole] = useState(null);
+    const [user, setUser] = useState({ role: "login" });
 
     return (
         <>
             {/* If role is null → show the login page */}
-            {role === null && (
-                <Login onLoginSuccess={(userRole) => setRole(userRole)} />
+            {user.role === "login" && (
+                <Login onLoginSuccess={(data) => setUser(data)} />
             )}
 
             {/* If role is "admin" → show Admin interface */}
-            {role === "admin" && <Admin onLogOut={() => setRole(null)}/> }
+            {user.role === "admin" && <Admin admin_id={user.admin_id}  onLogOut={() => useState({ role: "login" })}/> }
 
             {/* If role is "sysadmin" → show System Admin interface */}
-            {role === "sysadmin" && <SysAdmin onLogOut={() => setRole(null)} />}
+            {user.role === "sysadmin" && <SysAdmin onLogOut={() => useState({ role: "login" })} />}
         </>
     );
 }
