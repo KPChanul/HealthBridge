@@ -13,7 +13,7 @@ function Login({onLoginSuccess}) {
 
         
         // Send POST request to PHP backend
-        const response = await fetch("localhost/serverHB/login.php", {
+        const response = await fetch("http://localhost/serverHB/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
 
@@ -45,6 +45,9 @@ function Login({onLoginSuccess}) {
             className={styles.input}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
+            onInvalid={(e) => e.target.setCustomValidity("Please enter your user name")}
+            onInput={(e) => e.target.setCustomValidity("")}
           />
         </label>
 
@@ -55,6 +58,9 @@ function Login({onLoginSuccess}) {
             className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            onInvalid={(e) => e.target.setCustomValidity("Please enter your password")}
+            onInput={(e) => e.target.setCustomValidity("")}
           />
         </label>
 
