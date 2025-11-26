@@ -16,6 +16,7 @@ function Contacts() {
           </p>
         </div>
 
+
         {/* WRAPPER (LEFT INFO + RIGHT FORM) */}
         <div className="contact-wrapper">
           {/* LEFT SIDE (Contact Information) */}
@@ -47,7 +48,7 @@ function Contacts() {
               </div>
               <div className="text">
                 <h3>Email</h3>
-                <p>InfoHealthBridge@gmail.com</p>
+                <p>healthbridge.uom@gmail.com</p>
               </div>
             </div>
           </div>
