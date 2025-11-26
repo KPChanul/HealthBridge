@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import CardInterface from '../../components/Cards/card';
 import './Donation.css';
 import cases from './sampleCases';
+import Footer  from '/src/components/Footer/Footer.jsx';
 
 
 
@@ -146,6 +147,8 @@ const Donations=()=>{
 
     return(
 
+        <>
+
 
 
         <div className="page">
@@ -217,7 +220,11 @@ const Donations=()=>{
                 </div>
             )}
 
+            
+
         </div>
+        <Footer />
+        </>
     )
 };
 

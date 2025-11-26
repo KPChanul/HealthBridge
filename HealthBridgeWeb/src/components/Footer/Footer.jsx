@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin,Fingerprint,ShieldAlert,BookOpenText, Space} from "
 
 function copyrightYearTxt(){
     let currentYear=new Date().getFullYear();
-    return currentYear=="2024"? "2025" : `2024-${currentYear}`
+    return currentYear
 
 }
 
@@ -35,8 +35,8 @@ function Footer() {
 
                             <li className={styles.iconRow}>
                                 <Mail size={18} className={styles.icon} />
-                                <a href="mailto:info@healthbridge.lk" className={styles.link}>
-                                    info@healthbridge.lk
+                                <a href="mailto:healthbridge.uom@gmail.com" className={styles.link}>
+                                    healthbridge.uom@gmail.com
                                 </a>
                             </li>
 
@@ -79,7 +79,7 @@ function Footer() {
 
 
                 <div className={styles.copyright}>
-                    <p>&copy; {copyrightYearTxt()} <Space style={{width: "4px", color:"rgba(255, 255, 255, 0)"}}></Space>  HealthBridge. All rights reserved.</p>
+                    <p>&copy; {copyrightYearTxt()}<Space style={{width: "4px", color:"rgba(255, 255, 255, 0)"}}></Space>  HealthBridge. All rights reserved.</p>
                 </div>
 
 
