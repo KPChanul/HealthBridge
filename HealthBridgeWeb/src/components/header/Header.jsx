@@ -27,8 +27,8 @@ function Header() {
             <MenuLinks linkname="Home" url="/" className='home-link'/>
             <MenuLinks linkname="About Us" url="/about-us" className='about-link'/>
             <MenuLinks linkname="Contact Us" url="/contacts" className='contactUs-link'/>
-            <MenuLinks linkname="Donate" url="/donations" className='donation-linklink'/>
             <MenuLinks linkname="How it works" url="/HowItWorks" className='howitworks-link'/>
+            <MenuLinks linkname="Donate" url="/donations" className='donation-linklink'/>
         </div>
       </div>
 
