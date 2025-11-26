@@ -1,0 +1,142 @@
+.page{
+    padding-left: 0;
+    padding-right: 0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:100%;
+}
+
+/* --- Default Search Input Style --- */
+.search-input {
+
+    background-Color:white;
+    width: 80%; 
+    max-width: 600px;
+    padding:12px 15px ;                 
+    margin-bottom: 25px;                
+    border-radius: 8px; 
+    border: 2px solid #1f0d0dff; 
+    color: black;
+    font-size: 1rem;
+    box-sizing: border-box; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* --- Focus State Style (The Fix) --- */
+.search-input:focus {
+    
+    border-color: #122f4e; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.topic{
+    
+    font-weight: bold;
+    color:#007bff ;
+    margin-bottom: 10px;
+    margin-top: 20px;
+
+}
+
+.para{
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+
+}
+
+.filter-button-container{
+    margin-bottom: 30px;
+    display: flex;
+    gap:15px;
+
+
+}
+
+.cases-grid-view{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:30px;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+}
+
+/* --- Pagination Styles --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    font-size: 1.1rem;
+    user-select: none;
+}
+
+.pagination-item {
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.pagination-item.page-number {
+    color: #555;
+    font-weight: 500;
+}
+
+.pagination-item.page-number:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.pagination-item.current {
+    font-weight: bold;
+    color: #333; /* Dark color for the active page number */
+    border-bottom: 2px solid #007bff; /* Underline effect for active page */
+}
+
+/* Styles for Previous/Next buttons when active */
+.pagination-item.active {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.pagination-item.active:hover {
+    background-color: #f0f8ff;
+}
+
+/* Styles for disabled Previous/Next buttons */
+.pagination-item.disabled {
+    color: #ccc; /* Lighter color when disabled */
+    cursor: not-allowed;
+    pointer-events: none; /* Prevents clicks */
+}
+
+
+/* 1. Tablet & Large Phone Landscape (Max Width 1024px) */
+@media (max-width: 1371px) {
+    .cases-grid-view {
+        /* Switch to 2 columns to keep cards readable */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* 2. Phone Portrait (Max Width 600px) */
+@media (max-width: 932px) {
+    .cases-grid-view {
+        /* Switch to a single column to stack cards vertically */
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        width: 95%; /* Use slightly more screen width on mobile */
+    }
+}
+
+

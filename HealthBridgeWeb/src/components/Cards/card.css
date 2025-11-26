@@ -1,0 +1,192 @@
+.dynamic-content-wrapper {
+    min-height: 180px; 
+    overflow: hidden; 
+}
+
+/* --- Case Card Structure --- */
+.case-card {
+    width: auto;
+    max-width: 400px; 
+    width: 100%;
+    min-height: 550px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 30px; 
+    margin: 15px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.case-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+}
+
+/* --- Header and Status --- */
+.case-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.case-header h3 {
+    font-size: 1.8rem; 
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+    flex-grow: 1;
+    margin-right: 10px;
+    word-break: break-word;
+
+}
+
+.tag-urgent {
+    background-color: #ff4d4f; 
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.tag-standard {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.health-issue {
+    color: #007bff; 
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 20px; 
+}
+
+.case-contact-details {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.case-contact-details p {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem; 
+    color: #444;
+    margin: 8px 0;
+}
+
+.case-contact-details .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    color: #007bff; 
+}
+
+.case-contact-details a {
+    color: #007bff;
+    text-decoration: none;
+    
+
+}
+
+.progress-container {
+    height: 12px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    margin: 10px 0 ;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #007bff, #00c6a7); 
+    border-radius: 6px;
+    transition: width 0.5s ease-in-out;
+}
+
+.card-separator {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 15px 0; 
+    width: 100%;
+}
+
+.goal-status {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem; 
+    color: #555;
+    
+    
+}
+.goal-status>.funded-percent{
+    
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem; 
+    color: #555;
+    margin-bottom: 5px;
+    
+}
+
+
+
+
+
+.goal-status span:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+.funded-percent {
+    font-weight: 700;
+    color: #00A389; 
+}
+
+.case-brief-description {
+    color: #555;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    margin-bottom: 5px; 
+}
+
+.donate-button-section {
+    margin-top: auto; 
+    padding-top: 10px; 
+}
+
+.donate-button {
+    width: 100%;
+    padding: 13px;
+    background-color: #3377ff; 
+    color: white;
+    border: none;
+    border-radius: 8px; 
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 153, 51, 0.4);
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.donate-button:hover {
+    background-color: #2621a4;
+}
+
+
+
+
