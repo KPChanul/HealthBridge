@@ -2,3 +2,32 @@
 to link 2 files. 1 file shoudn't exist
 
 mklink /D "C:\xampp\htdocs\ServerHB" "Server location"
+
+
+
+CREATE TABLE admins (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,  -- unique username
+    password VARCHAR(255) NOT NULL,    -- hashed password
+    last_logged_in TIMESTAMP NULL DEFAULT NULL
+);
+
+
+CREATE TABLE sessions (
+    session_id VARCHAR(255) PRIMARY KEY,  -- unique session ID
+    admin_id INT NOT NULL,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- session start
+    end_time TIMESTAMP NULL DEFAULT NULL           -- session end
+);
+
+
+Optional: Foreign key for data integrity
+
+ALTER TABLE sessions
+ADD CONSTRAINT fk_admin
+FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
+ON DELETE CASCADE;
+
+
+Ensures that if an admin is deleted, their sessions are automatically removed
+
