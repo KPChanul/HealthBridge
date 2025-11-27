@@ -1,7 +1,7 @@
-import React,{useState,useEffect} from 'react';
+import {useState,useEffect} from 'react';
 import CardInterface from '../../components/Cards/card';
 import './Donation.css';
-import cases from './sampleCases';
+import cases from "./sampleCases.jsx"
 
 
 
@@ -10,6 +10,11 @@ const CARDS_PER_PAGE = 6;
 const Donations=()=>{
 
     // --- State Management ---
+    
+    
+    const [data, setData] = useState([]); // state to hold data
+    const [loading, setLoading] = useState(false); // loading state
+    const [error, setError] = useState(null); // error state
 
     // State to track the currently active page number for pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +24,34 @@ const Donations=()=>{
 
     // State to track the active filter ('all' or 'urgent')
     const [filter, setFilter] = useState('all');
+
+    // ---fletching data from sql ---
+
+  useEffect(() => {
+    // Fetch data from PHP backend
+    setLoading(true)
+    fetch("http://localhost/serverHB/get_cases.php")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("connection issue,.Check your internet connection."); // handle network errors
+        }
+        return response.json(); // parse JSON
+      })
+      .then((data) => {
+        setData(data); // store data in state
+        
+        setLoading(false); // loading done
+      })
+      .catch((err) => {
+        setError("Failed to fetch cases. Please try again later."); // user-friendly error
+        setLoading(false);
+      });
+  }, []);
+
+  
+
+
+
 
     // --- Data Calculation ---
 
@@ -61,6 +94,7 @@ const Donations=()=>{
     const endIndex = startIndex + CARDS_PER_PAGE;
 
     // Slice the filtered array to get only the cases for the current page
+    
     const casesToDisplay = filteredCases.slice(startIndex, endIndex);
 
     // --- Effects & Handlers ---
@@ -139,11 +173,6 @@ const Donations=()=>{
 
    
 
-
-
-
-
-
     return(
 
 
@@ -181,8 +210,8 @@ const Donations=()=>{
                 </button>
             </div>
 
-
-            <p className='filter-details-count'>
+            
+                <p className='filter-details-count'>
                     showing {filteredCases.length} result{filteredCases.length!=1?"s": ""}.
                 </p>
 

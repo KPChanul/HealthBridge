@@ -1,0 +1,277 @@
+<?php
+include './database.php'; // Make sure $conn is your mysqli connection
+
+$cases = [
+    [
+        "patient_name" => "Iresha",
+        "health_issue" => "Dental Reconstruction",
+        "is_urgent" => 0,
+        "goal" => 180000,
+        "raised" => 10000,
+        "address" => "Kandy, LK",
+        "posted_date" => "2025-09-01",
+        "contact_phone" => "077XXXXX11",
+        "contact_email" => "iresha@example.com",
+        "bank_name" => "Nations Trust Bank",
+        "bank_branch" => "Kandy City",
+        "account_holder" => "Iresha",
+        "account_number" => "6655443322",
+        "description" => "Iresha needs extensive dental reconstruction following a childhood illness."
+    ],
+    [
+        "patient_name" => "Kamal Wijesinghe",
+        "health_issue" => "Prosthetic Limb",
+        "is_urgent" => 0,
+        "goal" => 300000,
+        "raised" => 300000,
+        "address" => "Matara, LK",
+        "posted_date" => "2025-09-05",
+        "contact_phone" => "076XXXXXX3",
+        "contact_email" => "kamal@example.com",
+        "bank_name" => "Sampath Bank",
+        "bank_branch" => "Matara",
+        "account_holder" => "Kamal Wijesinghe",
+        "account_number" => "6677889900",
+        "description" => "Kamal needs funds to acquire a modern prosthetic leg for independence."
+    ],
+    [
+        "patient_name" => "Ravi Kumara",
+        "health_issue" => "Heart Surgery",
+        "is_urgent" => 0,
+        "goal" => 1200000,
+        "raised" => 800000,
+        "address" => "Galle, LK",
+        "posted_date" => "2025-09-15",
+        "contact_phone" => "077XXXXXXX",
+        "contact_email" => "ravi@example.com",
+        "bank_name" => "People's Bank",
+        "bank_branch" => "Galle City",
+        "account_holder" => "Ravi Kumara",
+        "account_number" => "0123456789",
+        "description" => "Ravi Kumara needs support for a critical heart bypass surgery."
+    ],
+    [
+        "patient_name" => "Aisha Perera",
+        "health_issue" => "Renal Dialysis",
+        "is_urgent" => 1,
+        "goal" => 500000,
+        "raised" => 150000,
+        "address" => "Colombo, LK",
+        "posted_date" => "2025-10-01",
+        "contact_phone" => "071XXXXXXX",
+        "contact_email" => "aisha@example.com",
+        "bank_name" => "Bank of Ceylon",
+        "bank_branch" => "Colombo Fort",
+        "account_holder" => "Aisha Perera",
+        "account_number" => "7012345678",
+        "description" => "Aisha needs urgent funding for her life-saving kidney dialysis treatments."
+    ],
+    [
+        "patient_name" => "Chandana Rupasinghe",
+        "health_issue" => "Pediatric Cardiac Care",
+        "is_urgent" => 0,
+        "goal" => 1100000,
+        "raised" => 100000,
+        "address" => "Ampara, LK",
+        "posted_date" => "2025-10-10",
+        "contact_phone" => "076XXXXXX9",
+        "contact_email" => "chandana@example.com",
+        "bank_name" => "People's Bank",
+        "bank_branch" => "Ampara",
+        "account_holder" => "Chandana Rupasinghe",
+        "account_number" => "1234432112",
+        "description" => "Fundraising for corrective heart procedures for infant Chandana."
+    ],
+    [
+        "patient_name" => "Tharindu Ekanayake",
+        "health_issue" => "Cataract Surgery",
+        "is_urgent" => 0,
+        "goal" => 80000,
+        "raised" => 10000,
+        "address" => "Kurunegala, LK",
+        "posted_date" => "2025-10-25",
+        "contact_phone" => "077XXXXXX5",
+        "contact_email" => "tharindu@example.com",
+        "bank_name" => "NDB Bank",
+        "bank_branch" => "Kurunegala",
+        "account_holder" => "Tharindu Ekanayake",
+        "account_number" => "9988225577",
+        "description" => "Tharindu needs bilateral cataract surgery to prevent blindness."
+    ],
+    [
+        "patient_name" => "Priya Samarawickrama",
+        "health_issue" => "Chemotherapy Support",
+        "is_urgent" => 1,
+        "goal" => 600000,
+        "raised" => 550000,
+        "address" => "Gampaha, LK",
+        "posted_date" => "2025-11-01",
+        "contact_phone" => "076XXXXXX6",
+        "contact_email" => "priya@example.com",
+        "bank_name" => "Bank of Ceylon",
+        "bank_branch" => "Gampaha",
+        "account_holder" => "Priya Samarawickrama",
+        "account_number" => "7722994466",
+        "description" => "Priya is undergoing intensive chemotherapy and needs funds for medication."
+    ],
+    [
+        "patient_name" => "Shiromi Pathirana",
+        "health_issue" => "Bone Marrow Transplant",
+        "is_urgent" => 1,
+        "goal" => 9000000,
+        "raised" => 800000,
+        "address" => "Colombo, LK",
+        "posted_date" => "2025-11-05",
+        "contact_phone" => "077XXXXXX8",
+        "contact_email" => "shiromi@example.com",
+        "bank_name" => "HNB",
+        "bank_branch" => "Colombo 03",
+        "account_holder" => "Shiromi Pathirana",
+        "account_number" => "4455667788",
+        "description" => "Shiromi, a young girl, urgently needs a bone marrow transplant to survive leukemia."
+    ],
+    [
+        "patient_name" => "Nimal Fernando",
+        "health_issue" => "Spinal Cord Injury Rehab",
+        "is_urgent" => 0,
+        "goal" => 700000,
+        "raised" => 400000,
+        "address" => "Negombo, LK",
+        "posted_date" => "2025-11-10",
+        "contact_phone" => "071XXXXXX1",
+        "contact_email" => "nimal@example.com",
+        "bank_name" => "HNB",
+        "bank_branch" => "Negombo",
+        "account_holder" => "Nimal Fernando",
+        "account_number" => "4587123698",
+        "description" => "Nimal needs extended rehabilitation after a serious accident to regain mobility."
+    ],
+    [
+        "patient_name" => "Anusha Ranasinghe",
+        "health_issue" => "Liver Transplant",
+        "is_urgent" => 1,
+        "goal" => 4000000,
+        "raised" => 1500000,
+        "address" => "Kandy, LK",
+        "posted_date" => "2025-11-15",
+        "contact_phone" => "071XXXXXX4",
+        "contact_email" => "anusha@example.com",
+        "bank_name" => "Commercial Bank",
+        "bank_branch" => "Kandy",
+        "account_holder" => "Anusha Ranasinghe",
+        "account_number" => "2200330044",
+        "description" => "Anusha requires a life-saving liver transplant in the next three months."
+    ],
+    [
+        "patient_name" => "Heshan Gunaratne",
+        "health_issue" => "Rehabilitation & Equipment",
+        "is_urgent" => 1,
+        "goal" => 350000,
+        "raised" => 300000,
+        "address" => "Galle, LK",
+        "posted_date" => "2025-11-18",
+        "contact_phone" => "076XXXXX12",
+        "contact_email" => "heshan@example.com",
+        "bank_name" => "Sampath Bank",
+        "bank_branch" => "Galle",
+        "account_holder" => "Heshan Gunaratne",
+        "account_number" => "5511223344",
+        "description" => "Heshan requires a specialized wheelchair and continuous physiotherapy support."
+    ],
+    [
+        "patient_name" => "Samanthi Silva",
+        "health_issue" => "Cancer Treatment",
+        "is_urgent" => 1,
+        "goal" => 850000,
+        "raised" => 5000,
+        "address" => "Kandy, LK",
+        "posted_date" => "2025-11-20",
+        "contact_phone" => "076XXXXXXX",
+        "contact_email" => "samanthi@example.com",
+        "bank_name" => "Commercial Bank",
+        "bank_branch" => "Kandy City",
+        "account_holder" => "Samanthi Silva",
+        "account_number" => "1234567890",
+        "description" => "Samanthi requires chemotherapy sessions for breast cancer treatment."
+    ],
+    [
+        "patient_name" => "Lalitha Devi",
+        "health_issue" => "Critical Burn Care",
+        "is_urgent" => 1,
+        "goal" => 1500000,
+        "raised" => 25000,
+        "address" => "Jaffna, LK",
+        "posted_date" => "2025-11-22",
+        "contact_phone" => "077XXXXXX2",
+        "contact_email" => "lalitha@example.com",
+        "bank_name" => "People's Bank",
+        "bank_branch" => "Jaffna Town",
+        "account_holder" => "Lalitha Devi",
+        "account_number" => "5566443322",
+        "description" => "Lalitha sustained severe burns and requires multiple skin graft surgeries immediately."
+    ],
+    [
+        "patient_name" => "Vimal Hewage",
+        "health_issue" => "Orthopedic Surgery",
+        "is_urgent" => 0,
+        "goal" => 450000,
+        "raised" => 0,
+        "address" => "Nuwara Eliya, LK",
+        "posted_date" => "2025-11-23",
+        "contact_phone" => "071XXXXXX7",
+        "contact_email" => "vimal@example.com",
+        "bank_name" => "Seylan Bank",
+        "bank_branch" => "Nuwara Eliya",
+        "account_holder" => "Vimal Hewage",
+        "account_number" => "3344556677",
+        "description" => "Vimal requires urgent corrective surgery for a complex knee fracture."
+    ],
+    [
+        "patient_name" => "Sunil Dias",
+        "health_issue" => "Dialysis Treatment",
+        "is_urgent" => 1,
+        "goal" => 250000,
+        "raised" => 100000,
+        "address" => "Kalutara, LK",
+        "posted_date" => "2025-11-24",
+        "contact_phone" => "071XXXXX10",
+        "contact_email" => "sunil@example.com",
+        "bank_name" => "Commercial Bank",
+        "bank_branch" => "Kalutara",
+        "account_holder" => "Sunil Dias",
+        "account_number" => "7788991100",
+        "description" => "Sunil requires ongoing dialysis sessions which are not covered by insurance."
+    ]
+];
+
+
+// Prepare statement
+$sql = "INSERT INTO active_cases 
+(patient_name, health_issue, is_urgent, goal, raised, address, posted_date, contact_phone, contact_email, bank_name, bank_branch, account_holder, account_number, description)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+
+foreach ($cases as $c) {
+    $stmt->bind_param(
+    "ssiiisssssssss",
+    $c['patient_name'],
+    $c['health_issue'],
+    $c['is_urgent'],
+    $c['goal'],
+    $c['raised'],
+    $c['address'],
+    $c['posted_date'],
+    $c['contact_phone'],
+    $c['contact_email'],
+    $c['bank_name'],
+    $c['bank_branch'],
+    $c['account_holder'],
+    $c['account_number'],
+    $c['description']
+    );
+    $stmt->execute();
+}
+
+echo "All 15 cases inserted successfully!";
+?>
