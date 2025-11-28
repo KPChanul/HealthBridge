@@ -1,23 +1,26 @@
 <?php
-include 'config.php';
-
+require 'cors.php';
+require 'database.php';
+try{
 // Check database connection
 if ($conn->connect_error) {
     echo json_encode([
         "success" => false,
-        "message" => "Sorry, we are unable to connect to the database right now. Please try again later."
+        "message" => "Sorry, we are unable to connect to the database right now. Please try again later.",
+        "data"  => []
     ]);
     exit;
 }
 
 // Prepare SQL query to get cases sorted by date
-$sql = "SELECT * FROM activecases ORDER BY posted_date ASC";
+$sql = "SELECT * FROM active_cases ORDER BY posted_date ASC";
 $result = $conn->query($sql);
 
 if (!$result) {
     echo json_encode([
         "success" => false,
-        "message" => "Oops! Something went wrong while fetching the data. Please refresh the page or try again later."
+        "message" => "Oops! Something went wrong while fetching the data. Please refresh the page or try again later.",
+        "data"  => []
     ]);
     exit;
 }
@@ -43,5 +46,13 @@ echo json_encode([
     "success" => true,
     "message" => "",
     "data" => $cases
-]);
+]);}
+catch (Exception $e){
+    echo json_encode([
+        "success" => false,
+        "message" => "Something went wrong on our end. Please try again in a moment.",
+        "data"  => []
+    ]);
+    exit;
+}
 ?>

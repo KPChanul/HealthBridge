@@ -1,13 +1,13 @@
 import {useState,useEffect} from 'react';
 import CardInterface from '../../components/Cards/card';
 import './Donation.css';
-import cases from "./sampleCases.jsx"
+
 
 
 
 const CARDS_PER_PAGE = 6;
 
-const Donations=()=>{
+function Donations(){
 
     // --- State Management ---
     
@@ -28,31 +28,38 @@ const Donations=()=>{
     // ---fletching data from sql ---
 
   useEffect(() => {
-    // Fetch data from PHP backend
-    setLoading(true)
-    fetch("http://localhost/serverHB/get_cases.php")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("connection issue,.Check your internet connection."); // handle network errors
-        }
-        return response.json(); // parse JSON
-      })
-      .then((data) => {
-        setData(data); // store data in state
-        
-        setLoading(false); // loading done
-      })
-      .catch((err) => {
-        setError("Failed to fetch cases. Please try again later."); // user-friendly error
-        setLoading(false);
-      });
+        // Fetch data from PHP backend
+        setLoading(true);
+        fetch("http://localhost/serverHB/get_cases.php")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Connection issue. Check your internet connection.");
+                }
+                return response.json();
+            })
+            .then((resp) => {
+                // Backend may return either an array directly or an object { data: [...] }
+                const fetched = Array.isArray(resp) ? resp : (resp?.data || []);
+                setData(fetched);
+                setError(null);
+            })
+            .catch((err) => {
+                setError("Failed to fetch cases. Please try again later.");
+                setData([]); // ensure state is an array
+            })
+            .finally(() => {
+                setLoading(false);
+            });
   }, []);
-
+  
   
 
 
 
 
+    // Derived `cases` array (normalize state shape)
+    const cases = Array.isArray(data) ? data : (data?.data || []);
+    
     // --- Data Calculation ---
 
     // Calculate the total number of cases in the original data set
@@ -176,11 +183,11 @@ const Donations=()=>{
     return(
 
 
-
+        
         <div className="page">
             <h1 className='topic'>Active Cases</h1>
             <p className='para'>Stand with these families. Even the smallest gift creates powerful momentum.</p>
-
+            
 
             {/*Search Bar*/}
             <input 
@@ -209,12 +216,14 @@ const Donations=()=>{
                     Urgent Cases ({urgentCases})
                 </button>
             </div>
-
             
-                <p className='filter-details-count'>
-                    showing {filteredCases.length} result{filteredCases.length!=1?"s": ""}.
-                </p>
-
+                                { error ? (
+                                        <p className='filter-details-count'>{error}</p>
+                                    ) : (
+                                        <p className='filter-details-count'>
+                                            showing {filteredCases.length} result{filteredCases.length !== 1 ? "s" : ""}.
+                                        </p>
+                                    ) }
                 {filteredCases.length==0?(
                     <p style={{ marginTop: '50px', fontSize: '1.2rem', color: '#555' }}>No cases match the current criteria.</p>
                 ):(
@@ -223,15 +232,15 @@ const Donations=()=>{
                         <CardInterface 
                         
                         key={caseItem.id}
-                        patientName={caseItem.patientName}
-                        healthIssue={caseItem.healthIssue}
-                        isurgent={caseItem.isurgent}
+                        patientName={caseItem.patient_name}
+                        healthIssue={caseItem.health_issue}
+                        isurgent={caseItem.is_urgent}
                         goal={caseItem.goal}
                         raised={caseItem.raised}
                         address={caseItem.address}
-                        postedDate={caseItem.postedDate}
-                        contactPhone={caseItem.contactPhone}
-                        contactEmail={caseItem.contactEmail}
+                        postedDate={caseItem.posted_date}
+                        contactPhone={caseItem.contact_phone}
+                        contactEmail={caseItem.contact_email}
                         description={caseItem.description}
                         
                         />

@@ -32,7 +32,7 @@ $cases = [
         "bank_branch" => "Matara",
         "account_holder" => "Kamal Wijesinghe",
         "account_number" => "6677889900",
-        "description" => "Kamal needs funds to acquire a modern prosthetic leg for independence."
+        "description" => "Kamal needs funds to acquire a modern prosthetic leg for independence. With a properly fitted, advanced prosthetic, he will regain mobility, confidence, and the ability to perform everyday tasks without relying on others. This support will not only transform his physical capability but also restore his sense of dignity and hope for a stable future."
     ],
     [
         "patient_name" => "Ravi Kumara",
