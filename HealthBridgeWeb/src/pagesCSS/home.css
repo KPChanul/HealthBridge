@@ -243,7 +243,7 @@ button:hover .donation-link{
     display: inline-block;
     padding: 10px 20px;
     text-decoration: none;
-    background-color: #7B3F9B;
+    background-color: #007bff;
     color: white;
     border-radius: 5px;
     font-weight: bold;
@@ -251,7 +251,7 @@ button:hover .donation-link{
 }
 
 .howitWOrk:hover {
-    background-color: #5A2D78;
+    background-color: #004d9c;
     cursor: pointer;
 }
 
@@ -262,7 +262,7 @@ button:hover .donation-link{
 
 /* Variables for easy color adjustments */
 :root {
-    --primary-purple: #5b3e94;
+    --primary-purple: #007bff;
     --light-background: #f7f7fa;
     --dark-text: #212529;
 }

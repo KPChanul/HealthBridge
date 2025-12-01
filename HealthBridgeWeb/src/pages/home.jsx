@@ -4,12 +4,12 @@ import mainImage from '../assets/main3.jpg'
 import mainImage2 from '../assets/main4.webp'
 import mainImage3 from '../assets/main5.avif'
 import '../pagesCSS/home.css'
-import disImage from "../assets/disImage.png"
+import disImage from "../assets/imageFormiddle.png"
 import MenuLinks from '../components/header/MenuLinks'
 
-import img1 from '../assets/img11.png'
-import img2 from '../assets/img22.png'
-import img3 from '../assets/img33.png'
+import img1 from '../assets/img11b.png'
+import img2 from '../assets/img22b.png'
+import img3 from '../assets/img33b.png'
 
 function Home(){
     return(
@@ -30,7 +30,7 @@ function Home(){
             </div>
         </div>
 
-        <div class="btn">
+        <div className="btn">
             <button className='donateBtn'><span></span><MenuLinks linkname="Donate now" url="/donations" className='donation-link'/></button>
             <button className='subscribeBtn'><span></span><MenuLinks linkname="subscribe now" url="/donations" className='donation-link'/></button>
         </div>
@@ -55,39 +55,39 @@ function Home(){
 
         {/* home page card section */}
 
-        <div class="karuna-fundraising-section">
-            <div class="left-text-area">
+        <div className="karuna-fundraising-section">
+            <div className="left-text-area">
                 <h2>Fundraising on HealthBridge.lk takes only a few minutes</h2>
             </div>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <div class="step-image">
+            <div className="steps-container">
+                <div className="step-card">
+                    <div className="step-number">1</div>
+                    <div className="step-image">
                         <img src={img1} alt="img1" />
                     </div>
-                    <div class="step-content">
+                    <div className="step-content">
                         <h3>Get Started</h3>
                         <p>Set up a profile|register with your details</p>
                     </div>
                 </div>
 
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <div class="step-image">
+                <div className="step-card">
+                    <div className="step-number">2</div>
+                    <div className="step-image">
                         <img src={img2} alt="img2" />
                     </div>
-                    <div class="step-content">
+                    <div className="step-content">
                         <h3>Craft Your Story</h3>
                         <p>Inspire your followers and rally your community.</p>
                     </div>
                 </div>
 
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <div class="step-image">
+                <div className="step-card">
+                    <div className="step-number">3</div>
+                    <div className="step-image">
                         <img src={img3} alt="img3" />
                     </div>
-                    <div class="step-content">
+                    <div className="step-content">
                         <h3>Get Discovered</h3>
                         <p>Raise more with less effort.</p>
                     </div>
