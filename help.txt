@@ -33,18 +33,18 @@ Ensures that if an admin is deleted, their sessions are automatically removed
 
 CREATE TABLE active_cases (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    patient_name VARCHAR(255) NOT NULL,
-    health_issue VARCHAR(255) NOT NULL,
+    patient_name VARCHAR(100) NOT NULL,
+    health_issue VARCHAR(100) NOT NULL,
     is_urgent TINYINT(1) NOT NULL DEFAULT 0,
     goal BIGINT NOT NULL,
     raised BIGINT NOT NULL DEFAULT 0,
-    address VARCHAR(255),
+    address VARCHAR(150),
     posted_date DATE NOT NULL,
     contact_phone VARCHAR(50),
-    contact_email VARCHAR(255),
-    bank_name VARCHAR(255),
-    bank_branch VARCHAR(255),
-    account_holder VARCHAR(255),
+    contact_email VARCHAR(100),
+    bank_name VARCHAR(50),
+    bank_branch VARCHAR(70),
+    account_holder VARCHAR(100),
     account_number VARCHAR(50),
     description TEXT
 );
