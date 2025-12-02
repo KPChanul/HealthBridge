@@ -1,7 +1,6 @@
 import {useState,useEffect} from 'react';
 import CardInterface from '../../components/Cards/card';
 import './Donation.css';
-import cases from './sampleCases';
 import Footer  from '/src/components/Footer/Footer.jsx';
 
 
@@ -70,18 +69,26 @@ function Donations(){
     // Calculate the total number of urgent cases for the filter button count
     const urgentCases = cases.filter(c => c.is_urgent==1).length;
 
+    // Calculate the total number of fulfilled cases
+    const fulfilledCases = cases.filter(c => Number(c.raised) >= Number(c.goal)).length;
+
     // --- Filtering Logic ---
 
     // Apply filtering based on the current state (filter and searchTerm)
     const filteredCases = cases.filter(c => {
         // 1. Filter by 'urgent' status: If 'urgent' filter is active AND the case is NOT urgent, exclude it.
-        if (filter === 'urgent' && !c.is_urgent) {
+        if (filter === 'urgent' && c.is_urgent!=1) {
+            return false;
+        }
+
+        // Filter by 'fulfilled' status:
+        if (filter === 'fulfilled' && Number(c.raised) < Number(c.goal)) {
             return false;
         }
 
         // 2. Filter by search term: If a search term exists AND the patient name does NOT include the term, exclude it.
         if (searchTerm) {
-            return c.patientName.toLowerCase().includes(searchTerm.toLowerCase());
+            return c.patient_name.toLowerCase().includes(searchTerm.toLowerCase());
         }
 
         // If the case passed the filters, include it.
@@ -219,6 +226,14 @@ function Donations(){
                     style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'urgent' ? '#ff9933' : '#ffebd8', color: filter === 'urgent' ? 'white' : '#ff9933', cursor: 'pointer', transition: '0.2s' }}>
                     Urgent Cases ({urgentCases})
                 </button>
+
+                {/* NEW FULFILLED CASES BUTTON */}
+                <button 
+                    onClick={() => setFilter('fulfilled')}
+                    style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'fulfilled' ? '#28a745' : '#e6ffed', color: filter === 'fulfilled' ? 'white' : '#28a745', cursor: 'pointer', transition: '0.2s' }}>
+                    Fulfilled Cases ({fulfilledCases})
+                </button>
+
             </div>
             
                                 { error ? (
@@ -246,6 +261,9 @@ function Donations(){
                         contactPhone={caseItem.contact_phone}
                         contactEmail={caseItem.contact_email}
                         description={caseItem.description}
+
+                        // NEW PROP: Calculate the fulfillment status and pass it
+                        isFulfilled={Number(caseItem.raised) >= Number(caseItem.goal)}
                         
                         />
 

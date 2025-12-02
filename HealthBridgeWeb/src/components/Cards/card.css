@@ -169,15 +169,12 @@
 .donate-button {
     width: 100%;
     padding: 13px;
-    background-color: #3377ff; 
     color: white;
     border: none;
     border-radius: 8px; 
     font-size: 1.1rem;
     font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 153, 51, 0.4);
-    transition: background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(48, 124, 247, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -72,6 +72,10 @@ const CardInterface =(props)=>{
 
 
 
+    const isFulfilled=props.isFulfilled
+
+
+
 
 
 
@@ -153,8 +157,23 @@ return(
         </div>
 
         <div className="donate-button-section">
-            <button className="donate-button" onClick={handleDonateClick} >
-            Donate Now
+            <button 
+              className="donate-button" 
+              onClick={handleDonateClick} 
+              disabled={isFulfilled}
+              style={{ 
+        
+                    backgroundColor: isFulfilled ? '#d1ccccff' : '#007bff', 
+                    cursor: isFulfilled ? 'not-allowed' : 'pointer',
+                    transition: 'background-color 0.3s',
+                    
+
+
+                    }}
+              >
+
+              {isFulfilled ? 'Goal Reached' : 'Donate Now'}
+            
             </button> 
         </div>  
             
