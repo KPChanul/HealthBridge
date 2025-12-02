@@ -64,6 +64,15 @@
     font-weight: bold;
 }
 
+.tag-fulfilled {
+    background-color: #138b19;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
 .health-issue {
     color: #007bff; 
     font-size: 1.2rem;

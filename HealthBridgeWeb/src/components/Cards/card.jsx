@@ -54,7 +54,7 @@ const CardInterface =(props)=>{
     //formatAmount function define
     const formatAmount=(amount)=>{
     if(amount==null|| amount==undefined) return 'Rs. 0';
-    return new Intl.NumberFormat('en-IN', { 
+    return new Intl.NumberFormat('en-US', { 
             style: 'currency', 
             currency: 'LKR',
             minimumFractionDigits: 0,
@@ -72,7 +72,11 @@ const CardInterface =(props)=>{
 
 
 
-    const isFulfilled=props.isFulfilled
+    const isFulfilled=props.isFulfilled;
+
+    const isurgent = Number(props.isurgent);
+
+    
 
 
 
@@ -92,7 +96,21 @@ return(
         <div className="dynamic-content-wrapper">
             <div className='case-header'>
                 <h3>{props.patientName} </h3>
-                {props.isurgent==1?<span className="tag-urgent">Urgent</span>:<span className="tag-standard">Active</span>}
+
+                {isFulfilled && (
+                    <span className="tag-fulfilled">Fulfilled</span>
+                )}
+
+                {!isFulfilled && isurgent === 1 && (
+                    <span className="tag-urgent">Urgent</span>
+                )}
+
+                {!isFulfilled && isurgent !== 1 && (
+                    <span className="tag-standard">Active</span>
+                )}
+
+
+                
             </div>
 
             <p className='health-issue'>{props.healthIssue}</p>
