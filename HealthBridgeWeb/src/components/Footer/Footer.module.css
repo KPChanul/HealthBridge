@@ -1,7 +1,7 @@
 :root{
-    --color-text-muted: #444;
+    --color-text-muted: #444444;
     --background-color: rgb(227, 231, 238);
-    --color-text-dark: #333;
+    --color-text-dark: #333333;
     --color-text-light: #ffffff;
     --color-accent-teal: #007a6e;
     --color-border: #2e445b;
@@ -13,7 +13,7 @@
 
 .footer{
     width: auto;
-    background-color: var(--background-color);
+    background-image: linear-gradient(0deg, #9eafbe,#e0e6ef);
     padding: var(--padding-vertical) var(--padding-horizontal);
     font-family: system-ui, sans-serif;
     color: var(--color-text-dark);
