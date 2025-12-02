@@ -75,7 +75,7 @@ function Donations(){
     // Apply filtering based on the current state (filter and searchTerm)
     const filteredCases = cases.filter(c => {
         // 1. Filter by 'urgent' status: If 'urgent' filter is active AND the case is NOT urgent, exclude it.
-        if (filter === 'urgent' && !c.isurgent) {
+        if (filter === 'urgent' && !c.is_urgent) {
             return false;
         }
 
