@@ -8,8 +8,6 @@ import Donations from "./pages/Donation_page/Donation.jsx";
 
 
 
-
-
 function App() {
  
 

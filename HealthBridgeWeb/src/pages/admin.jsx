@@ -3,12 +3,29 @@
 import Login from '../components/login/login.jsx';
 import Admin from "./admin.interface.jsx"
 import SysAdmin from './sysadmin.interface.jsx';
+import { useState } from 'react';
 
+function AdminPage() {
 
-function AdminPage(){
-    return(
-    <><Login/></>
-    )
+    // this state stores the logged-in user's data
+
+    const [user, setUser] = useState({ role: "login" });
+
+    return (
+        <>
+            {/* If role is null → show the login page */}
+            {user.role === "login" && (
+                <Login onLoginSuccess={(data) => setUser(data)} />
+            )}
+
+            {/* If role is "admin" → show Admin interface */}
+            {user.role === "admin" && <Admin admin_id={user.admin_id}  onLogOut={() => useState({ role: "login" })}/> }
+
+            {/* If role is "sysadmin" → show System Admin interface */}
+            {user.role === "sysadmin" && <SysAdmin onLogOut={() => useState({ role: "login" })} />}
+        </>
+    );
 }
+
 
 export default AdminPage

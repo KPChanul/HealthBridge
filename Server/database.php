@@ -12,6 +12,7 @@
         $db_name);
     }
     catch(mysqli_sql_exception){
-        echo"Could not connect! <br>";
+        echo json_encode(["success" => false, "message" => "Data base connection failed."]);
+        exit();
     }
 ?>

@@ -48,6 +48,8 @@
     margin-top: 5px;
     padding: 10px 12px;
     border: 1px solid #cccccc;
+    color: #0f0f0f;
+    background: #ffffff;
     border-radius: 6px;
     font-size: 16px;
     transition: border-color 0.3s;
