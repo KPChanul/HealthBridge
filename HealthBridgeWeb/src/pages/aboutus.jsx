@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "./about.css";
 import healthImage from "../assets/HealthBridge.png";
-import missionImg from "../assets/mission.jpg";
-import visionImg from "../assets/vision.jpg";
+import missionImg from "../assets/mission1.png";
+import visionImg from "../assets/vision1.png";
 
 
 
