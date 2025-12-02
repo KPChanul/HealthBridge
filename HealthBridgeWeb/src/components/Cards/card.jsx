@@ -88,7 +88,7 @@ return(
         <div className="dynamic-content-wrapper">
             <div className='case-header'>
                 <h3>{props.patientName} </h3>
-                {props.isurgent?<span className="tag-urgent">Urgent</span>:<span className="tag-standard">Active</span>}
+                {props.isurgent==1?<span className="tag-urgent">Urgent</span>:<span className="tag-standard">Active</span>}
             </div>
 
             <p className='health-issue'>{props.healthIssue}</p>

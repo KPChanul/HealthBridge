@@ -68,14 +68,14 @@ function Donations(){
     const totalCases = cases.length;
 
     // Calculate the total number of urgent cases for the filter button count
-    const urgentCases = cases.filter(c => c.isurgent).length;
+    const urgentCases = cases.filter(c => c.is_urgent==1).length;
 
     // --- Filtering Logic ---
 
     // Apply filtering based on the current state (filter and searchTerm)
     const filteredCases = cases.filter(c => {
         // 1. Filter by 'urgent' status: If 'urgent' filter is active AND the case is NOT urgent, exclude it.
-        if (filter === 'urgent' && !c.isurgent) {
+        if (filter === 'urgent' && !c.is_urgent) {
             return false;
         }
 
