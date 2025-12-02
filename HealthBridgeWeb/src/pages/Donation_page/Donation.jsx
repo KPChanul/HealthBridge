@@ -68,7 +68,7 @@ function Donations(){
     const totalCases = cases.length;
 
     // Calculate the total number of urgent cases for the filter button count
-    const urgentCases = cases.filter(c => c.isurgent).length;
+    const urgentCases = cases.filter(c => c.is_urgent==1).length;
 
     // --- Filtering Logic ---
 
