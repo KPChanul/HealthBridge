@@ -68,6 +68,8 @@
   transform: translateY(50px);
   transition: all 1s ease-out;
   border-top: 30px solid #2e6ac7;
+  margin-left: 125px;
+  position: relative;
   
 }
 
@@ -81,12 +83,15 @@
   height: 100px;
   position: absolute;
   top: -70px;
+  
+
 
   inset-inline: 0;
   margin-inline: auto;
   background: #f4f8ff;
   border: 5px solid #2e6ac7;
   border-radius: 50%;
+  
 }
 
 /* Headings */
@@ -127,6 +132,7 @@ p {
   .info-section {
     padding: 35px 20px;
     width:100%;
+    
   }
   p {
   font-family: 'Nunito', sans-serif;

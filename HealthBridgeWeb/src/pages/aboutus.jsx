@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./about.css";
 import healthImage from "../assets/HealthBridge.png";
+import missionImg from "../assets/mission.jpg";
+import visionImg from "../assets/vision.jpg";
+
 
 
 function About() {
@@ -88,7 +91,7 @@ window.addEventListener("scroll", () => {
           visibleSections["mission-section"] ? "visible" : ""
         }`}
       >
-        <img src="/no-image.png"/>
+        <img src={missionImg}/>
         <center><h2>Our Mission</h2></center>
         <p>
           To ensure that no student is left helpless during medical emergencies.
@@ -106,7 +109,7 @@ window.addEventListener("scroll", () => {
           visibleSections["vision-section"] ? "visible" : ""
         }`}
       > 
-        <img src="/no-image.png"/>
+        <img src={visionImg}/>
         <center><h2>Our Vision</h2></center>
         <p>
           To create a compassionate and sustainable support network where every
