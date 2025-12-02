@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./about.css";
-import healthImage from "../assets/HealthBridge.png";
+import healthImage from "../assets/maindemo.png";
 import missionImg from "../assets/mission1.png";
 import visionImg from "../assets/vision1.png";
 
