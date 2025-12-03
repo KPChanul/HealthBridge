@@ -47,7 +47,7 @@ textarea {
     resize: vertical;
 }
 
-button {
+.feedback-container button {
     width: 100%;
     background: #295e9a;
     color: white;
@@ -57,8 +57,9 @@ button {
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
+    margin-left: 0px;
 }
 
-button:hover {
+.feedback-container button:hover {
     background: #053768;
 }
