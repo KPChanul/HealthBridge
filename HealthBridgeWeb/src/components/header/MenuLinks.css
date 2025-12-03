@@ -1,0 +1,145 @@
+.menu-links {
+
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+    text-transform: uppercase;
+
+}
+
+
+.home-link {
+
+    color: black;
+}
+
+.about-link {
+    color: black;
+}
+
+.contactUs-link {
+    color: black;
+    
+}
+
+.howitworks-link {
+    color: black;
+
+}
+
+/*
+.donation-linklink {
+
+    
+    padding: 0.75rem;
+    border-radius: 10%;
+    background-color: #007bff;
+    color: #FFF;
+}
+
+*/
+
+.donation-linklink {
+
+    color: black;
+}
+
+
+.home-link::after {
+
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.2s all linear;
+
+}
+
+
+.about-link::after {
+    
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.2s all linear;
+}
+
+.contactUs-link::after {
+    
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.2s all linear;  
+}
+
+.howitworks-link::after {
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.2s all linear;
+}
+
+.donation-linklink::after {
+
+    content: "";
+    width: 0;
+    height: 3px;
+    background-color: #007bff;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.2s all linear;
+}
+
+.home-link:hover::after {
+
+    width: 100%;
+}
+
+.about-link:hover::after {
+
+    width: 100%;
+}
+
+.contactUs-link:hover::after {
+
+    width: 100%;
+}
+
+.howitworks-link:hover::after {
+
+    width: 100%;
+}
+
+.donation-linklink:hover::after {
+
+    width: 100%;
+}
+
+.active-link {
+    color: #007bff;
+}
+
+
+.active-link:hover::after {
+
+    width: 0;
+}
+
+

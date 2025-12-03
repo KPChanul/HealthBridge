@@ -1,0 +1,218 @@
+.Header {
+
+    width: 100%;
+    margin: auto;
+    padding: 18px 75px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    background-color: #F9F9F9;
+    transition: 0.5s linear;
+    z-index: 10000;
+    
+    
+}
+.logoimage {
+    height: 70px;
+    cursor: pointer;
+
+
+}
+
+.headIcon {
+
+    display: none;
+}
+
+.menuBar {
+  width: 90%;
+  height: 190px;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  top: -15rem;
+  left: 2.5rem;
+  right: 2.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: 0.3s all linear;
+  z-index: 10000;
+
+}
+
+.menuBar .box1 {
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.menuBar .menuFooter {
+
+
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+@media (max-width:1058px){
+
+    .Header{
+
+        padding: 18px 45px;
+    }
+    
+}
+
+@media (max-width:991px) {
+
+    .Header {
+
+        padding: 16px 4%;
+    }
+}
+
+@media (max-width:850px) {
+
+    .Header {
+
+        padding: 12px 4%;
+        display: none;
+    }
+
+    .headIcon {
+
+        display: initial;
+        position: fixed;
+        top: 2rem;
+        left: 2rem;
+        border: 2px solid black;
+        padding: 0.2rem;
+        font-size: 2rem;
+        width: 60px;
+        text-align: center;
+        border-radius: 10%;
+        background-color:rgba(0, 0, 0, 0.5);
+        color: white;
+        z-index: 10000;
+
+    }
+
+    .menuBar-active {
+        top: 6rem;
+        position: fixed;
+        z-index: 10000;
+        transition: 0.3s all linear;          
+
+    }
+
+    .donation-linklink {
+
+        background-color:white;
+        
+        color: #54128a;
+        margin-top: 1.5rem;
+        
+    }
+
+    .home-link {
+
+        color: #54128a;
+        background-color:white;
+        padding: 0.75rem;
+        border-radius: 10%;
+        margin-top: 1.5rem;
+    }
+
+    .about-link:hover::after {
+
+        width: 13%;
+        background-color: white;
+    }
+    .about-link {
+        color: white;
+    }
+
+    .contactUs-link:hover::after {
+
+        width: 16%;
+        background-color: white;
+    }
+    .contactUs-link {
+        
+        color: white;
+    }
+
+    .howitworks-link:hover::after {
+
+        width: 19%;
+        background-color: white;
+    }
+    .howitworks-link {
+
+        color: white;
+    }
+
+    .home-link:hover {
+
+        background-color: #54128a;
+        color: white;
+        transition: 0.4s all linear;
+    }
+
+    .donation-linklink:hover {
+
+        background-color: #54128a;
+        color: white;
+        transition: 0.4s all linear;
+    }
+}
+
+@media (max-width:500px) {
+
+    .menuBar {
+
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .about-link:hover::after {
+
+        width: 25%;
+    }
+
+    .contactUs-link:hover::after {
+
+        width: 33%;
+    }
+
+    .howitworks-link:hover::after {
+
+        width: 35%;
+    }
+}
+
+@media (max-width:650px) {
+
+    .about-link:hover::after {
+
+        width: 18%;
+    }
+
+    .contactUs-link:hover::after {
+
+        width: 20%;
+    }
+
+    .howitworks-link:hover::after {
+
+        width: 25%;
+    }
+
+}

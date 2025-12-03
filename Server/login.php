@@ -49,7 +49,7 @@ do {
 } while (!$inserted);
 
 //Determine user role.
-$role = ($username === "sysAdmin") ? "sysadmin" : "admin";
+$role = (strtolower($username) === "sysadmin" ) ? "sysadmin" : "admin";
 
 // Send response to React
 echo json_encode([
