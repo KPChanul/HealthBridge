@@ -1,0 +1,167 @@
+:root{
+    --color-text-muted: #444;
+    --background-color: #93c2f2;
+    --color-text-dark: #333;
+    --color-text-light: #ffffff;
+    --color-accent-teal: #007a6e;
+    --color-border: #dee2e6;
+
+    --padding-vertical: 15px;
+    --padding-horizontal: 15px;
+}
+
+
+.footer{
+    width: auto;
+    background-color: var(--background-color);
+    padding: var(--padding-vertical) var(--padding-horizontal);
+    font-family: system-ui, sans-serif;
+    color: var(--color-text-dark);
+    border-top: 1px solid var(--color-border);
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.logoPlaceholder {
+    font-size: 1.5rem;
+    color: var(--color-primary-blue); 
+    margin-bottom: 10px;
+    
+}
+
+.grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: auto; 
+    margin-bottom: 20px; 
+}
+
+.column {
+    flex: 1;
+    min-width: 230px;
+}
+
+.logo {
+    width: 360px;
+    height: auto;
+    display: block;
+}
+
+.columnTitle {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-text-dark);
+    margin-bottom: 14px;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+}
+
+.linkList li {
+    margin-bottom: 10px;
+
+}
+
+.link {
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+    
+    color: var(--color-accent-teal);
+    font-weight: 500;  
+}
+
+
+.copyright {
+    text-align: center;
+    padding: 12px 0;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    border-top: 1px solid var(--color-border);
+    margin-top: 10px;
+}
+
+.copyright p{
+    text-align: center;
+    padding:  0;
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    margin-top: 10px;
+}
+
+.iconRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;        
+    margin-bottom: 12px;
+}
+
+.icon {
+    stroke-width: 1.8;  
+    color: var(--color-accent-teal);  
+}
+
+/* Tablet Portrait / Small Laptop */
+@media (max-width: 900px) {
+    .grid {
+        /* Allow gap to fill space, but ensure columns stack better */
+        gap: 20px; 
+    }
+
+    .column {
+        /* Force two columns per row (Logo takes one, others share) */
+        min-width: 45%; 
+    }
+    
+    /* Make the logo column slightly wider if needed to look balanced */
+    .grid > .column:first-child {
+        min-width: 50%;
+    }
+}
+
+/* Portrait Mobile */
+@media (max-width: 600px) {
+    .grid {
+        flex-direction: column;
+        gap: 30px; /* Increase vertical gap between stacked sections */
+    }
+
+    .column {
+        min-width: 100%;
+        padding: 0;
+    }
+    
+    .logo {
+        max-width: 250px;
+    }
+}
+
+/* Landscape Mobile / Intermediate Screen Size (600px - 900px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .grid {
+        
+        justify-content: space-between;
+    }
+    
+    
+    .grid > .column:nth-child(2), 
+    .grid > .column:nth-child(3) {
+        flex: 1 1 48%; 
+        min-width: 48%;
+    }
+    
+    
+    .grid > .column:first-child {
+        min-width: 100%;
+    }
+}
