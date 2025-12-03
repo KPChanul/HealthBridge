@@ -3,7 +3,8 @@ import "./about.css";
 import healthImage from "../assets/maindemo.png";
 import missionImg from "../assets/mission1.png";
 import visionImg from "../assets/vision1.png";
-
+import Header from "../components/header/Header.jsx"
+import Footer from "../components/Footer/Footer.jsx"
 
 
 function About() {
@@ -48,13 +49,15 @@ window.addEventListener("scroll", () => {
   }, []);
 
   return (
+    <>
+    <Header/>
     
     <main className="main-container">
       
       {/* Fixed header */}
-      <div style={{width: "100%",height: "60px", backgroundColor: "#007BFF", position: "fixed",top: 0,left: 0,display: "flex",alignItems: "center",justifyContent: "center",zIndex: 1000}}>
+      {/* <div style={{width: "100%",height: "60px", backgroundColor: "#007BFF", position: "fixed",top: 0,left: 0,display: "flex",alignItems: "center",justifyContent: "center",zIndex: 1000}}>
         My Fixed Header
-      </div>
+      </div> */}
       {/* Hero Section */}
       
       <hr/>
@@ -124,6 +127,8 @@ window.addEventListener("scroll", () => {
       </div>
       </section>
     </main>
+    <Footer/>
+    </>
   );
 }
 

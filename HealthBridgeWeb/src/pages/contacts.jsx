@@ -1,10 +1,14 @@
 import FeedbackForm from "../components/Feedback-Form/FeedBack.jsx";
 import "font-awesome/css/font-awesome.min.css";
 import "./contacts.css";
+import Header from "../components/header/Header.jsx"
+import Footer from "../components/Footer/Footer.jsx"
 
 function Contacts() {
   return (
     <>
+    <Header/>
+      
       <section className="contact">
         <div className="content">
           <h2>Contact Us</h2>
@@ -59,6 +63,7 @@ function Contacts() {
           </div>
         </div>
       </section>
+      <Footer/>
     </>
   );
 }

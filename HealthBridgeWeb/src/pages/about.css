@@ -53,7 +53,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 80px;              /* BIGGER GAP BETWEEN BOXES */
-  margin: 100px 20px 10px 20px;
+  margin: 100px 20px 0px 20px;
 }
 
 /* -------------------------------- */
@@ -71,6 +71,7 @@
   transition: all 1s ease-out;
   border-top: 30px solid #2e6ac7;
   position: relative;
+  margin-bottom: 75px;
 }
 
 .info-section.visible {
