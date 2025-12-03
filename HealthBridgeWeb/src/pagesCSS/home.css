@@ -1,0 +1,632 @@
+.mainImage {
+
+
+    height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.imageContainer {
+
+    width: 100%;
+    display: flex;
+}
+
+.contImg {
+
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+@keyframes slide {
+
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+
+        transform: translateX(-25%);
+    }
+    50% {
+
+        transform: translateX(-75%);
+    }
+    75% {
+
+        transform: translateX(-110%);
+    }
+    100% {
+
+        transform: translateX(0%);
+    }
+
+}
+
+.imageContainer {
+
+    animation-name: slide;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+.headTopic {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.homeTopic {
+
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-80%);
+    display: inline-block; 
+    padding: 15px 30px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+    border-radius: 20px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+
+
+}
+
+.topic {
+
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;  
+    margin: 0;
+}
+
+
+
+
+
+/*      *********************************  FOR   home page donate and subscribe button*/
+
+
+button {
+
+    width: 230px;
+    padding: 15px 0;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    background: transparent; /*special  vinivida penee   */
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    transform: scale(105%);
+
+
+    
+}
+
+.btn span {
+
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 0;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-radius: 25px;
+    transition: 0.5s all linear;
+
+
+}
+
+button:hover span {
+
+    width: 100%;
+    transition: 0.5s all linear;
+
+}
+
+button:hover {
+
+    border: none;
+
+}
+
+/* for donate button */
+.donation-link {
+
+    color: black;
+    font-size: 1.2rem;
+
+}
+
+button:hover .donation-link{
+    color: #fff;
+}
+
+/* end 0d its css */
+
+.btn {
+
+    position: absolute;
+    bottom: 10rem;
+    display: flex;
+    flex-direction: row;
+    column-gap: 7rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* for subscribe button css */
+.subscribeBtn {
+
+    color: black;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
+
+/* **************** END of button css*/
+
+/* home page discription css */
+
+.discription {
+
+    background-color: white;
+    box-shadow: 2px 2px 10px 14px rgba(14 55 54 /15%/*or 0.15*/);
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5rem;
+    height: 23rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    column-gap: 0.5rem;
+   
+}
+
+.dis {
+
+    background-color: #edeae3;
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    padding: 0 0.5rem;
+
+}
+
+.dis h2 {
+
+    font-size: 2.5rem;
+
+}
+
+.dis p {
+
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+
+.disimage {
+
+    background-color: #fff;
+    width: 40%;
+    height: 100%;
+
+}
+
+.disimage img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+
+}
+
+.howitWOrk {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.howitWOrk:hover {
+    background-color: #004d9c;
+    cursor: pointer;
+}
+
+/* end of discription css */
+
+
+/* home card section css ********************************************************************************************/
+
+/* Variables for easy color adjustments */
+:root {
+    --primary-purple: #007bff;
+    --light-background: #f7f7fa;
+    --dark-text: #212529;
+}
+
+/* --- Main Section Layout --- */
+.karuna-fundraising-section {
+    display: flex;
+    /* Aligns the left text and the steps side-by-side */
+    gap: 20px;
+    padding: 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the section */
+}
+
+.left-text-area {
+    flex: 0 0 300px; /* Fixed width for the text area */
+    padding-right: 40px;
+}
+
+.left-text-area h2 {
+    font-size: 2.5rem; /* Large font size for impact */
+    font-weight: 700;
+    color: var(--dark-text);
+    line-height: 1.1;
+    line-height:normal;
+}
+
+/* --- Steps Container Layout --- */
+.steps-container {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+}
+
+/* --- Step Card Styling --- */
+.step-card {
+    flex: 1;
+    background-color: var(--light-background); /* Light gray background */
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 380px; /* Ensure cards have similar height */
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-purple);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.step-image img{
+    /* Placeholder for the image/illustration */
+    height: 150px; /* Adjust height to fit your illustrations */
+    width: 100%;
+    margin-bottom: 20px;
+    /* Styles for the placeholder text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-purple);
+    font-size: 0.9rem;
+    border-radius: 10%;
+}
+
+.step-content h3 {
+    color: var(--dark-text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.step-content p {
+    color: #6c757d; /* Slightly muted text color for description */
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+
+/* --- Responsive Adjustments for smaller screens (Optional but Recommended) --- */
+@media (max-width: 1024px) {
+    .karuna-fundraising-section {
+        flex-direction: column;
+        padding: 40px 20px;
+    }
+
+    .left-text-area {
+        flex: auto;
+        padding-right: 0;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .left-text-area h1 {
+        font-size: 2.5rem;
+    }
+
+    .steps-container {
+        flex-direction: column; /* Stack the cards vertically */
+    }
+
+    .step-card {
+        min-height: auto;
+    }
+}
+
+/* end of card section css ******************************************************************************************/
+
+
+/* mobile responsive considering width */
+
+@media (max-width:1205px) {
+
+    .topic {
+
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width:1058px) {
+
+    .topic {
+
+        font-size: 2.2rem;
+    }
+}
+
+
+@media(max-width:950px ) {
+
+ .disimage {
+
+    display: none;
+ }
+
+ .dis {
+
+    width: 100%;
+ }
+}
+
+@media (max-width:850px) {
+
+    .homeTopic {
+
+        transform: translateY(-20%);
+    }
+
+    .topic {
+
+        font-size: 1.8rem;
+    }
+
+    .btn {
+
+        bottom: 7rem;
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .btn {
+
+        bottom: 5rem;
+    }
+
+    button {
+
+        width: 180px;
+    }
+
+    .donation-link {
+
+        font-size: 0.9rem;
+    }
+
+    .subscribeBtn {
+
+        font-size: 0.9rem;
+    }
+
+    .dis h2 {
+
+    font-size: 2rem;
+
+    }
+
+    .dis p {
+
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    }
+
+    
+    
+}
+
+@media (max-width:520px) {
+
+    .donation-link {
+
+        font-size: 0.7rem;
+    }
+
+    .subscribeBtn {
+
+        font-size: 0.7rem;
+    }
+
+    .btn {
+
+        bottom: 4rem;
+    }
+
+    button {
+
+        width: 150px;
+    }
+
+
+}
+
+@media (max-width:500px) {
+
+    .homeTopic {
+
+        transform: translateY(-10%);
+    }
+
+    .dis p {
+
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .dis h2 {
+
+        font-size: 1.5rem;
+    }
+
+    .howitWOrk {
+
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width:350px) {
+
+    .dis h2 {
+
+        font-size: 1.2rem;
+    }
+
+    button {
+
+        width: 100px;
+    }
+
+    .btn {
+
+        bottom: 3rem;
+    }
+
+    .donation-link {
+
+        font-size: 0.5rem;
+    }
+
+    .subscribeBtn {
+
+        font-size: 0.5rem;
+    }
+
+    .dis p {
+
+        margin-top: 0.3rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .howitWOrk {
+
+        padding: 8px 12px;
+    }
+}
+
+/* end of css */ 
+
+/* home page main middle topis is position absolute and set left top sooo when change height some times some componenet will crash soo write
+bellow css for this */
+
+
+@media (max-height:650px) {
+
+    .homeTopic {
+
+        top: 60%;
+
+    }
+
+    .btn {
+
+        bottom: 0rem;
+    }
+
+
+
+}
+
+@media (max-height:550px) {
+
+    .homeTopic {
+
+        top: 58%;
+
+    }
+
+}
+
+@media (max-height:530px) {
+
+    .homeTopic {
+
+        top: 63%;
+
+    }
+
+    .topic {
+
+        font-size: 1rem;
+    }
+
+
+
+}
+
+@media (max-height:500px) {
+
+    .homeTopic {
+
+        top: 66%;
+
+    }
+
+    .donation-link {
+
+        font-size: 0.7rem;
+    }
+
+
+
+
+
+}
+
+/* end os the css */
+
