@@ -4,7 +4,7 @@ import Home from "./pages/home.jsx";
 import About from "./pages/aboutus.jsx";
 import Contacts from "./pages/contacts.jsx";
 import AdminPage from "./pages/admin.jsx";
-import Donations from "./pages/Donation_page/Donation.jsx";
+import Donations from "./pages/donations.jsx";
 
 
 
