@@ -1,4 +1,0 @@
-
-to link 2 files. 1 file shoudn't exist
-
-mklink /D "C:\xampp\htdocs\ServerHB" "Server location"
