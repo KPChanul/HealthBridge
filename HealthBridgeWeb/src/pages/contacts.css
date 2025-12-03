@@ -1,0 +1,108 @@
+/* Overall Section */
+.contact {
+  padding: 40px 5%;
+  background: #f8fbff;
+}
+
+/* Title + Paragraph */
+.content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  
+  
+}
+
+.content h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #2b4c7e;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 17px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Flex Row Container (Left + Right) */
+.contact-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+/* Left Side */
+.contactInfo {
+  flex: 1;
+}
+
+/* Right Side (Form larger) */
+.feedback-form {
+  flex: 1.2;
+ /*  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); */
+}
+
+/* Boxes for Contact Info */
+.contactInfo .box {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e3e6ea;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.contactInfo .box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Style */
+.contactInfo .icon {
+  min-width: 55px;
+  height: 55px;
+  background: #4c8bf5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-right: 20px;
+}
+
+/* Text Style */
+.contactInfo .text h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #2b4c7e;
+  font-weight: 700;
+}
+
+.contactInfo .text p {
+  margin: 5px 0 0;
+  color: #555;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+
+  .feedback-form {
+    margin-top: 10px;
+  }
+}
