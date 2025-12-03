@@ -1,8 +1,8 @@
 import {useState,useEffect} from 'react';
 import CardInterface from '../../components/Cards/card';
 import './Donation.css';
-import Footer  from '/src/components/Footer/Footer.jsx';
-
+import Footer  from '../../components/Footer/Footer.jsx';
+import Header from "../../components/header/Header";
 
 
 
@@ -192,10 +192,10 @@ function Donations(){
     return(
 
         <>
-
+        <Header/>
 
         
-        <div className="page">
+        <main className="page">
             <h1 className='topic'>Active Cases</h1>
             <p className='para'>Stand with these families. Even the smallest gift creates powerful momentum.</p>
             
@@ -279,7 +279,7 @@ function Donations(){
 
             
 
-        </div>
+        </main>
         <Footer />
         </>
     )

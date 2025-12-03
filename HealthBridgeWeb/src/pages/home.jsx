@@ -6,7 +6,7 @@ import mainImage3 from '../assets/main5.avif'
 import '../pagesCSS/home.css'
 import disImage from "../assets/imageFormiddle.png"
 import MenuLinks from '../components/header/MenuLinks'
-
+import Footer  from '../components/Footer/Footer.jsx';
 import img1 from '../assets/img11b.png'
 import img2 from '../assets/img22b.png'
 import img3 from '../assets/img33b.png'
@@ -55,7 +55,7 @@ function Home(){
 
         {/* home page card section */}
 
-        <div className="karuna-fundraising-section">
+        <main className="karuna-fundraising-section">
             <div className="left-text-area">
                 <h2>Fundraising on HealthBridge.lk takes only a few minutes</h2>
             </div>
@@ -93,10 +93,10 @@ function Home(){
                     </div>
                 </div>
             </div>
-        </div>
-
-        {/*end of card section */}
+        </main>
         
+        {/*end of card section */}
+        <Footer/>
     </>
     
     )

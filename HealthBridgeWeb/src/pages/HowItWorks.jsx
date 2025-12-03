@@ -1,29 +1,8 @@
-/*
-
-import React from 'react'
-import Header from "../components/header/Header"
-import '../pagesCSS/howItWorks.css'
-
-function HowItWorks() {
-  return (
-    
-      <>
-
-        <Header/>
-
-      
-      </>
-
-  )
-}
-
-export default HowItWorks
-
-*/
 
 import React from 'react';
 import Header from "../components/header/Header"
 import '../pagesCSS/howItWorks.css'; // Import the CSS file
+import Footer  from '../components/Footer/Footer.jsx';
 import iconOrganise from '../assets/img11.png';
 import iconVerify from '../assets/img22.png';
 import iconDonate from '../assets/img33.png';
@@ -62,7 +41,7 @@ function HowItWorks() {
       <Header /> 
       
       {/* --- MAIN PAGE CONTENT START --- */}
-      <div className="how-it-works-container">
+      <main className="how-it-works-container">
         
         <header className="works-header">
           <h1>How HealthBridge Works</h1>
@@ -114,11 +93,11 @@ function HowItWorks() {
           </div>
         </section>
 
-      </div>
+      </main>
       {/* --- MAIN PAGE CONTENT END --- */}
 
       {/* Assuming your Footer component will be placed here */}
-      {/* <Footer /> */}
+       <Footer /> 
 
     </>
   );
