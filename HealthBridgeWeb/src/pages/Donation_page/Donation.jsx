@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-import CardInterface from '../../components/Cards/card';
+import CardInterface from '../../components/Cards/card.jsx';
 import './Donation.css';
 import Footer  from '../../components/Footer/Footer.jsx';
 import Header from "../../components/header/Header";
@@ -86,10 +86,15 @@ function Donations(){
             return false;
         }
 
-        // 2. Filter by search term: If a search term exists AND the patient name does NOT include the term, exclude it.
+        // 2. Filter by search term: If a search term exists AND the patient name or health issue does not include the term, exclude it.
+        
         if (searchTerm) {
-            return c.patient_name.toLowerCase().includes(searchTerm.toLowerCase());
-        }
+                const term = searchTerm.toLowerCase();
+        return (
+                c.patient_name.toLowerCase().includes(term) || 
+                c.health_issue.toLowerCase().includes(term)
+                );
+            }
 
         // If the case passed the filters, include it.
         return true;
@@ -204,7 +209,7 @@ function Donations(){
             <input 
                 className='search-input'
                 type="text"
-                placeholder="Search case by Patient Name..."
+                placeholder="Search by Patient Name or Condition..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
     
@@ -248,7 +253,7 @@ function Donations(){
                 ):(
                 <div className="cases-grid-view">
                     {casesToDisplay.map((caseItem)=>(
-                        <CardInterface 
+                        <CardInterface                    
                         
                         key={caseItem.id}
                         patientName={caseItem.patient_name}
