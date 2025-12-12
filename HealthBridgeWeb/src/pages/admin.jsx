@@ -1,7 +1,7 @@
 //make a login frame. if it is sys admin find the pasword is correct then remove login.jsx and disply sysadmin.jsx 
 //if it is noraml admin and password is correct remove login.jsx and disply admin.jsx acording to admin's data
 import Login from '../components/login/login.jsx';
-import Admin from "./admin.interface.jsx"
+import Admin from "../pages/Admin_Interface/Admin_Interface.jsx";
 import SysAdmin from './sysadmin.interface.jsx';
 import { useState } from 'react';
 
@@ -9,7 +9,10 @@ function AdminPage() {
 
     // this state stores the logged-in user's data
 
-    const [user, setUser] = useState({ role: "login" });
+    //const [user, setUser] = useState({ role: "login" });
+
+    //for developing purpose only ------this was added to skip login
+    const [user, setUser] = useState({ role: "admin", admin_id: "1" });
 
     return (
         <>
