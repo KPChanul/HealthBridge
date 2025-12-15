@@ -1,6 +1,11 @@
 <?php
 require 'cors.php';
 require 'database.php';
+
+// Enable development error reporting (remove in production)
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 try{
 // Check database connection
 if ($conn->connect_error) {
@@ -11,10 +16,19 @@ if ($conn->connect_error) {
     ]);
     exit;
 }
+//get IDs
+$admin_id=$_GET["admin_id"]?? '';
+$session_id=$_GET["session_id"]?? '';
+
+
+
 
 // Prepare SQL query to get cases sorted by date
-$sql = "SELECT * FROM active_cases ORDER BY posted_date ASC";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM active_cases WHERE admin_id = ? ORDER BY posted_date ASC");
+
+$stmt->bind_param("i", $admin_id); 
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     echo json_encode([
@@ -46,15 +60,18 @@ echo json_encode([
     "success" => true,
     "message" => "",
     "data" => $cases
-]);}
-catch (Throwable $e) {
+]);
+
+} catch (Throwable $e) {
+    // Return detailed error for debugging
+    http_response_code(500);
     echo json_encode([
         "success" => false,
-        "message" => $e->getMessage(),   // 👈 REAL ERROR
+        "message" => $e->getMessage(),
         "file" => $e->getFile(),
         "line" => $e->getLine(),
         "data" => []
     ]);
+    exit;
 }
-
 ?>

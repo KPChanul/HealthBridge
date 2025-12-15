@@ -48,3 +48,11 @@ CREATE TABLE active_cases (
     account_number VARCHAR(50),
     description TEXT
 );
+
+
+ALTER TABLE active_cases
+ADD COLUMN admin_id INT,
+ADD CONSTRAINT fk_admin
+FOREIGN KEY (admin_id) REFERENCES admins(admin_id);
+
+

@@ -57,7 +57,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
            // Reset to clean state for adding a new case
            setFormData({
              ...initialFormState,
-             posted_date: new Date().toLocaleDateString('en-GB')
+             
            });
         }
         

@@ -18,7 +18,7 @@ const CARDS_PER_PAGE = 6;
  * 2. Managing global state (view mode, search filters, pagination).
  * 3. Handling the "Add New Case" logic (CREATE).
  */
-const Admin = ({admin_id, onLogOut}) => {
+const Admin = ({adminId,sessionID, onLogOut}) => {
 
     // --- STATE MANAGEMENT ---
 
@@ -86,27 +86,41 @@ const Admin = ({admin_id, onLogOut}) => {
     // --- API: FETCH DATA (READ) ---
     // This is your EXISTING backend connection. It works!
     useEffect(() => {
+        // Only attempt fetch when adminId and sessionID are available
+        if (!adminId || !sessionID) {
+            setError("Missing admin credentials. Please login.");
+            setData([]);
+            setLoading(false);
+           return
+        }
+
+        const url = `http://localhost/serverHB/get_cases_for_admins.php?admin_id=${encodeURIComponent(adminId)}&session_id=${encodeURIComponent(sessionID)}`;
+        // Debug logging to help diagnose missing data
+        console.log('[Admin] Fetching cases URL:', url);
+        console.log('[Admin] Credentials', { adminId, sessionID });
         setLoading(true);
-        fetch("http://localhost/serverHB/get_cases.php")
+        fetch(url, { method: 'GET', credentials: 'include' })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error("Connection issue. Check your internet connection.");
+                    throw new Error(`Connection issue: ${response.status}`);
                 }
                 return response.json();
             })
             .then((resp) => {
+                console.log('[Admin] fetch response', resp);
                 const fetched = Array.isArray(resp) ? resp : (resp?.data || []);
                 setData(fetched);
                 setError(null);
             })
             .catch((err) => {
+                console.log('[Admin] fetch error', err);
                 setError("Failed to fetch cases. Please try again later.");
-                setData([]); 
+                setData([]);
             })
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [adminId, sessionID]);
 
     // --- PAGINATION HANDLER ---
     const handlePageChange = (page) => {
@@ -152,7 +166,7 @@ const Admin = ({admin_id, onLogOut}) => {
         <>
         {/* Top Navigation Header */}
         <AdminHeader 
-            admin_id={admin_id}
+            adminId={adminId}
             currentView={viewMode}
             onViewChange={setViewMode}
         />
@@ -201,9 +215,7 @@ const Admin = ({admin_id, onLogOut}) => {
                         isOpen={showAddForm}
                         onClose={() => setShowAddForm(false)} 
                         
-                        // =================================================================
-                        // TODO: BACKEND TEAM - CONNECT 'CREATE' FUNCTIONALITY
-                        // =================================================================
+                       
                         // This function receives the data from the form when "Add Case" is clicked.
                         onSubmit={(newCaseData) => {
                              console.log("Creating New Case:", newCaseData);
@@ -245,7 +257,7 @@ const Admin = ({admin_id, onLogOut}) => {
                             goal={caseItem.goal}
                             raised={caseItem.raised}
                             address={caseItem.address}
-                            postedDate={caseItem.posted_date}
+                            postedDate={caseItem.posted_time}
                             contactPhone={caseItem.contact_phone}
                             contactEmail={caseItem.contact_email}
                             description={caseItem.description}

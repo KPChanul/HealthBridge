@@ -11,10 +11,18 @@ if ($conn->connect_error) {
     ]);
     exit;
 }
+//get IDs
+$admin_id=$_GET["admin_id"]?? '';
+
+
+
+
 
 // Prepare SQL query to get cases sorted by date
-$sql = "SELECT * FROM active_cases ORDER BY posted_date ASC";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM active_cases WHERE admin_id = ? ORDER BY posted_date ASC");
+$stmt->bind_param("i", $admin_id); 
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     echo json_encode([
@@ -47,14 +55,12 @@ echo json_encode([
     "message" => "",
     "data" => $cases
 ]);}
-catch (Throwable $e) {
+catch (Exception $e){
     echo json_encode([
         "success" => false,
-        "message" => $e->getMessage(),   // 👈 REAL ERROR
-        "file" => $e->getFile(),
-        "line" => $e->getLine(),
-        "data" => []
+        "message" => "Something went wrong on our end. Please try again in a moment.",
+        "data"  => []
     ]);
+    exit;
 }
-
 ?>

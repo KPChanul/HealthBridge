@@ -12,7 +12,7 @@ function AdminPage() {
     //const [user, setUser] = useState({ role: "login" });
 
     //for developing purpose only ------this was added to skip login
-    const [user, setUser] = useState({ role: "admin", admin_id: "1" });
+    const [user, setUser] = useState({ role: "admin", adminId: 130001 ,sessionID:"22942942492" });
 
     return (
         <>
@@ -22,7 +22,7 @@ function AdminPage() {
             )}
 
             {/* If role is "admin" → show Admin interface */}
-            {user.role === "admin" && <Admin admin_id={user.admin_id}  onLogOut={() => useState({ role: "login" })}/> }
+            {user.role === "admin" && <Admin adminId={user.adminId} sessionID={user.sessionID} onLogOut={() => useState({ role: "login" })}/> }
 
             {/* If role is "sysadmin" → show System Admin interface */}
             {user.role === "sysadmin" && <SysAdmin onLogOut={() => useState({ role: "login" })} />}

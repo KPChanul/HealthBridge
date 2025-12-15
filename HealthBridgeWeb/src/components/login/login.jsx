@@ -27,8 +27,8 @@ function Login({onLoginSuccess}) {
         if (!data.success) {
             setErrorMessage(data.message);
         } else {
-            sessionStorage.setItem("sessionID", data.sessionID);
-            onLoginSuccess({ role: data.role, admin_id: data.admin_id });
+            
+            onLoginSuccess({ role: data.role, adminId: data.admin_id , sessionID:data.sessionID});
         }
   };
 
