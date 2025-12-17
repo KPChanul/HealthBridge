@@ -65,7 +65,7 @@ if ((int)$admin_id !== (int)$user['admin_id']) {
 }
 
 // Check if session expired
-if ($user['end_time'] !== null && strtotime($user['end_time']) < time()) {
+if ($user['end_time'] !== null ) {
     echo json_encode([
         "success" => false,
         "message" => "Your session has expired.",

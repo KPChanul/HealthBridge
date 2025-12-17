@@ -27,7 +27,7 @@ try {
         exit;
     }
 
-    // 🔥 DIRECTLY UPDATE end_time
+    // DIRECTLY UPDATE end_time
     $stmt = $conn->prepare(
         "UPDATE sessions 
          SET end_time = NOW()
