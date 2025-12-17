@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useContext } from "react";
 import styles from "./AdminHeader.module.css";
 import { Bell, User, ChevronDown, LogOut, Lock, Eye, EyeOff } from 'lucide-react';
-
+import { AdminContext } from '../../pages/admin.jsx';
 /**
  * AdminHeader Component
  * ---------------------
@@ -13,14 +13,13 @@ import { Bell, User, ChevronDown, LogOut, Lock, Eye, EyeOff } from 'lucide-react
  * - Admin ID and Role.
  * - Password reveal toggle (for checking credentials).
  * - Logout functionality.
- * * @param {string} admin_id - The ID of the currently logged-in admin.
- * @param {string} admin_password - The current admin's password (must be passed securely).
+
  * @param {string} currentView - Current display mode ('card' or 'table').
  * @param {function} onViewChange - Callback to switch views.
  * @param {function} onLogOut - Callback to handle user logout.
  */
-const AdminHeader = ({ admin_id, admin_password, currentView, onViewChange, onLogOut }) => {
-
+const AdminHeader = ({  currentView, onViewChange, onLogOut }) => {
+    const { adminId,sessionID} = useContext(AdminContext);
     // --- STATE MANAGEMENT ---
     
     // Tracks if the profile dropdown menu is open or closed
@@ -125,7 +124,7 @@ const AdminHeader = ({ admin_id, admin_password, currentView, onViewChange, onLo
                                    Ensure 'admin_id' prop is populated from the actual session/database.
                                    If you have a 'Name' or 'Role' column in DB, pass it as a prop.
                                 */}
-                                <p className={styles.adminName}>Admin ID: {admin_id}</p>
+                                <p className={styles.adminName}>Admin ID: {adminId}</p>
                                 <p className={styles.adminRole}>Administrator</p>
                             </div>
                             

@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Prepare SQL query to get cases sorted by date
-$sql = "SELECT * FROM active_cases ORDER BY posted_date ASC";
+$sql = "SELECT * FROM active_cases ORDER BY posted_time ASC";
 $result = $conn->query($sql);
 
 if (!$result) {

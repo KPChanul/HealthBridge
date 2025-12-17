@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, {useContext, useState } from 'react';
 import { MapPin, Calendar, Phone, Mail } from 'lucide-react';
 import './card_for_admin.css';
 import MoreDetails from './detailsPopup';
 import DeleteConfirm from '../DeleteWarning/del';
 import AdminForm from '../Admin_Form/Admin_form';
+import { AdminContext } from '../../pages/admin.jsx';
 
 const MAX_DESC_LENGTH = 110;
 
@@ -15,7 +16,8 @@ const MAX_DESC_LENGTH = 110;
  * * @param {object} props - The case data properties (patientName, goal, raised, etc.)
  */
 const CardInterface_Admin = (props) => {
-
+    const { adminId, sessionID } = useContext(AdminContext);
+    const [error, setError] = useState(null);
     // --- STATE MANAGEMENT ---
 
     // State for "See More Details" Modal
@@ -73,28 +75,40 @@ const CardInterface_Admin = (props) => {
     const fundedPercent = props.goal > 0 ? Math.round((props.raised / props.goal) * 100) : 0;
     const isFulfilled = props.isFulfilled;
     const isurgent = Number(props.isurgent);
-
+    
 
     // --- DATA PREPARATION FOR EDIT FORM ---
     
     // Maps the card's props to the format expected by AdminForm.jsx
     const currentCaseData = {
-        patientName: props.patientName,
+        
+        patient_name: props.patientName,
         health_issue: props.healthIssue, 
         description: props.description,
-        status: props.isurgent === 1 ? 'Urgent' : 'Active',
-        raisedAmount: props.raised,
-        goalAmount: props.goal,
+        is_urgent: props.isurgent ,
+        raised: props.raised,
+        goal: props.goal,
         address: props.address,
-        posted_date: props.postedDate,
         contact_phone: props.contactPhone,
         contact_email: props.contactEmail,
         bank_name: props.bankName || '', 
-        branch: props.branch || '',
+        bank_branch: props.branch || '',
         account_holder: props.accountHolder || '',
         account_number: props.accountNumber || ''
     };
-
+    //find chnged key and values.
+    const getChangedFields = (current, updated) => {
+    const changes = {};
+    for (let key in updated) {
+        if (updated.hasOwnProperty(key)) {
+            // Check if value is different
+            if (updated[key] !== current[key]) {
+                changes[key] = updated[key];
+            }
+        }
+    }
+    return changes;
+};
 
     // --- RENDER LOGIC ---
 
@@ -172,14 +186,32 @@ const CardInterface_Admin = (props) => {
                     isOpen={showForm}
                     onClose={closeForm}
                     editData={currentCaseData}
-                    // =================================================================
-                    // TODO: BACKEND TEAM - CONNECT EDIT SUBMISSION (CARD VIEW)
-                    // =================================================================
+                    
                     // This triggers when "Save Changes" is clicked on the card's edit form.
-                    onSubmit={(updatedData) => {
-                        console.log("Saving Changes (Card View)...", updatedData);
-                        // 1. Call API to update this record using props.id (if available)
-                        // 2. Refresh data
+                    onSubmit={async(updatedData) => {
+                        
+                        const changedData=getChangedFields(currentCaseData,updatedData)
+                        
+                        const resp = await fetch('http://localhost/serverHB/change_data.php', {
+                                        method: 'POST',
+                                        credentials: 'include',
+                                        headers: { 'Content-Type': 'application/json'  },
+                                        body: JSON.stringify({
+                                            changed_data: changedData,
+                                            admin_id: adminId,
+                                            session_id: sessionID,
+                                            post_id: props.post_id
+                                        })
+                                    });
+
+                                if (!resp.ok) throw new Error(`Server Error`);
+                                const json = await resp.json();
+                                
+                                if (!json.success) {
+                                    
+                                    setError(json.message || 'Failed to create case');
+                                } 
+                        
                         closeForm();
                     }}
                 />
@@ -191,14 +223,29 @@ const CardInterface_Admin = (props) => {
                     isOpen={showDeleteConfirm}
                     patientName={props.patientName}
                     onClose={closeDelete}
-                    // =================================================================
-                    // TODO: BACKEND TEAM - CONNECT DELETE ACTION (CARD VIEW)
-                    // =================================================================
+                    
                     // This triggers when "Delete" is clicked inside the warning popup.
-                    onConfirm={() => {
-                         console.log("Deleting case (Card View)...");
-                         // 1. Call API to delete record using props.id
-                         // 2. Refresh data
+                    onConfirm={async() => {
+                        const data={
+                            admin_id: adminId,
+                            session_id:sessionID,
+                            post_id: props.post_id}
+                        
+                        console.log(data)    
+                        const resp = await fetch('http://localhost/serverHB/delete_cases.php', {
+                                        method: 'POST',
+                                        credentials: 'include',
+                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                        body: new URLSearchParams(data)
+                                    });
+                        if (!resp.ok) throw new Error(`Server Error`);
+                                const json = await resp.json();
+
+                                if (!json.success) {
+                                    setError(json.message || 'Failed to delete the case.');
+                                } 
+                          
+                         window.location.reload();
                          closeDelete();
                     }}
                 />

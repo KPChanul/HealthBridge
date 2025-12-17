@@ -23,22 +23,23 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
         2: "Health Condition Details",
         3: "Bank Details"
     };
-
+    
     // Defines the initial empty structure of the form data.
     // We keep this separate so we can easily reset the form when switching to "Add" mode.
     const initialFormState = {
-        patientName: '',
+    
+        patient_name: '',
         health_issue: '',
         description: '',
-        status: 'Active',
-        raisedAmount: 0,
-        goalAmount: 0,
+        is_urgent: 1,
+        raised: 0,
+        goal: 0,
         address: '',
         posted_date: new Date().toLocaleDateString('en-GB'), // Default to today's date
         contact_phone: '',
         contact_email: '',
         bank_name: '',
-        branch: '',
+        bank_branch: '',
         account_holder: '',
         account_number: ''
     };
@@ -70,32 +71,29 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
     // Handles input changes for all text, select, and number inputs
     const handleChange = (e) => {
         const { name, value } = e.target;
-        
+        let newValue = value;
+        if (name === 'raised' || name === 'goal') {
+            newValue = parseFloat(value) || 0;
+        } else if (name === 'is_urgent') {
+            newValue = parseInt(value, 10) || 0;
+        }
+
         setFormData(prev => ({
             ...prev,
-            // Logic: If the field is an amount, ensure it is saved as a number (float), not a string.
-            // This prevents math errors later in the backend.
-            [name]: name === 'raisedAmount' || name === 'goalAmount'
-                ? parseFloat(value) || 0
-                : value
+            [name]: newValue
         }));
     };
-
+   
     // Triggered when the user clicks "Save Changes" or "Add Case" on the final page (Step 3)
     const handleSubmit = (e) => {
         e.preventDefault(); // Stop the browser from refreshing
+        onSubmit(formData)
         
-        // ==================================================================================
-        // TODO: BACKEND TEAM - HANDLE FORM SUBMISSION
-        // ==================================================================================
-        // This function passes the gathered 'formData' back to the parent component (Admin.jsx).
-        // The Parent component needs to handle the API calls:
-        // 1. If 'editData' was present -> Send PUT/UPDATE request to MySQL.
-        // 2. If 'editData' was null    -> Send POST/CREATE request to MySQL.
-        // ==================================================================================
         
-        onSubmit(formData); 
-    };
+        setFormData(initialFormState)
+        window.location.reload();
+        };
+
 
     // --- 4. NAVIGATION LOGIC ---
 
@@ -145,8 +143,8 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                     <input
                                         type="text"
                                         id="patientName"
-                                        name="patientName"
-                                        value={formData.patientName}
+                                        name="patient_name"
+                                        value={formData.patient_name}
                                         onChange={handleChange}
                                         placeholder="e.g., Kamal Fernando"
                                         required
@@ -248,8 +246,8 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                         <input
                                             type="number"
                                             id="raised"
-                                            name="raisedAmount"
-                                            value={formData.raisedAmount}
+                                            name="raised"
+                                            value={formData.raised}
                                             onChange={handleChange}
                                             placeholder="e.g., 150000"
                                         />
@@ -259,8 +257,8 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                         <input
                                             type="number"
                                             id="goal"
-                                            name="goalAmount"
-                                            value={formData.goalAmount}
+                                            name="goal"
+                                            value={formData.goal}
                                             onChange={handleChange}
                                             required
                                             placeholder="e.g., 500000"
@@ -271,12 +269,12 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                         <label htmlFor="status">Status</label>
                                         <select
                                             id="status"
-                                            name="status"
-                                            value={formData.status}
+                                            name="is_urgent"
+                                            value={formData.is_urgent}
                                             onChange={handleChange}
                                         >
-                                            <option value="Active">Active</option>
-                                            <option value="Urgent">Urgent</option>
+                                            <option value={0}>Active</option>
+                                            <option value={1}>Urgent</option>
                                         </select>
                                     </div>
                             </div>
@@ -307,8 +305,8 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                         <input
                                             type="text"
                                             id="branch"
-                                            name="branch"
-                                            value={formData.branch}
+                                            name="bank_branch"
+                                            value={formData.bank_branch}
                                             onChange={handleChange}
                                             required
                                             placeholder="e.g., Colombo Fort"

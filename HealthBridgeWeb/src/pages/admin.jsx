@@ -1,34 +1,62 @@
 //make a login frame. if it is sys admin find the pasword is correct then remove login.jsx and disply sysadmin.jsx 
 //if it is noraml admin and password is correct remove login.jsx and disply admin.jsx acording to admin's data
+import React, { createContext, useState } from 'react';
 import Login from '../components/login/login.jsx';
 import Admin from "../pages/Admin_Interface/Admin_Interface.jsx";
 import SysAdmin from './sysadmin.interface.jsx';
-import { useState } from 'react';
+
+export const AdminContext = createContext(null);
 
 function AdminPage() {
 
-    // this state stores the logged-in user's data
+    // user role and credentials
+    const [role, setRole] = useState( "admin");
 
-    //const [user, setUser] = useState({ role: "login" });
+    // separate adminId/sessionID state (exposed via context)
+    const [adminId, setAdminId] = useState(130002);
+    const [sessionID, setSessionID] = useState("32145975eac37313cdf7230f04c9cb92d40970c89c95cdd961c8d877fcae632f");
 
-    //for developing purpose only ------this was added to skip login
-    const [user, setUser] = useState({ role: "admin", adminId: 130001 ,sessionID:"22942942492" });
+    const handleLoginSuccess = (data) => {
+        setRole(data.role);
+        setAdminId(data.adminId);
+        setSessionID(data.sessionID);
+    };
+
+    const handleLogOut = async () => {
+        try {
+            await fetch("http://localhost/serverHB/logout.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                    admin_id: adminId,
+                    session_id: sessionID
+                })
+            });
+            // Clear frontend state
+            setRole("login");
+            setAdminId(null);
+            setSessionID(null);
+        } catch (err) {
+            console.error("Logout request failed", err);
+            // Even if request fails, still clear local state
+        } 
+    };
 
     return (
-        <>
+        <AdminContext.Provider value={{ adminId,  sessionID,  role }}>
             {/* If role is null → show the login page */}
-            {user.role === "login" && (
-                <Login onLoginSuccess={(data) => setUser(data)} />
+            {role === "login" && (
+                <Login handleLoginSuccess={handleLoginSuccess} />
             )}
 
             {/* If role is "admin" → show Admin interface */}
-            {user.role === "admin" && <Admin adminId={user.adminId} sessionID={user.sessionID} onLogOut={() => useState({ role: "login" })}/> }
+            {role === "admin" && <Admin onLogOut={handleLogOut} /> }
 
             {/* If role is "sysadmin" → show System Admin interface */}
-            {user.role === "sysadmin" && <SysAdmin onLogOut={() => useState({ role: "login" })} />}
-        </>
+            {role === "sysadmin" && <SysAdmin onLogOut={handleLogOut} />}
+        </AdminContext.Provider>
     );
 }
-
 
 export default AdminPage

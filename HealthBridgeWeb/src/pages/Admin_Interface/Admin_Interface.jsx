@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { AdminContext } from '../admin.jsx';
 import CardInterface_Admin from '../../components/Cards_for_admin/card_for_admin.jsx'; 
 import styles from './Admin_Interface.module.css';
 import { Plus } from 'lucide-react';
@@ -18,8 +19,9 @@ const CARDS_PER_PAGE = 6;
  * 2. Managing global state (view mode, search filters, pagination).
  * 3. Handling the "Add New Case" logic (CREATE).
  */
-const Admin = ({adminId,sessionID, onLogOut}) => {
-
+const Admin = ({ onLogOut }) => {
+    const { adminId, sessionID } = useContext(AdminContext);
+    
     // --- STATE MANAGEMENT ---
 
     const [viewMode, setViewMode] = useState('card'); // Toggle between 'card' or 'table'
@@ -94,32 +96,39 @@ const Admin = ({adminId,sessionID, onLogOut}) => {
            return
         }
 
-        const url = `http://localhost/serverHB/get_cases_for_admins.php?admin_id=${encodeURIComponent(adminId)}&session_id=${encodeURIComponent(sessionID)}`;
-        // Debug logging to help diagnose missing data
-        console.log('[Admin] Fetching cases URL:', url);
-        console.log('[Admin] Credentials', { adminId, sessionID });
+        
         setLoading(true);
-        fetch(url, { method: 'GET', credentials: 'include' })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Connection issue: ${response.status}`);
-                }
-                return response.json();
+        fetch("http://localhost/serverHB/get_cases_for_admins.php", 
+            { method: "POST",
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
+            body: JSON.stringify({
+                admin_id: adminId,
+                session_id: sessionID
+                })
             })
-            .then((resp) => {
-                console.log('[Admin] fetch response', resp);
-                const fetched = Array.isArray(resp) ? resp : (resp?.data || []);
-                setData(fetched);
-                setError(null);
-            })
-            .catch((err) => {
-                console.log('[Admin] fetch error', err);
-                setError("Failed to fetch cases. Please try again later.");
+             .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+        return response.json();   
+        })
+        .then(json => {
+            if (!json.success) {
+                setError(json.message || "Failed to load cases");
                 setData([]);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            } else {
+                setData(json.data || []);
+                setError(null);
+            }
+        })
+        .catch(() => {
+            setError("Failed to fetch cases. Please try again later.");
+            setData([]);
+        })
+        .finally(() => {
+            setLoading(false);
+        });
     }, [adminId, sessionID]);
 
     // --- PAGINATION HANDLER ---
@@ -163,10 +172,11 @@ const Admin = ({adminId,sessionID, onLogOut}) => {
 
 
     return(
+        
         <>
         {/* Top Navigation Header */}
         <AdminHeader 
-            adminId={adminId}
+            onLogOut={onLogOut}
             currentView={viewMode}
             onViewChange={setViewMode}
         />
@@ -217,12 +227,58 @@ const Admin = ({adminId,sessionID, onLogOut}) => {
                         
                        
                         // This function receives the data from the form when "Add Case" is clicked.
-                        onSubmit={(newCaseData) => {
-                             console.log("Creating New Case:", newCaseData);
-                             // 1. Send POST request to 'create_case.php'
-                             // 2. On success: 
-                             //    - Close Modal: setShowAddForm(false)
-                             //    - Refresh Data: Call the fetch logic again to show the new case
+                        onSubmit={async (newCaseData) => {
+                            // Close modal and post to server, then refresh list
+                            try{
+                            
+                            setLoading(true);
+                            
+                            
+                                
+                                const payload = {       
+                                    admin_id: adminId,
+                                    session_id:sessionID,
+                                    patient_name: newCaseData.patient_name,
+                                    health_issue: newCaseData.health_issue,
+                                    description: newCaseData.description,
+                                    status: newCaseData.is_urgent|| 0,
+                                    raised: newCaseData.raised || 0,
+                                    goal: newCaseData.goal || 0,
+                                    address: newCaseData.address,
+                                    contact_phone: newCaseData.contact_phone,
+                                    contact_email: newCaseData.contact_email,
+                                    bank_name: newCaseData.bank_name,
+                                    bank_branch: newCaseData.bank_branch,
+                                    account_holder: newCaseData.account_holder,
+                                    account_number: newCaseData.account_number};
+
+                                const resp = await fetch('http://localhost/serverHB/create_cases.php', {
+                                        method: 'POST',
+                                        credentials: 'include',
+                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                        body: new URLSearchParams(payload)
+                                    });
+
+                                if (!resp.ok) throw new Error(`Server Error`);
+                                const json = await resp.json();
+
+                                if (!json.success) {
+                                    setError(json.message || 'Failed to create case');
+                                } 
+                                
+                                    
+                            }
+                            
+                            
+                            
+
+                            catch (err) {
+                                setError('Failed to create case. Please try again.');
+                            } finally {
+                                setLoading(false);
+                                setShowAddForm(false);
+                                
+                            }
                         }}
                     />
                 )}
@@ -241,23 +297,30 @@ const Admin = ({adminId,sessionID, onLogOut}) => {
             
             {viewMode === 'card' ? (
                 // --- CARD VIEW ---
-                filteredCases.length === 0 ? (
+                (filteredCases.length === 0 && error==null)? (
                     <p style={{ marginTop: '50px', fontSize: '1.2rem', color: '#555' }}>
                     No cases match the current criteria.
                     </p>
-                ) : (
+                ):
+                (filteredCases.length === 0 && error!=null)?(
+                  <p style={{ marginTop: '50px', fontSize: '1.2rem', color: '#555' }}>
+                    {error}
+                    </p>  
+                ):
+                 (
                     <>
                     <div className={styles['cases-grid-view']}>
                         {casesToDisplay.map((caseItem) => (
                         <CardInterface_Admin
                             key={caseItem.id}
+                            post_id={caseItem.id}
                             patientName={caseItem.patient_name}
                             healthIssue={caseItem.health_issue}
                             isurgent={caseItem.is_urgent}
                             goal={caseItem.goal}
                             raised={caseItem.raised}
                             address={caseItem.address}
-                            postedDate={caseItem.posted_time}
+                            postedDate={caseItem.posted_time.split(' ')[0]|| ''}
                             contactPhone={caseItem.contact_phone}
                             contactEmail={caseItem.contact_email}
                             description={caseItem.description}
@@ -293,7 +356,9 @@ const Admin = ({adminId,sessionID, onLogOut}) => {
                     )}
                 </div>
                 )}
+                
         </main>
+        
         </>
     )
 };

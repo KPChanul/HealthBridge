@@ -1,11 +1,6 @@
 <?php
 require 'cors.php';
 require 'database.php';
-
-// Enable development error reporting (remove in production)
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 try{
 // Check database connection
 if ($conn->connect_error) {
@@ -17,18 +12,22 @@ if ($conn->connect_error) {
     exit;
 }
 //get IDs
-$admin_id=$_GET["admin_id"]?? '';
-$session_id=$_GET["session_id"]?? '';
+$input = json_decode(file_get_contents("php://input"), true);
+$admin_id   = $input['admin_id'] ?? '';
+$session_id = $input['session_id'] ?? '';
 
 
+
+//verify admin and session ids
+require "verifySession.php";
 
 
 // Prepare SQL query to get cases sorted by date
-$stmt = $conn->prepare("SELECT * FROM active_cases WHERE admin_id = ? ORDER BY posted_date ASC");
-
-$stmt->bind_param("i", $admin_id); 
+$stmt = $conn->prepare("SELECT * FROM active_cases WHERE admin_id = ? ORDER BY posted_time ASC");
+$stmt->bind_param("i", $admin_id); // "ii" = two integers
 $stmt->execute();
 $result = $stmt->get_result();
+
 
 if (!$result) {
     echo json_encode([
@@ -60,17 +59,12 @@ echo json_encode([
     "success" => true,
     "message" => "",
     "data" => $cases
-]);
-
-} catch (Throwable $e) {
-    // Return detailed error for debugging
-    http_response_code(500);
+]);}
+catch (Exception $e){
     echo json_encode([
         "success" => false,
-        "message" => $e->getMessage(),
-        "file" => $e->getFile(),
-        "line" => $e->getLine(),
-        "data" => []
+        "message" => "Something went wrong on our end. Please try again in a moment.",
+        "data"  => []
     ]);
     exit;
 }

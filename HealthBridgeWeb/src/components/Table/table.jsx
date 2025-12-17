@@ -1,8 +1,8 @@
 import DeleteConfirm from '../DeleteWarning/del';
 import styles from './table.module.css';
-import { useState } from 'react';
+import { useContext,useState } from 'react';
 import AdminForm from '../Admin_Form/Admin_form';
-
+import { AdminContext } from '../../pages/admin.jsx'
 /**
  * CaseTable Component
  * -------------------
@@ -13,7 +13,7 @@ import AdminForm from '../Admin_Form/Admin_form';
  * @param {Function} onDelete - (Optional) Prop function to trigger parent delete logic.
  */
 const CaseTable = ({ cases, onEdit, onDelete}) => {
-
+    const { adminId, sessionID } = useContext(AdminContext);
     // --- STATE MANAGEMENT ---
 
     // State to control the visibility of the delete confirmation modal
@@ -22,6 +22,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
 
     // Store the case data to be edited (or null if modal is closed)
     const [editTarget, setEditTarget] = useState(null);
+    const [error, setError] = useState(null);
 
 
     // --- HELPER FUNCTIONS ---
@@ -56,21 +57,43 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
 
     // Prepares the database data to fit the specific format required by the AdminForm
     const handleEditClick = (caseData) => {
-
+        // Map DB fields to AdminForm expected keys
         const formattedData = {
-            ...caseData, // Copy existing IDs and matching fields (like health_issue, email)
-            
-            // Map the mismatched fields between DB and Form State:
-            patientName: caseData.patient_name,
-            branch: caseData.bank_branch,
-            raisedAmount: caseData.raised,
-            goalAmount: caseData.goal,
-            
-            // Convert database status (0/1) to Form status ('Active'/'Urgent')
-            status: caseData.is_urgent == 1 ? 'Urgent' : 'Active' 
+            id: caseData.id,
+            patient_name: caseData.patient_name || '',
+            health_issue: caseData.health_issue || '',
+            description: caseData.description || '',
+            is_urgent: Number(caseData.is_urgent) || 0,
+            raised: Number(caseData.raised) || 0,
+            goal: Number(caseData.goal) || 0,
+            address: caseData.address || '',
+            posted_date: caseData.posted_date || caseData.posted_time || '',
+            contact_phone: caseData.contact_phone || '',
+            contact_email: caseData.contact_email || '',
+            bank_name: caseData.bank_name || '',
+            bank_branch: caseData.bank_branch || '',
+            account_holder: caseData.account_holder || '',
+            account_number: caseData.account_number || ''
         };
 
         setEditTarget(formattedData);
+    };
+
+    // Compute changed fields between original and updated objects
+    const getChangedFields = (original, updated) => {
+        const changes = {};
+        if (!original || !updated) return changes;
+        for (const key in updated) {
+            if (Object.prototype.hasOwnProperty.call(updated, key)) {
+                // treat numbers and strings consistently
+                const origVal = original[key];
+                const newVal = updated[key];
+                if (String(origVal) !== String(newVal)) {
+                    changes[key] = newVal;
+                }
+            }
+        }
+        return changes;
     };
 
     // --- RENDER LOGIC ---
@@ -176,40 +199,80 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                 isOpen={true}
                 onClose={() => setEditTarget(null)}
                 editData={editTarget}
-
-                // =================================================================
-                // TODO: BACKEND TEAM - CONNECT EDIT FUNCTIONALITY
-                // =================================================================
                 // When the form is submitted, this function is triggered.
-                // You need to take 'updatedData' and send a PUT request to the API.
-                onSubmit={(updatedData) => {
-                    console.log("Saving Changes...", updatedData);
-                    // 1. Call API to update record
-                    // 2. Refresh Table Data
-                    setEditTarget(null); // Close modal on success
+                onSubmit={async(updatedData) => {
+                    const changedData = getChangedFields(editTarget, updatedData);
+                    if (Object.keys(changedData).length === 0) {
+                        setEditTarget(null);
+                        return;
+                    }
+
+                    try {
+                        const resp = await fetch('http://localhost/serverHB/change_data.php', {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                changed_data: changedData,
+                                admin_id: adminId,
+                                session_id: sessionID,
+                                post_id: editTarget.id
+                            })
+                        });
+
+                        if (!resp.ok) throw new Error('Server Error');
+                        const json = await resp.json();
+                        if (!json.success) {
+                            setError(json.message || 'Failed to update case');
+                        } else {
+                            setEditTarget(null);
+                            // Optionally refresh parent list via onEdit callback
+                            if (typeof onEdit === 'function') onEdit();
+                        }
+                    } catch (err) {
+                        setError(err.message || 'Network error');
+                    }
                 }}
-                />
-            }
+            />}
 
 
             {deleteTarget && <DeleteConfirm
                 isOpen={true}
                 onClose={() => setDeleteTarget(null)}
                 patientName={deleteTarget.patient_name}
-
-                // =================================================================
-                // TODO: BACKEND TEAM - CONNECT DELETE FUNCTIONALITY
-                // =================================================================
                 // When "Delete" is clicked in the popup, this function is triggered.
-                // You need to take 'deleteTarget.id' and send a DELETE request.
-                onConfirm={() => {
-                    console.log("Deleting case ID:", deleteTarget.id);
-                    // 1. Call API to delete record
-                    // 2. Refresh Table Data
-                    setDeleteTarget(null); // Close modal on success
+                onConfirm={async() => {
+                    const data = {
+                        admin_id: adminId,
+                        session_id: sessionID,
+                        post_id: deleteTarget.id
+                    };
+
+                    try {
+                        const resp = await fetch('http://localhost/serverHB/delete_cases.php', {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams(data)
+                        });
+
+                        if (!resp.ok) throw new Error('Server Error');
+                        const json = await resp.json();
+                        if (!json.success) {
+                            setError(json.message || 'Failed to delete the case.');
+                        } else {
+                            // Optionally call onDelete to refresh parent
+                            if (typeof onDelete === 'function') onDelete();
+                            else window.location.reload();
+                        }
+
+                    } catch (err) {
+                        setError(err.message || 'Network error');
+                    }
+
+                    setDeleteTarget(null);
                 }}
-                />
-            }
+            />}
         </div>
     )
 }

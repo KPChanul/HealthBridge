@@ -42,6 +42,7 @@ function Donations(){
                 // Backend may return either an array directly or an object { data: [...] }
                 const fetched = Array.isArray(resp) ? resp : (resp?.data || []);
                 setData(fetched);
+                console.log(data)
                 setError(null);
             })
             .catch((err) => {
@@ -262,7 +263,7 @@ function Donations(){
                         goal={caseItem.goal}
                         raised={caseItem.raised}
                         address={caseItem.address}
-                        postedDate={caseItem.posted_date}
+                        postedDate={caseItem.posted_time.split(' ')[0]}
                         contactPhone={caseItem.contact_phone}
                         contactEmail={caseItem.contact_email}
                         description={caseItem.description}
