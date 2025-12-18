@@ -1,0 +1,157 @@
+.sysAdminlogOut {
+
+    position: relative;
+    left: 88%;
+    top: 0.8rem;
+    padding: 15px 20px;
+    background-color: #007bff;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+
+
+}
+
+.sysAdminlogOut:hover {
+
+    background-color: #004d9c;
+    cursor: pointer;
+    transition: all 0.15s linear;
+}
+
+
+.dataInDataBase {
+
+    text-align: center;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    height: 50vh;
+    padding: 1rem 1rem;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px 14px rgba(14 55 54 /15%/*or 0.15*/);
+    border-radius: 10px;
+}
+
+.dataInDataBase h2 {
+
+    color: lightblue;
+    font-size: 3rem;
+
+}
+
+.dataInDataBase table {
+
+    border-radius: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.8rem;
+    height: 15rem;
+    background-color: #edeae3;
+}
+
+.firstRow th {
+
+    padding: 10px 10px;
+    font-size: 1.3rem;
+}
+
+.deleteButton {
+
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.editButton {
+
+    background-color: blue;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.saveButton {
+
+    background-color: lightgreen;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+}
+
+.cancelButton {
+
+    background-color: lightgreen;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    margin-right: 1rem;
+}
+
+
+.addData {
+
+    text-align: center;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3rem;
+    height: 50vh;
+    padding: 1rem 1rem;
+    background-color: #fff;
+    box-shadow: 2px 2px 10px 14px rgba(14 55 54 /15%/*or 0.15*/);
+    border-radius: 10px;
+}
+
+.addData h2 {
+
+    color: lightblue;
+    font-size: 3rem;
+}
+
+.addData table {
+
+    border-radius: 10px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.8rem;
+    height: 15rem;
+    background-color: #edeae3;    
+
+}
+
+.addData table tbody tr th label {
+
+    font-size: 1.5rem;
+    margin-right: -3rem;
+}
+
+.dataButtonSave {
+
+    border: 3px solid #fff;
+    padding: 15px 15px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    margin-right: 2rem;
+    width: 10rem;
+}
+
+.dataButtonSave:hover {
+
+    background-color: #004d9c;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
