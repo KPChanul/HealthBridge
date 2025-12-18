@@ -98,9 +98,29 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
     // --- 4. NAVIGATION LOGIC ---
 
     const handleNext = () => {
-        setStep(prevStep => prevStep + 1);
-    };
+    // 1. Select the required elements
+    const elements = document.querySelectorAll(`.${styles['modal-body']} input[required], .${styles['modal-body']} textarea[required]`);
+    
+    // 2. Convert to Array and FILTER to only include elements currently being rendered
+    const currentVisibleFields = Array.from(elements).filter(field => {
+        // check if the field is actually inside the current step's view
+        return field.offsetParent !== null; 
+    });
+    
+    let allValid = true;
 
+    // 3. Validate only the visible fields
+    currentVisibleFields.forEach(field => {
+        if (!field.checkValidity()) {
+            field.reportValidity(); 
+            allValid = false;
+        }
+    });
+
+    if (allValid) {
+        setStep(prevStep => prevStep + 1);
+    }
+};
     const handleBack = () => {
         setStep(prevStep => prevStep - 1);
     };

@@ -130,29 +130,7 @@ const AdminHeader = ({  currentView, onViewChange, onLogOut }) => {
                             
                             <hr className={styles.divider} />
                             
-                            {/* Password Indicator with Toggle */}
-                            <div className={`${styles.menuItem} ${styles.passwordRow}`}>
-                                <Lock size={16} />
-                                
-                                <span className={styles.passwordText}>
-                                    {/* =========================================================
-                                       TODO: BACKEND TEAM - SECURITY WARNING
-                                       =========================================================
-                                       1. Ensure the 'admin_password' prop is fetched over HTTPS.
-                                       2. This is useful for admins to check their credentials, 
-                                          but treat this data sensitivity carefully.
-                                    */}
-                                    {showPassword ? (admin_password || "No Password") : "••••••••"}
-                                </span>
-                                
-                                <button 
-                                    className={styles.eyeBtn} 
-                                    onClick={togglePasswordVisibility}
-                                    title={showPassword ? "Hide Password" : "Show Password"}
-                                >
-                                    {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-                                </button>
-                            </div>
+                            
 
                             {/* Logout Button */}
                             <button className={`${styles.menuItem} ${styles.logout}`} onClick={onLogOut}>

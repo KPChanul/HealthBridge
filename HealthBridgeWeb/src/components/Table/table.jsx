@@ -64,10 +64,10 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
             health_issue: caseData.health_issue || '',
             description: caseData.description || '',
             is_urgent: Number(caseData.is_urgent) || 0,
-            raised: Number(caseData.raised) || 0,
-            goal: Number(caseData.goal) || 0,
+            raised: Number(caseData.raised) || 0  ,
+            goal: Number(caseData.goal) || 0 ,
             address: caseData.address || '',
-            posted_date: caseData.posted_date || caseData.posted_time || '',
+            posted_date:  caseData.posted_time || '',
             contact_phone: caseData.contact_phone || '',
             contact_email: caseData.contact_email || '',
             bank_name: caseData.bank_name || '',
@@ -109,7 +109,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                         <th>Address</th>
                         <th>Progress</th>
                         <th>Raised / Goal</th>
-                        <th>Posted Date</th>
+                        <th>Posted <br />Date  & Time</th>
                         <th>Contact</th>
                         <th>Bank Name</th>
                         <th>Bank Branch</th>
@@ -158,7 +158,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                                 <span className={styles["goal-amount"]}> / {formatCurrency(caseData.goal)}</span>
                             </td>
 
-                            <td>{caseData.posted_date}</td>
+                            <td>{caseData.posted_time}</td>
 
                             <td className={styles["contact-cell"]}>
                                 <div>{caseData.contact_phone}</div>
