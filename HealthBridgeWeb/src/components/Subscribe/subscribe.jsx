@@ -22,7 +22,7 @@ function Subscribe() {
 
     try {
       const res = await fetch(
-        "http://localhost/HealthBridge/Server/subscribe.php",
+        "http://localhost/ServerHB/subscribe.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,8 +1,10 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-require_once "database.php";
+require "database.php";
+require "cors.php";
 
 // Get JSON data from React
 $data = json_decode(file_get_contents("php://input"), true);
