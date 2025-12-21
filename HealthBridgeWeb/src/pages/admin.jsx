@@ -27,7 +27,32 @@ function AdminPage() {
             setSessionID(parsed.sessionID);
         }
     }, []);
+    //update the last task column in session table  per every 2min
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            if (sessionID && adminId) {
+                try {
+                    const res = await fetch("http://localhost/serverHB/refresh_sessions.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ admin_id: adminId, session_id: sessionID })
+                    });
+                    const data = await res.json();
+                    if (!data.success) {
+                        // Session expired → log out frontend
+                        localStorage.removeItem("auth");
+                        setRole("login");
+                        setAdminId(null);
+                        setSessionID(null);
+                    }
+                } catch (err) {
+                    console.error("Session refresh failed", err);
+                }
+            }
+        }, 2 * 60 * 1000); // every 2 minutes
 
+    return () => clearInterval(interval);
+}, [sessionID, adminId]);
 
     const handleLoginSuccess = (data) => {
         setRole(data.role);

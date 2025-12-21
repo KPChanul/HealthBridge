@@ -63,14 +63,16 @@ try {
     do {
         $sessionID = bin2hex(random_bytes(32)); // 64-character secure token
 
-        $insert = $conn->prepare("INSERT INTO sessions (admin_id, session_id) VALUES (?, ?)");
-        if (!$insert) send_json(false, "Session insert prepare failed: " . $conn->error);
 
-        $insert->bind_param("is", $user["admin_id"], $sessionID);
-        $inserted = $insert->execute();
+        $insert = $conn->prepare(
+             "INSERT INTO sessions (admin_id, session_id, start_time, last_activity) VALUES (?, ?, NOW(), NOW())"
+            );
+            $insert->bind_param("is", $user["admin_id"], $sessionID);
+                    $insert->bind_param("is", $user["admin_id"], $sessionID);
+                    $inserted = $insert->execute();
 
         // If insert fails due to duplicate session_id, regenerate
-    } while (!$inserted);
+        } while (!$inserted);
 
     // --- Determine user role ---
     $role = (strtolower($username) === "sysadmin") ? "sysadmin" : "admin";

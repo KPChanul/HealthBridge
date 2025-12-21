@@ -1,6 +1,6 @@
 <?php
-require 'cors.php';
-require 'database.php';
+require "./cors.php";
+require "./database.php";
 
 header('Content-Type: application/json; charset=utf-8');
 
