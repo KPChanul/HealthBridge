@@ -1,5 +1,6 @@
 <?php
-include("cors.php")
+require "./cors.php";
+
 ?>
 
 <?php

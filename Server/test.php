@@ -2,10 +2,27 @@
 require "database.php"; // your DB connection
 
 // Example admins to add
+
+$hashed = password_hash("admin@123", PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO admins (admin_id,name, password) VALUES (?,?, ?)");
+    $admin_id = 130000;
+    $name = "sysAdmin";
+    $stmt->bind_param("iss", $admin_id, $name, $hashed);
+
+    $stmt->execute();
+
 $admins = [
-    ["name" => "sysAdmin", "password" => "admin123"],
-    ["name" => "JohnDoe", "password" => "johnpass"],
-    ["name" => "JaneSmith", "password" => "janepass"]
+    
+
+    ["name" => "KasunPerera",   "password" => "kasunpass"],
+    ["name" => "NimalFernando", "password" => "nimalpass"],
+    ["name" => "SamanSilva",    "password" => "samanpass"],
+    ["name" => "ChathuraJay",   "password" => "chathurapass"],
+    ["name" => "TharinduGun",   "password" => "tharindupass"],
+    ["name" => "DilshanKumar",  "password" => "dilshanpass"],
+    ["name" => "IsuruBandara",  "password" => "isurupass"],
+    ["name" => "LakshanDevi",   "password" => "lakshanpass"],
+    ["name" => "AmilaRuwan",    "password" => "amilapass"]
 ];
 
 foreach ($admins as $admin) {

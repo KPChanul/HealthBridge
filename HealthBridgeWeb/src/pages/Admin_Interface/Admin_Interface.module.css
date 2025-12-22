@@ -1,0 +1,266 @@
+:root {
+  --primary-blue: #4285f4;
+  --primary-blue-hover: #3367d6;
+  --urgent-red: #ff6b6b;
+  --urgent-bg: #ec7b7b;
+  --active-teal: #20c997;
+  --active-bg: #e6fffa;
+  --text-dark: #1a1a2e;
+  --text-gray: #6c757d;
+  --text-light: #adb5bd;
+  --border-color: #e9ecef;
+  --background: #f8f9fa;
+  --white: #ffffff;
+  --success-green: #28a745;
+}
+
+
+.page{
+    padding: 20px 20px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    width:100%;
+}
+
+.dashboard-controls {
+  background-color: var(--white);
+  padding: 15px 25px;
+  box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  border-radius: 12px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 98%;         /* Sets width to 98% of the screen */
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Default Search Input Style --- */
+.search-input {
+
+    background-Color:var(--white);
+    width: 80%; 
+    max-width: 600px;
+    padding:12px 15px ;                 
+    margin-bottom: 0px;                
+    border-radius: 20px; 
+    border: 2px solid rgb(146, 196, 231); 
+    color: black;
+    font-size: 1rem;
+    box-sizing: border-box; 
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+
+/* --- Focus State Style (The Fix) --- */
+.search-input:focus {
+    
+    border-color: #b3c5d8; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+
+.filter-button-container{
+    margin-bottom: 5px;
+    display: flex;
+    gap:15px;
+
+
+}
+
+.allCasesBtn{
+    height: 50px;
+    min-width: 160px;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    background-color: #d0e0ff; 
+    color: #007bff; 
+    cursor: pointer ;
+    transition: 0.2s;
+}
+
+.allCasesBtn.active{
+    background-color: #007bff;
+    color: white;
+
+}
+
+.allCasesBtn:hover{
+    background-color: #007bff;
+    color: white;
+
+}
+
+.urgentCasesBtn{
+    height: 50px;
+    min-width: 160px;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    background-color: #ffebd8; 
+    color: #ff9933; 
+    cursor: pointer ;
+    transition: 0.2s;
+}
+
+.urgentCasesBtn.active{
+    background-color: #ff9933;
+    color: white;
+
+}
+
+.urgentCasesBtn:hover{
+    background-color: #ff9933;
+    color: white;
+
+}
+
+.fullfilledCasesBtn{
+    height: 50px;
+    min-width: 160px;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    background-color: #e6ffed; 
+    color: #28a745; 
+    cursor: pointer ;
+    transition: 0.2s;
+}
+.fullfilledCasesBtn.active{
+    background-color: #28a745;
+    color: white;
+
+}
+.fullfilledCasesBtn:hover{
+    background-color: #28a745;
+    color: white;
+
+}
+
+
+
+
+.addBtn{
+    height: 50px;
+    min-width: 200px;
+    background-color: #0d1eb9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.addBtn:hover {
+    background-color: #08136d;
+    
+}
+
+.filter-details-count{
+    margin-top: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color:var(--text-gray);
+
+}
+.cases-grid-view{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:30px;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+}
+
+
+/* --- Pagination Styles --- */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    font-size: 1.1rem;
+    user-select: none;
+}
+
+.pagination-item {
+    padding: 8px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.pagination-item.page-number {
+    color: #555;
+    font-weight: 500;
+}
+
+.pagination-item.page-number:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.pagination-item.current {
+    font-weight: bold;
+    color: #333; /* Dark color for the active page number */
+    border-bottom: 2px solid #007bff; /* Underline effect for active page */
+}
+
+/* Styles for Previous/Next buttons when active */
+.pagination-item.active {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.pagination-item.active:hover {
+    background-color: #f0f8ff;
+}
+
+/* Styles for disabled Previous/Next buttons */
+.pagination-item.disabled {
+    color: #ccc; /* Lighter color when disabled */
+    cursor: not-allowed;
+    pointer-events: none; /* Prevents clicks */
+}
+
+
+/* 1. Tablet & Large Phone Landscape (Max Width 1024px) */
+@media (max-width: 1371px) {
+    .cases-grid-view {
+        /* Switch to 2 columns to keep cards readable */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* 2. Phone Portrait (Max Width 600px) */
+@media (max-width: 932px) {
+    .cases-grid-view {
+        /* Switch to a single column to stack cards vertically */
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        width: 95%; /* Use slightly more screen width on mobile */
+    }
+}
+
+

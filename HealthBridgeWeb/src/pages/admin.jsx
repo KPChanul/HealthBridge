@@ -1,61 +1,97 @@
+//make a login frame. if it is sys admin find the pasword is correct then remove login.jsx and disply sysadmin.jsx 
+//if it is noraml admin and password is correct remove login.jsx and disply admin.jsx acording to admin's data
+import React, { useEffect,createContext, useState } from 'react';
 import Login from '../components/login/login.jsx';
-import Admin from "./admin.interface.jsx"
+import Admin from "../pages/Admin_Interface/Admin_Interface.jsx";
 import SysAdmin from './sysadmin.interface.jsx';
-import { useState, useEffect } from 'react'; // Import useEffect
 
-const USER_STORAGE_KEY = 'healthbridge_admin_user';
+export const AdminContext = createContext(null);
 
 function AdminPage() {
 
-    // 1. INITIAL STATE: Check Local Storage first. If data exists, use it. 
-    //    If not, use the default logged-out state ({ role: "login" }).
-    const getInitialUser = () => {
-        const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-        try {
-            return storedUser ? JSON.parse(storedUser) : { role: "login" };
-        } catch (e) {
-            console.error("Failed to parse user data from storage", e);
-            return { role: "login" };
-        }
-    };
-    
-    const [user, setUser] = useState(getInitialUser);
+    // user role and credentials
+    const [role, setRole] = useState( "login");
 
-    // 2. SIDE EFFECT: Whenever the 'user' state changes, update Local Storage.
+    // separate adminId/sessionID state (exposed via context)
+    const [adminId, setAdminId] = useState(null);
+    const [sessionID, setSessionID] = useState(null);
+
+
+    //this triggerevery time the window refresh
     useEffect(() => {
-        // Save the current user object (including role and data) to local storage
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-    }, [user]); // Run this effect only when the 'user' state changes
+        const saved = localStorage.getItem("auth");
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            setRole(parsed.role);
+            setAdminId(parsed.adminId);
+            setSessionID(parsed.sessionID);
+        }
+    }, []);
+    //update the last task column in session table  per every 2min
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            if (sessionID && adminId) {
+                try {
+                    const res = await fetch("http://localhost/serverHB/refresh_sessions.php", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ admin_id: adminId, session_id: sessionID })
+                    });
+                    const data = await res.json();
+                    if (!data.success) {
+                        // Session expired → log out frontend
+                        localStorage.removeItem("auth");
+                        setRole("login");
+                        setAdminId(null);
+                        setSessionID(null);
+                    }
+                } catch (err) {
+                    console.error("Session refresh failed", err);
+                }
+            }
+        }, 2 * 60 * 1000); // every 2 minutes
 
-    // Function to handle the successful login (updates state and triggers useEffect to save)
+    return () => clearInterval(interval);
+}, [sessionID, adminId]);
+
     const handleLoginSuccess = (data) => {
-        setUser(data);
+        setRole(data.role);
+        setAdminId(data.adminId);
+        setSessionID(data.sessionID);
+        localStorage.setItem("auth", JSON.stringify(data));
     };
 
-    // FIX: Function to handle the logout logic correctly
-    const handleLogOut = () => {
-        // Clear Local Storage first
-        localStorage.removeItem(USER_STORAGE_KEY);
-        // Reset state to force re-render and go to login page
-        setUser({ role: "login" }); 
+    const handleLogOut = async () => {
+        try {
+            await fetch("http://localhost/serverHB/logout.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                    admin_id: adminId,
+                    session_id: sessionID
+                })
+            });
+            // Clear frontend state and local storage
+            localStorage.removeItem("auth");
+            setRole("login");
+            setAdminId(null);
+            setSessionID(null);
+        } catch (err) {
+            console.error("Logout request failed", err);
+            // Even if request fails, still clear local state
+        } 
     };
 
     return (
-        <>
-            {/* If role is "login" → show the Login page */}
-            {user.role === "login" && (
-                <Login 
-                    onLoginSuccess={handleLoginSuccess} 
-                />
+        <AdminContext.Provider value={{ adminId,  sessionID,  role }}>
+            {/* If role is null → show the login page */}
+            {role === "login" && (
+                <Login handleLoginSuccess={handleLoginSuccess} />
             )}
 
             {/* If role is "admin" → show Admin interface */}
-            {user.role === "admin" && 
-                <Admin 
-                    admin_id={user.admin_id} 
-                    onLogOut={handleLogOut} 
-                /> 
-            }
+            {role === "admin" && <Admin onLogOut={handleLogOut} /> }
 
             {/* If role is "sysadmin" → show System Admin interface */}
             {user.role === "sysadmin" && 

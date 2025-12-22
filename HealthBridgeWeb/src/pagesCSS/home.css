@@ -150,7 +150,7 @@
 
 }
 
-button:hover .donation-link{
+.btn button:hover .donation-link{
     color: #fff;
 }
 
