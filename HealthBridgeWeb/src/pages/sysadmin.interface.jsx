@@ -1,6 +1,7 @@
 import { useContext,useEffect, useState } from "react";
 import axios from "axios";
-import '../pagesCSS/sysAdmin.css'
+import '../pagesCSS/sysAdmin.css';
+import { AdminContext } from '../admin.jsx';
 
 // Define the API URL once
 const API_URL = 'http://localhost/serverHB/sysAdmin.php';
