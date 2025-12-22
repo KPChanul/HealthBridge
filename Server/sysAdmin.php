@@ -1,7 +1,7 @@
 <?php
 
 // Set CORS headers
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 // Crucial for POST requests: includes Content-Type
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -41,6 +41,7 @@ $conn = $objDb->connect();
 // Determine the HTTP method
 $method = $_SERVER['REQUEST_METHOD'];
 $response = [];
+
 
 switch($method) {
 
