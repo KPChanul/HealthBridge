@@ -188,7 +188,7 @@ return(
                                 <td>{user.name}</td>
                                 <td>{user.last_logged_in}</td>
                                 <td>
-                                    {user.admin_id === 1 ? (
+                                    {user.admin_id === 130000 ? (
                                         <span>&nbsp;</span>
                                     ) : (
                                         
