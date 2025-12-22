@@ -45,17 +45,21 @@ $response = [];
 switch($method) {
 
     case "GET":
-        // With In this case getting all data from database admins table
-        $sql = "SELECT admin_id, name, last_logged_in FROM admins"; // doesn,t use password
+        // Check if the request is for sessions or admins
+        if (isset($_GET['type']) && $_GET['type'] === 'sessions') {
+            $sql = "SELECT admin_id, start_time, end_time FROM sessions ORDER BY start_time DESC";
+        } else {
+            $sql = "SELECT admin_id, name, last_logged_in FROM admins";
+        }
             
         try {
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            $admins = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            http_response_code(200); // OK
-            echo json_encode($admins);
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            http_response_code(200);
+            echo json_encode($data);
         } catch (PDOException $e) {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500);
             echo json_encode(["status" => 0, "message" => "Failed to fetch records.", "error" => $e->getMessage()]);
         }
         break; 

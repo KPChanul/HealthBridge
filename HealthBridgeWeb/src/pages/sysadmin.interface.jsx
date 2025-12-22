@@ -5,14 +5,33 @@ import '../pagesCSS/sysAdmin.css'
 // Define the API URL once
 const API_URL = 'http://localhost/serverHB/sysAdmin.php';
 
+
 function SysAdmin({onLogOut}){
 
+    const [sessions, setSessions] = useState([]);
     const [admins, setAdmins] = useState([]);
     const [inputs , setInputs] = useState({});
     const [editingId, setEditingId] = useState(null); 
     const [editInputs, setEditInputs] = useState({});
 
-    // Function to fetch data
+
+    //// Function to fetch data in session table
+    function getSessions() {
+    // We add ?type=sessions to the URL to trigger the PHP logic above
+        axios.get(`${API_URL}?type=sessions`).then(function(response){
+            if (Array.isArray(response.data)) {
+
+                // Sort the array: compare B to A for descending order
+                const sortedSessions = response.data.sort((a, b) => 
+                new Date(b.start_time) - new Date(a.start_time)
+                );
+
+                setSessions(response.data);
+            }
+        }).catch(error => console.error("Error fetching sessions:", error));
+    }
+
+    // Function to fetch data in admins table
     function getUsers() {
         axios.get(API_URL).then(function(response){
             if (Array.isArray(response.data)) {
@@ -30,6 +49,7 @@ function SysAdmin({onLogOut}){
     // Fetch data on initial component mount
     useEffect(()=> {
         getUsers();
+        getSessions();
     }, []);
 
     // Function for controlled input handling
@@ -221,6 +241,41 @@ return(
             </table>
         </form>
     </div>
+
+
+
+    <div className="sessionData">
+        <h2 className="adminAccTopiv">Admin Sessions</h2>
+        <table>
+            <thead>
+                <tr className="firstRow">
+                    <th>Admin ID</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {sessions.length > 0 ? (
+                    sessions.map((session, index) => (
+                        <tr key={index}>
+                            <td>{session.admin_id}</td>
+                            <td>{session.start_time}</td>
+                            <td>{session.end_time || "Active"}</td>
+                        </tr>
+                    ))
+            ) : (
+                <tr><td colSpan="3">No session data available</td></tr>
+            )}
+            </tbody>
+        </table>
+    </div>
+
+    <div className="extraSpace">
+            
+    </div>
+
+
+
 
     </>
     )
