@@ -198,7 +198,7 @@ return(
                                     
                                 </td>
                                 <td>
-                                    {user.admin_id ===1 ? (
+                                    {user.admin_id ===130000 ? (
                                         <span>&nbsp;</span>
                                     ) : (
 
