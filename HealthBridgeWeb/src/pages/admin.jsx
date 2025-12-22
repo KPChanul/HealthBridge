@@ -94,12 +94,12 @@ function AdminPage() {
             {role === "admin" && <Admin onLogOut={handleLogOut} /> }
 
             {/* If role is "sysadmin" → show System Admin interface */}
-            {user.role === "sysadmin" && 
+            {role === "sysadmin" && 
                 <SysAdmin 
                     onLogOut={handleLogOut} 
                 />
             }
-        </>
+        </AdminContext.Provider>
     );
 }
 

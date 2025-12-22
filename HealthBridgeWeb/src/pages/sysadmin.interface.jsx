@@ -7,7 +7,7 @@ const API_URL = 'http://localhost/serverHB/sysAdmin.php';
 
 
 function SysAdmin({onLogOut}){
-
+    const { adminId, sessionID } = useContext(AdminContext);
     const [sessions, setSessions] = useState([]);
     const [admins, setAdmins] = useState([]);
     const [inputs , setInputs] = useState({});
