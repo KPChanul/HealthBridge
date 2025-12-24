@@ -32,8 +32,8 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
         health_issue: '',
         description: '',
         is_urgent: 1,
-        raised: 0,
-        goal: 0,
+        raised: '',
+        goal: '',
         address: '',
         posted_date: new Date().toLocaleDateString('en-GB'), // Default to today's date
         contact_phone: '',
@@ -73,9 +73,9 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
         const { name, value } = e.target;
         let newValue = value;
         if (name === 'raised' || name === 'goal') {
-            newValue = parseFloat(value) || 0;
+            newValue = parseFloat(value) ;
         } else if (name === 'is_urgent') {
-            newValue = parseInt(value, 10) || 0;
+            newValue = parseInt(value, 10) ;
         }
 
         setFormData(prev => ({
@@ -120,7 +120,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
     if (allValid) {
         setStep(prevStep => prevStep + 1);
     }
-};
+    };
     const handleBack = () => {
         setStep(prevStep => prevStep - 1);
     };
@@ -136,7 +136,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
     return ReactDOM.createPortal(
         
         // Overlay: Clicking the dark background closes the modal
-        <div className={styles['modal-overlay']} onClick={onClose}>
+        <div className={styles['modal-overlay']} >
             
             {/* Content: Clicking inside the box stops the event from closing the modal */}
             <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
@@ -161,7 +161,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                 <div className={styles['form-group']}>
                                     <label htmlFor="patientName">Patient Name</label>
                                     <input
-                                        type="text"
+                                        type="text-only"
                                         id="patientName"
                                         name="patient_name"
                                         value={formData.patient_name}
@@ -224,7 +224,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                     <div className={styles['form-group']}>
                                         <label htmlFor="health_issue">Health Issue</label>
                                         <input
-                                            type="text"
+                                            type="text-only"
                                             id="health_issue"
                                             name="health_issue"
                                             value={formData.health_issue}
@@ -242,6 +242,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                             name="posted_date"
                                             value={formData.posted_date}
                                             onChange={handleChange}
+                                            readOnly
                                         />
                                     </div>
                                     
@@ -348,7 +349,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                 <div className={styles['form-group']}>
                                     <label htmlFor="account_number">Account Number</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id="account_number"
                                         name="account_number"
                                         value={formData.account_number}
@@ -373,7 +374,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                             </button>
 
                             <button 
-                                type="button" // Important: type="button" so it doesn't auto-submit the form
+                                type="button" 
                                 className={styles['modal-btn-next']} 
                                 onClick={handleNext}
                             >
@@ -395,7 +396,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                             </button>
 
                             <button 
-                                type="button" // Important: type="button" so it doesn't auto-submit the form
+                                type="button" 
                                 className={styles['modal-btn-next']} 
                                 onClick={handleNext}
                             >
@@ -419,10 +420,7 @@ const AdminForm = ({ isOpen, onClose, onSubmit, editData }) => {
                                     type="submit" // Triggers onSubmit={handleSubmit} on the <form> tag
                                     className={styles['modal-btn-submit']}
                                 >
-                                    {/* TODO: BACKEND TEAM
-                                       The Text below changes based on mode, but the 'type="submit"' 
-                                       always triggers the handleSubmit function defined above.
-                                    */}
+                                   
                                     {editData ? 'Save Changes' : 'Add Case'}
                                 </button>
                             </div>

@@ -57,7 +57,7 @@ const CardInterface_Admin = (props) => {
 
     // 2. Date Formatter
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
 
     // 3. Currency Formatter (LKR)
@@ -94,7 +94,8 @@ const CardInterface_Admin = (props) => {
         bank_name: props.bankName || '', 
         bank_branch: props.branch || '',
         account_holder: props.accountHolder || '',
-        account_number: props.accountNumber || ''
+        account_number: props.accountNumber || '',
+        posted_date:props.postedDate,
     };
     //find chnged key and values.
     const getChangedFields = (current, updated) => {

@@ -67,7 +67,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
             raised: Number(caseData.raised) || 0  ,
             goal: Number(caseData.goal) || 0 ,
             address: caseData.address || '',
-            posted_date:  caseData.posted_time || '',
+            posted_date:  caseData.posted_time.split(' ')[0] || '',
             contact_phone: caseData.contact_phone || '',
             contact_email: caseData.contact_email || '',
             bank_name: caseData.bank_name || '',

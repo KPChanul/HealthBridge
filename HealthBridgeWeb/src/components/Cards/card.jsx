@@ -41,7 +41,7 @@ const CardInterface =(props)=>{
 
     //Format Date Function define
     const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: 'numeric', day: 'numeric' });
+    return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
     };
 
