@@ -26,18 +26,22 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2rem;
-    height: 50vh;
+    margin-top: 3rem;
+    margin-bottom: 3rem; /* Space at the bottom of the page */
+    min-height: 50vh; /* Changed to min-height to handle long lists */
     padding: 1rem 1rem;
     background-color: #fff;
-    box-shadow: 2px 2px 10px 14px rgba(14 55 54 /15%/*or 0.15*/);
+    box-shadow: 2px 2px 10px 14px rgba(14, 55, 54, 0.15);
     border-radius: 10px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .dataInDataBase h2 {
 
     color: lightblue;
     font-size: 3rem;
+    margin-bottom: 1rem;
 
 }
 
@@ -48,16 +52,52 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 1.8rem;
-    height: 15rem;
     background-color: #edeae3;
+    border-collapse: collapse; /* Cleaner look for data tables */
+    overflow: hidden; /* Ensures border-radius shows on table */
 }
 
+.dataInDataBase thead tr th {
+    padding: 15px 10px;
+    font-size: 1.3rem;
+    background-color: #dcd9d0; /* Slightly darker to distinguish header */
+    border-bottom: 2px solid #fff;
+}
+
+
+
+.dataInDataBase tbody tr td {
+    padding: 12px 10px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #fff;
+}
+
+/* Zebra striping for readability */
+.dataInDataBase tbody tr:nth-child(even) {
+    background-color: #f5f3ee;
+}
+
+/* Hover effect on rows */
+.dataInDataBase tbody tr:hover {
+    background-color: #e2dfd5;
+    transition: background-color 0.2s ease;
+}
+
+/* Status styling for the 'Active' end_time text */
+.dataInDataBase td:contains('Active') {
+    color: #28a745;
+    font-weight: bold;
+}
+
+
+
+/*
 .firstRow th {
 
     padding: 10px 10px;
     font-size: 1.3rem;
 }
-
+*/
 .deleteButton {
 
     background-color: red;
