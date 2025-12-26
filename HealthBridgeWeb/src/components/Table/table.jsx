@@ -254,17 +254,16 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                             credentials: 'include',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(data)
-                        });
+                            });
+                        if (!resp.ok) throw new Error(`Server Error`);
+                                const json = await resp.json();
 
-                        if (!resp.ok) throw new Error('Server Error');
-                        const json = await resp.json();
-                        if (!json.success) {
-                            setError(json.message || 'Failed to delete the case.');
-                        } else {
-                            // Optionally call onDelete to refresh parent
-                            if (typeof onDelete === 'function') onDelete();
-                            window.location.reload();
-                        }
+                                if (!json.success) {
+                                    setError(json.message || 'Failed to delete the case.');
+                                } 
+                          
+                         window.location.reload();
+                         closeDelete();
 
                     } catch (err) {
                         setError(err.message || 'Network error');
