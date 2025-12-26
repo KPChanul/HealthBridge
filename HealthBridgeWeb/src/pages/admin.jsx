@@ -34,6 +34,7 @@ function AdminPage() {
                 try {
                     const res = await fetch("http://localhost/serverHB/refresh_sessions.php", {
                         method: "POST",
+                        credentials: "include",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ admin_id: adminId })
                     });

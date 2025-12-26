@@ -49,14 +49,7 @@ const DeleteConfirm = ({ isOpen, onClose, onConfirm, patientName }) => {
                         Cancel
                     </button>
 
-                    {/* ===================================================================
-                        TODO: BACKEND TEAM - IMPLEMENT DELETE FUNCTIONALITY
-                        ===================================================================
-                        1. The 'onClick' event below currently calls 'onConfirm'.
-                        2. You must ensure the Parent Component passes a function to 'onConfirm'
-                           that performs the DELETE request to the PHP/SQL backend.
-                        3. Once the promise/fetch resolves, the parent should close this modal.
-                    */}
+                   {/*deleting button*/}
                     <button 
                         className={`${styles['modal-btn']} ${styles.delete}`} 
                         onClick={onConfirm}

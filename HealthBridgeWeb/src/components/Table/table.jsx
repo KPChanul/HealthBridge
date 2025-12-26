@@ -263,7 +263,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                         } else {
                             // Optionally call onDelete to refresh parent
                             if (typeof onDelete === 'function') onDelete();
-                            else window.location.reload();
+                            window.location.reload();
                         }
 
                     } catch (err) {
