@@ -16,6 +16,7 @@ function Login({ handleLoginSuccess }) {
       const response = await fetch("http://localhost/serverHB/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ username, password })
       });
 

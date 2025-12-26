@@ -12,38 +12,38 @@ function AdminPage() {
     // user role and credentials
     const [role, setRole] = useState( "login");
 
-    // separate adminId/sessionID state (exposed via context)
+    // separate adminId state (exposed via context)
     const [adminId, setAdminId] = useState(null);
-    const [sessionID, setSessionID] = useState(null);
+    
 
 
     //this triggerevery time the window refresh
     useEffect(() => {
-        const saved = localStorage.getItem("auth");
+        const saved = sessionStorage.getItem("auth");
         if (saved) {
             const parsed = JSON.parse(saved);
             setRole(parsed.role);
             setAdminId(parsed.adminId);
-            setSessionID(parsed.sessionID);
+            
         }
     }, []);
     //update the last task column in session table  per every 2min
     useEffect(() => {
         const interval = setInterval(async () => {
-            if (sessionID && adminId) {
+            if ( adminId) {
                 try {
                     const res = await fetch("http://localhost/serverHB/refresh_sessions.php", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ admin_id: adminId, session_id: sessionID })
+                        body: JSON.stringify({ admin_id: adminId })
                     });
                     const data = await res.json();
                     if (!data.success) {
                         // Session expired → log out frontend
-                        localStorage.removeItem("auth");
+                        sessionStorage.removeItem("auth");
                         setRole("login");
                         setAdminId(null);
-                        setSessionID(null);
+                        
                     }
                 } catch (err) {
                     console.error("Session refresh failed", err);
@@ -52,13 +52,13 @@ function AdminPage() {
         }, 2 * 60 * 1000); // every 2 minutes
 
     return () => clearInterval(interval);
-}, [sessionID, adminId]);
+}, [ adminId]);
 
     const handleLoginSuccess = (data) => {
         setRole(data.role);
         setAdminId(data.adminId);
-        setSessionID(data.sessionID);
-        localStorage.setItem("auth", JSON.stringify(data));
+        
+        sessionStorage.setItem("auth", JSON.stringify(data));
     };
 
     const handleLogOut = async () => {
@@ -68,15 +68,15 @@ function AdminPage() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    admin_id: adminId,
-                    session_id: sessionID
+                    admin_id: adminId
+                    
                 })
             });
             // Clear frontend state and local storage
-            localStorage.removeItem("auth");
+            sessionStorage.removeItem("auth");
             setRole("login");
             setAdminId(null);
-            setSessionID(null);
+            
         } catch (err) {
             console.error("Logout request failed", err);
             // Even if request fails, still clear local state
@@ -84,7 +84,7 @@ function AdminPage() {
     };
 
     return (
-        <AdminContext.Provider value={{ adminId,  sessionID,  role }}>
+        <AdminContext.Provider value={{ adminId,    role }}>
             {/* If role is null → show the login page */}
             {role === "login" && (
                 <Login handleLoginSuccess={handleLoginSuccess} />

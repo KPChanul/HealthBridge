@@ -11,7 +11,7 @@ $raw = file_get_contents("php://input");
 $data = json_decode($raw, true);
 
 $admin_id = $data['admin_id'] ?? null;
-$session_id = $data['session_id'] ?? null;
+$session_id = $_COOKIE['HB_SESSION'] ?? null
 
 // Validate input
 if (!$admin_id || !$session_id) {

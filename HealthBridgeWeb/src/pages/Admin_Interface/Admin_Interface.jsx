@@ -20,7 +20,7 @@ const CARDS_PER_PAGE = 6;
  * 3. Handling the "Add New Case" logic (CREATE).
  */
 const Admin = ({ onLogOut }) => {
-    const { adminId, sessionID } = useContext(AdminContext);
+    const { adminId } = useContext(AdminContext);
     
     // --- STATE MANAGEMENT ---
 
@@ -88,8 +88,8 @@ const Admin = ({ onLogOut }) => {
     // --- API: FETCH DATA (READ) ---
     // This is your EXISTING backend connection. It works!
     useEffect(() => {
-        // Only attempt fetch when adminId and sessionID are available
-        if (!adminId || !sessionID) {
+        // Only attempt fetch when adminId is available
+        if (!adminId ) {
             setError("Missing admin credentials. Please login.");
             setData([]);
             setLoading(false);
@@ -98,13 +98,13 @@ const Admin = ({ onLogOut }) => {
 
         
         setLoading(true);
-        fetch("http://localhost/serverHB/get_cases_for_admins.php", 
+        fetch("http://localhost/serverHB/admin.php", 
             { method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
             body: JSON.stringify({
                 admin_id: adminId,
-                session_id: sessionID
+                action:"get"
                 })
             })
              .then(response => {
@@ -129,7 +129,7 @@ const Admin = ({ onLogOut }) => {
         .finally(() => {
             setLoading(false);
         });
-    }, [adminId, sessionID]);
+    }, [adminId]);
 
     // --- PAGINATION HANDLER ---
     const handlePageChange = (page) => {
@@ -235,13 +235,13 @@ const Admin = ({ onLogOut }) => {
                             
                             
                                 
-                                const payload = {       
+                                const payload = {
                                     admin_id: adminId,
-                                    session_id:sessionID,
+                                    action: "create",
                                     patient_name: newCaseData.patient_name,
                                     health_issue: newCaseData.health_issue,
                                     description: newCaseData.description,
-                                    status: newCaseData.is_urgent|| 0,
+                                    is_urgent: newCaseData.is_urgent || 0,
                                     raised: newCaseData.raised || 0,
                                     goal: newCaseData.goal || 0,
                                     address: newCaseData.address,
@@ -250,14 +250,15 @@ const Admin = ({ onLogOut }) => {
                                     bank_name: newCaseData.bank_name,
                                     bank_branch: newCaseData.bank_branch,
                                     account_holder: newCaseData.account_holder,
-                                    account_number: newCaseData.account_number};
+                                    account_number: newCaseData.account_number
+                                };
 
-                                const resp = await fetch('http://localhost/serverHB/create_cases.php', {
-                                        method: 'POST',
-                                        credentials: 'include',
-                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                        body: new URLSearchParams(payload)
-                                    });
+                                const resp = await fetch('http://localhost/serverHB/admin.php', {
+                                    method: 'POST',
+                                    credentials: 'include',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(payload)
+                                });
 
                                 if (!resp.ok) throw new Error(`Server Error`);
                                 const json = await resp.json();
