@@ -14,22 +14,31 @@ CREATE TABLE admins (
 
 
 CREATE TABLE sessions (
-    session_id VARCHAR(255) PRIMARY KEY,  -- unique session ID
+    session_id VARCHAR(255) PRIMARY KEY,   -- unique session ID
     admin_id INT NOT NULL,
-    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- session start
-    end_time TIMESTAMP NULL DEFAULT NULL           -- session end
+    admin_name VARCHAR(50) NOT NULL,       -- store admin name
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- session start
+    end_time TIMESTAMP NULL DEFAULT NULL              -- session end
 );
+DELIMITER $$
+
+CREATE TRIGGER before_insert_sessions
+BEFORE INSERT ON sessions
+FOR EACH ROW
+BEGIN
+    IF NEW.admin_name IS NULL OR NEW.admin_name = '' THEN
+        SET NEW.admin_name = (
+            SELECT name
+            FROM admins
+            WHERE admin_id = NEW.admin_id
+            LIMIT 1
+        );
+    END IF;
+END$$
+
+DELIMITER ;
 
 
-Optional: Foreign key for data integrity
-
-ALTER TABLE sessions
-ADD CONSTRAINT fk_admin
-FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
-ON DELETE CASCADE;
-
-
-Ensures that if an admin is deleted, their sessions are automatically removed
 
 CREATE TABLE active_cases (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,12 +48,79 @@ CREATE TABLE active_cases (
     goal BIGINT NOT NULL,
     raised BIGINT NOT NULL DEFAULT 0,
     address VARCHAR(150),
-    posted_date DATE NOT NULL,
+    posted_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     contact_phone VARCHAR(50),
     contact_email VARCHAR(100),
     bank_name VARCHAR(50),
     bank_branch VARCHAR(70),
     account_holder VARCHAR(100),
     account_number VARCHAR(50),
-    description TEXT
+    description TEXT,
+
+    admin_id INT NOT NULL,
+    admin_name VARCHAR(50) NOT NULL
 );
+DELIMITER $$
+
+CREATE TRIGGER before_insert_active_cases
+BEFORE INSERT ON active_cases
+FOR EACH ROW
+BEGIN
+    IF NEW.admin_name IS NULL OR NEW.admin_name = '' THEN
+        SET NEW.admin_name = (
+            SELECT name
+            FROM admins
+            WHERE admin_id = NEW.admin_id
+            LIMIT 1
+        );
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+
+CREATE TABLE cases_history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    case_id INT NOT NULL,
+    patient_name VARCHAR(100) NOT NULL,
+
+    admin_id INT NOT NULL,
+    admin_name VARCHAR(50) NOT NULL,
+
+    action ENUM('Create', 'Edit', 'Delete') NOT NULL,
+    changed_fields JSON DEFAULT NULL,
+
+    action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_cases_history
+BEFORE INSERT ON cases_history
+FOR EACH ROW
+BEGIN
+    -- Auto-fill admin_name
+    IF NEW.admin_name IS NULL OR NEW.admin_name = '' THEN
+        SET NEW.admin_name = (
+            SELECT name
+            FROM admins
+            WHERE admin_id = NEW.admin_id
+            LIMIT 1
+        );
+    END IF;
+
+    -- Auto-fill patient_name
+    IF NEW.patient_name IS NULL OR NEW.patient_name = '' THEN
+        SET NEW.patient_name = (
+            SELECT patient_name
+            FROM active_cases
+            WHERE id = NEW.case_id
+            LIMIT 1
+        );
+    END IF;
+END$$
+
+DELIMITER ;

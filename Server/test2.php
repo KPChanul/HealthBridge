@@ -9,14 +9,15 @@ $cases = [
         "goal" => 180000,
         "raised" => 10000,
         "address" => "Kandy, LK",
-        "posted_date" => "2025-09-01",
+        "posted_date" => "2025-09-01 14:32:07",
         "contact_phone" => "077XXXXX11",
         "contact_email" => "iresha@example.com",
         "bank_name" => "Nations Trust Bank",
         "bank_branch" => "Kandy City",
         "account_holder" => "Iresha",
         "account_number" => "6655443322",
-        "description" => "Iresha needs extensive dental reconstruction following a childhood illness."
+        "description" => "Iresha needs extensive dental reconstruction following a childhood illness.",
+        "admin_id" => 130004
     ],
     [
         "patient_name" => "Kamal Wijesinghe",
@@ -25,14 +26,15 @@ $cases = [
         "goal" => 300000,
         "raised" => 300000,
         "address" => "Matara, LK",
-        "posted_date" => "2025-09-05",
+        "posted_date" => "2025-09-05 09:17:43",
         "contact_phone" => "076XXXXXX3",
         "contact_email" => "kamal@example.com",
         "bank_name" => "Sampath Bank",
         "bank_branch" => "Matara",
         "account_holder" => "Kamal Wijesinghe",
         "account_number" => "6677889900",
-        "description" => "Kamal needs funds to acquire a modern prosthetic leg for independence. With a properly fitted, advanced prosthetic, he will regain mobility, confidence, and the ability to perform everyday tasks without relying on others. This support will not only transform his physical capability but also restore his sense of dignity and hope for a stable future."
+        "description" => "Kamal needs funds to acquire a modern prosthetic leg for independence. With a properly fitted, advanced prosthetic, he will regain mobility, confidence, and the ability to perform everyday tasks without relying on others. This support will not only transform his physical capability but also restore his sense of dignity and hope for a stable future.",
+        "admin_id" => 130002
     ],
     [
         "patient_name" => "Ravi Kumara",
@@ -41,14 +43,15 @@ $cases = [
         "goal" => 1200000,
         "raised" => 800000,
         "address" => "Galle, LK",
-        "posted_date" => "2025-09-15",
+        "posted_date" => "2025-09-15 22:45:11",
         "contact_phone" => "077XXXXXXX",
         "contact_email" => "ravi@example.com",
         "bank_name" => "People's Bank",
         "bank_branch" => "Galle City",
         "account_holder" => "Ravi Kumara",
         "account_number" => "0123456789",
-        "description" => "Ravi Kumara needs support for a critical heart bypass surgery."
+        "description" => "Ravi Kumara needs support for a critical heart bypass surgery.",
+        "admin_id" => 130001
     ],
     [
         "patient_name" => "Aisha Perera",
@@ -57,14 +60,15 @@ $cases = [
         "goal" => 500000,
         "raised" => 150000,
         "address" => "Colombo, LK",
-        "posted_date" => "2025-10-01",
+        "posted_date" => "2025-10-01 11:08:55",
         "contact_phone" => "071XXXXXXX",
         "contact_email" => "aisha@example.com",
         "bank_name" => "Bank of Ceylon",
         "bank_branch" => "Colombo Fort",
         "account_holder" => "Aisha Perera",
         "account_number" => "7012345678",
-        "description" => "Aisha needs urgent funding for her life-saving kidney dialysis treatments."
+        "description" => "Aisha needs urgent funding for her life-saving kidney dialysis treatments.",
+        "admin_id" => 130002
     ],
     [
         "patient_name" => "Chandana Rupasinghe",
@@ -73,14 +77,15 @@ $cases = [
         "goal" => 1100000,
         "raised" => 100000,
         "address" => "Ampara, LK",
-        "posted_date" => "2025-10-10",
+        "posted_date" => "2025-10-10 06:34:22",
         "contact_phone" => "076XXXXXX9",
         "contact_email" => "chandana@example.com",
         "bank_name" => "People's Bank",
         "bank_branch" => "Ampara",
         "account_holder" => "Chandana Rupasinghe",
         "account_number" => "1234432112",
-        "description" => "Fundraising for corrective heart procedures for infant Chandana."
+        "description" => "Fundraising for corrective heart procedures for infant Chandana.",
+        "admin_id" => 130004
     ],
     [
         "patient_name" => "Tharindu Ekanayake",
@@ -89,14 +94,15 @@ $cases = [
         "goal" => 80000,
         "raised" => 10000,
         "address" => "Kurunegala, LK",
-        "posted_date" => "2025-10-25",
+        "posted_date" => "2025-10-25 19:12:38",
         "contact_phone" => "077XXXXXX5",
         "contact_email" => "tharindu@example.com",
         "bank_name" => "NDB Bank",
         "bank_branch" => "Kurunegala",
         "account_holder" => "Tharindu Ekanayake",
         "account_number" => "9988225577",
-        "description" => "Tharindu needs bilateral cataract surgery to prevent blindness."
+        "description" => "Tharindu needs bilateral cataract surgery to prevent blindness.",
+        "admin_id" => 130009
     ],
     [
         "patient_name" => "Priya Samarawickrama",
@@ -105,14 +111,15 @@ $cases = [
         "goal" => 600000,
         "raised" => 550000,
         "address" => "Gampaha, LK",
-        "posted_date" => "2025-11-01",
+        "posted_date" => "2025-11-01 08:27:04",
         "contact_phone" => "076XXXXXX6",
         "contact_email" => "priya@example.com",
         "bank_name" => "Bank of Ceylon",
         "bank_branch" => "Gampaha",
         "account_holder" => "Priya Samarawickrama",
         "account_number" => "7722994466",
-        "description" => "Priya is undergoing intensive chemotherapy and needs funds for medication."
+        "description" => "Priya is undergoing intensive chemotherapy and needs funds for medication.",
+        "admin_id" => 130008
     ],
     [
         "patient_name" => "Shiromi Pathirana",
@@ -121,14 +128,15 @@ $cases = [
         "goal" => 9000000,
         "raised" => 800000,
         "address" => "Colombo, LK",
-        "posted_date" => "2025-11-05",
+        "posted_date" => "2025-11-05 21:44:19",
         "contact_phone" => "077XXXXXX8",
         "contact_email" => "shiromi@example.com",
         "bank_name" => "HNB",
         "bank_branch" => "Colombo 03",
         "account_holder" => "Shiromi Pathirana",
         "account_number" => "4455667788",
-        "description" => "Shiromi, a young girl, urgently needs a bone marrow transplant to survive leukemia."
+        "description" => "Shiromi, a young girl, urgently needs a bone marrow transplant to survive leukemia.",
+        "admin_id" => 130006
     ],
     [
         "patient_name" => "Nimal Fernando",
@@ -137,14 +145,15 @@ $cases = [
         "goal" => 700000,
         "raised" => 400000,
         "address" => "Negombo, LK",
-        "posted_date" => "2025-11-10",
+        "posted_date" => "2025-11-10 15:11:53",
         "contact_phone" => "071XXXXXX1",
         "contact_email" => "nimal@example.com",
         "bank_name" => "HNB",
         "bank_branch" => "Negombo",
         "account_holder" => "Nimal Fernando",
         "account_number" => "4587123698",
-        "description" => "Nimal needs extended rehabilitation after a serious accident to regain mobility."
+        "description" => "Nimal needs extended rehabilitation after a serious accident to regain mobility.",
+        "admin_id" => 130007
     ],
     [
         "patient_name" => "Anusha Ranasinghe",
@@ -153,14 +162,15 @@ $cases = [
         "goal" => 4000000,
         "raised" => 1500000,
         "address" => "Kandy, LK",
-        "posted_date" => "2025-11-15",
+        "posted_date" => "2025-11-15 12:05:47",
         "contact_phone" => "071XXXXXX4",
         "contact_email" => "anusha@example.com",
         "bank_name" => "Commercial Bank",
         "bank_branch" => "Kandy",
         "account_holder" => "Anusha Ranasinghe",
         "account_number" => "2200330044",
-        "description" => "Anusha requires a life-saving liver transplant in the next three months."
+        "description" => "Anusha requires a life-saving liver transplant in the next three months.",
+        "admin_id" => 130005
     ],
     [
         "patient_name" => "Heshan Gunaratne",
@@ -169,14 +179,15 @@ $cases = [
         "goal" => 350000,
         "raised" => 300000,
         "address" => "Galle, LK",
-        "posted_date" => "2025-11-18",
+        "posted_date" => "2025-11-18 09:33:21",
         "contact_phone" => "076XXXXX12",
         "contact_email" => "heshan@example.com",
         "bank_name" => "Sampath Bank",
         "bank_branch" => "Galle",
         "account_holder" => "Heshan Gunaratne",
         "account_number" => "5511223344",
-        "description" => "Heshan requires a specialized wheelchair and continuous physiotherapy support."
+        "description" => "Heshan requires a specialized wheelchair and continuous physiotherapy support.",
+        "admin_id" => 130004
     ],
     [
         "patient_name" => "Samanthi Silva",
@@ -185,14 +196,15 @@ $cases = [
         "goal" => 850000,
         "raised" => 5000,
         "address" => "Kandy, LK",
-        "posted_date" => "2025-11-20",
+        "posted_date" => "2025-11-20 20:55:12",
         "contact_phone" => "076XXXXXXX",
         "contact_email" => "samanthi@example.com",
         "bank_name" => "Commercial Bank",
         "bank_branch" => "Kandy City",
         "account_holder" => "Samanthi Silva",
         "account_number" => "1234567890",
-        "description" => "Samanthi requires chemotherapy sessions for breast cancer treatment."
+        "description" => "Samanthi requires chemotherapy sessions for breast cancer treatment.",
+        "admin_id" => 130004
     ],
     [
         "patient_name" => "Lalitha Devi",
@@ -201,14 +213,15 @@ $cases = [
         "goal" => 1500000,
         "raised" => 25000,
         "address" => "Jaffna, LK",
-        "posted_date" => "2025-11-22",
+        "posted_date" => "2025-11-22 07:41:56",
         "contact_phone" => "077XXXXXX2",
         "contact_email" => "lalitha@example.com",
         "bank_name" => "People's Bank",
         "bank_branch" => "Jaffna Town",
         "account_holder" => "Lalitha Devi",
         "account_number" => "5566443322",
-        "description" => "Lalitha sustained severe burns and requires multiple skin graft surgeries immediately."
+        "description" => "Lalitha sustained severe burns and requires multiple skin graft surgeries immediately.",
+        "admin_id" => 130001
     ],
     [
         "patient_name" => "Vimal Hewage",
@@ -217,14 +230,15 @@ $cases = [
         "goal" => 450000,
         "raised" => 0,
         "address" => "Nuwara Eliya, LK",
-        "posted_date" => "2025-11-23",
+        "posted_date" => "2025-11-23 13:26:09",
         "contact_phone" => "071XXXXXX7",
         "contact_email" => "vimal@example.com",
         "bank_name" => "Seylan Bank",
         "bank_branch" => "Nuwara Eliya",
         "account_holder" => "Vimal Hewage",
         "account_number" => "3344556677",
-        "description" => "Vimal requires urgent corrective surgery for a complex knee fracture."
+        "description" => "Vimal requires urgent corrective surgery for a complex knee fracture.",
+        "admin_id" => 130002
     ],
     [
         "patient_name" => "Sunil Dias",
@@ -233,28 +247,30 @@ $cases = [
         "goal" => 250000,
         "raised" => 100000,
         "address" => "Kalutara, LK",
-        "posted_date" => "2025-11-24",
+        "posted_date" => "2025-11-24 16:14:33",
         "contact_phone" => "071XXXXX10",
         "contact_email" => "sunil@example.com",
         "bank_name" => "Commercial Bank",
         "bank_branch" => "Kalutara",
         "account_holder" => "Sunil Dias",
         "account_number" => "7788991100",
-        "description" => "Sunil requires ongoing dialysis sessions which are not covered by insurance."
+        "description" => "Sunil requires ongoing dialysis sessions which are not covered by insurance.",
+        "admin_id" => 130003
     ]
 ];
 
 
+
 // Prepare statement
 $sql = "INSERT INTO active_cases 
-(patient_name, health_issue, is_urgent, goal, raised, address, posted_date, contact_phone, contact_email, bank_name, bank_branch, account_holder, account_number, description)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+(patient_name, health_issue, is_urgent, goal, raised, address, posted_time, contact_phone, contact_email, bank_name, bank_branch, account_holder, account_number, description,admin_id)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 $stmt = $conn->prepare($sql);
 
 foreach ($cases as $c) {
     $stmt->bind_param(
-    "ssiiisssssssss",
+    "ssiiisssssssssi",
     $c['patient_name'],
     $c['health_issue'],
     $c['is_urgent'],
@@ -268,7 +284,8 @@ foreach ($cases as $c) {
     $c['bank_branch'],
     $c['account_holder'],
     $c['account_number'],
-    $c['description']
+    $c['description'],
+    $c['admin_id']
     );
     $stmt->execute();
 }
