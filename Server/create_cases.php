@@ -1,6 +1,6 @@
 <?php
-require 'cors.php';
-require 'database.php';
+require "./cors.php";
+require "./database.php";
 try{
 header('Content-Type: application/json; charset=utf-8');
 // Check database connection
@@ -90,6 +90,7 @@ if ($conn->connect_error) {
                 }
             }
             $stmt->close();
+            
             echo json_encode(["success" => true, "message" => "Case created successfully."]);
             exit;
         }

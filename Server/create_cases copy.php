@@ -1,7 +1,7 @@
 
 <?php
-require 'cors.php';
-require 'database.php';
+require "./cors.php";
+require "./database.php";
 try{
     // Check database connection
     if ($conn->connect_error) {

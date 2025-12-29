@@ -13,7 +13,7 @@ import { AdminContext } from '../../pages/admin.jsx'
  * @param {Function} onDelete - (Optional) Prop function to trigger parent delete logic.
  */
 const CaseTable = ({ cases, onEdit, onDelete}) => {
-    const { adminId, sessionID } = useContext(AdminContext);
+    const { adminId } = useContext(AdminContext);
     // --- STATE MANAGEMENT ---
 
     // State to control the visibility of the delete confirmation modal
@@ -67,7 +67,7 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
             raised: Number(caseData.raised) || 0  ,
             goal: Number(caseData.goal) || 0 ,
             address: caseData.address || '',
-            posted_date:  caseData.posted_time || '',
+            posted_date:  caseData.posted_time.split(' ')[0] || '',
             contact_phone: caseData.contact_phone || '',
             contact_email: caseData.contact_email || '',
             bank_name: caseData.bank_name || '',
@@ -208,14 +208,14 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                     }
 
                     try {
-                        const resp = await fetch('http://localhost/serverHB/change_data.php', {
+                        const resp = await fetch('http://localhost/serverHB/admin.php', {
                             method: 'POST',
                             credentials: 'include',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 changed_data: changedData,
                                 admin_id: adminId,
-                                session_id: sessionID,
+                                action: "update",
                                 post_id: editTarget.id
                             })
                         });
@@ -244,27 +244,26 @@ const CaseTable = ({ cases, onEdit, onDelete}) => {
                 onConfirm={async() => {
                     const data = {
                         admin_id: adminId,
-                        session_id: sessionID,
+                        action:"delete",
                         post_id: deleteTarget.id
                     };
 
                     try {
-                        const resp = await fetch('http://localhost/serverHB/delete_cases.php', {
+                        const resp = await fetch('http://localhost/serverHB/admin.php', {
                             method: 'POST',
                             credentials: 'include',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams(data)
-                        });
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                            });
+                        if (!resp.ok) throw new Error(`Server Error`);
+                                const json = await resp.json();
 
-                        if (!resp.ok) throw new Error('Server Error');
-                        const json = await resp.json();
-                        if (!json.success) {
-                            setError(json.message || 'Failed to delete the case.');
-                        } else {
-                            // Optionally call onDelete to refresh parent
-                            if (typeof onDelete === 'function') onDelete();
-                            else window.location.reload();
-                        }
+                                if (!json.success) {
+                                    setError(json.message || 'Failed to delete the case.');
+                                } 
+                          
+                         window.location.reload();
+                         closeDelete();
 
                     } catch (err) {
                         setError(err.message || 'Network error');

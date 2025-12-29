@@ -1,6 +1,6 @@
 <?php
-require 'cors.php';
-require 'database.php';
+require "./cors.php";
+require "./database.php";
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -17,7 +17,13 @@ try {
     $data = json_decode(file_get_contents("php://input"), true);
 
     $admin_id   = $data['admin_id']   ?? null;
-    $session_id = $data['session_id'] ?? null;
+    $session_id =   $_COOKIE['HB_SESSION'] ?? '';
+
+    // Determine secure / samesite settings so we clear the cookie with the same attributes
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+                || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $samesite = $isSecure ? 'None' : 'Lax';
 
     if (!$admin_id || !$session_id) {
         echo json_encode([
@@ -55,6 +61,14 @@ try {
         ]);
         exit;
     }
+    // remove session Id cookie (match attributes used when setting it)
+    setcookie('HB_SESSION', '', [
+        'expires'  => time() - 3600*2,
+        'path'     => '/',
+        'secure'   => $isSecure,
+        'httponly' => true,
+        'samesite' => $samesite
+    ]);
 
     echo json_encode([
         "success" => true,

@@ -12,14 +12,17 @@ CREATE TABLE admins (
     last_logged_in TIMESTAMP NULL DEFAULT NULL
 );
 
-
 CREATE TABLE sessions (
-    session_id VARCHAR(255) PRIMARY KEY,   -- unique session ID
-    admin_id INT NOT NULL,
-    admin_name VARCHAR(50) NOT NULL,       -- store admin name
-    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- session start
-    end_time TIMESTAMP NULL DEFAULT NULL              -- session end
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    session_id VARCHAR(255) NOT NULL UNIQUE,        -- unique ID for each session
+    admin_id INT NOT NULL,                      -- which admin owns this session
+    admin_name VARCHAR(50) NOT NULL,           -- store admin's name
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- when the session started
+    last_activity TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- last time user did anything
+    end_time TIMESTAMP NULL DEFAULT NULL       -- when session was ended (NULL = still active)
 );
+
+
 DELIMITER $$
 
 CREATE TRIGGER before_insert_sessions
@@ -38,7 +41,15 @@ END$$
 
 DELIMITER ;
 
+SET GLOBAL event_scheduler = ON;
 
+CREATE EVENT expire_idle_sessions
+ON SCHEDULE EVERY 2 MINUTE
+DO
+    UPDATE sessions
+    SET end_time = NOW()
+    WHERE end_time IS NULL
+      AND TIMESTAMPDIFF(MINUTE, last_activity, NOW()) >= 10;
 
 CREATE TABLE active_cases (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -15,6 +15,7 @@ function Login({ handleLoginSuccess }) {
       // Send POST request to PHP backend
       const response = await fetch("http://localhost/serverHB/login.php", {
         method: "POST",
+        credentials:"include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
       });

@@ -12,9 +12,9 @@ function AdminPage() {
     // user role and credentials
     const [role, setRole] = useState( "login");
 
-    // separate adminId/sessionID state (exposed via context)
+    // separate adminId state (exposed via context)
     const [adminId, setAdminId] = useState(null);
-    const [sessionID, setSessionID] = useState(null);
+    
 
 
     //this triggerevery time the window refresh
@@ -24,15 +24,41 @@ function AdminPage() {
             const parsed = JSON.parse(saved);
             setRole(parsed.role);
             setAdminId(parsed.adminId);
-            setSessionID(parsed.sessionID);
+            
         }
     }, []);
+    //update the last task column in session table  per every 2min
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            if ( adminId) {
+                try {
+                    const res = await fetch("http://localhost/serverHB/refresh_sessions.php", {
+                        method: "POST",
+                        credentials: "include",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ admin_id: adminId })
+                    });
+                    const data = await res.json();
+                    if (!data.success) {
+                        // Session expired → log out frontend
+                        localStorage.removeItem("auth");
+                        setRole("login");
+                        setAdminId(null);
+                        
+                    }
+                } catch (err) {
+                    console.error("Session refresh failed", err);
+                }
+            }
+        }, 2 * 60 * 1000); // every 2 minutes
 
+    return () => clearInterval(interval);
+}, [ adminId]);
 
     const handleLoginSuccess = (data) => {
         setRole(data.role);
         setAdminId(data.adminId);
-        setSessionID(data.sessionID);
+        
         localStorage.setItem("auth", JSON.stringify(data));
     };
 
@@ -43,15 +69,15 @@ function AdminPage() {
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify({
-                    admin_id: adminId,
-                    session_id: sessionID
+                    admin_id: adminId
+                    
                 })
             });
             // Clear frontend state and local storage
             localStorage.removeItem("auth");
             setRole("login");
             setAdminId(null);
-            setSessionID(null);
+            
         } catch (err) {
             console.error("Logout request failed", err);
             // Even if request fails, still clear local state
@@ -59,7 +85,7 @@ function AdminPage() {
     };
 
     return (
-        <AdminContext.Provider value={{ adminId,  sessionID,  role }}>
+        <AdminContext.Provider value={{ adminId, role }}>
             {/* If role is null → show the login page */}
             {role === "login" && (
                 <Login handleLoginSuccess={handleLoginSuccess} />

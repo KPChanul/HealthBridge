@@ -1,6 +1,7 @@
 <?php
-require 'cors.php';        // Enable CORS headers for cross-origin requests
-require 'database.php';    // Include database connection
+require "./cors.php";       // Enable CORS headers for cross-origin requests
+
+require "./database.php";    // Include database connection
 
 // Ensure the response is always JSON
 header('Content-Type: application/json; charset=utf-8');

@@ -63,22 +63,43 @@ try {
     do {
         $sessionID = bin2hex(random_bytes(32)); // 64-character secure token
 
-        $insert = $conn->prepare("INSERT INTO sessions (admin_id, session_id) VALUES (?, ?)");
-        if (!$insert) send_json(false, "Session insert prepare failed: " . $conn->error);
 
-        $insert->bind_param("is", $user["admin_id"], $sessionID);
-        $inserted = $insert->execute();
+        $insert = $conn->prepare(
+             "INSERT INTO sessions (admin_id, session_id, start_time, last_activity) VALUES (?, ?, NOW(), NOW())"
+            );
+            $insert->bind_param("is", $user["admin_id"], $sessionID);
+                    $insert->bind_param("is", $user["admin_id"], $sessionID);
+                    $inserted = $insert->execute();
 
         // If insert fails due to duplicate session_id, regenerate
-    } while (!$inserted);
+        } while (!$inserted);
 
     // --- Determine user role ---
     $role = (strtolower($username) === "sysadmin") ? "sysadmin" : "admin";
 
+    // add session id to the cookie
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+                || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+
+    // For secure connections we can use SameSite=None (required for cross-site),
+    // otherwise fall back to Lax for local development over HTTP.
+    $samesite = $isSecure ? 'None' : 'Lax';
+
+    setcookie(
+        'HB_SESSION',
+        $sessionID,
+        [
+            'expires'  => time() + 3600*2,
+            'path'     => '/',
+            'secure'   => $isSecure,
+            'httponly' => true,
+            'samesite' => $samesite
+        ]
+    );
     // --- Send success response ---
     send_json(true, "Login successful", [
         "role" => $role,
-        "sessionID" => $sessionID,
         "adminId" => intval($user["admin_id"])
     ]);
 

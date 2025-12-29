@@ -54,6 +54,8 @@ if (!isset($admin_id) || $admin_id === null || $admin_id === '') {
     exit;
 }
 
+
+
 // Compare admin IDs strictly (as integers)
 if ((int)$admin_id !== (int)$user['admin_id']) {
     echo json_encode([
@@ -73,6 +75,15 @@ if ($user['end_time'] !== null ) {
     ]);
     exit;
 }
+
+// Update last_activity only for active sessions
+$stmt = $conn->prepare(
+    "UPDATE sessions 
+     SET last_activity = NOW() 
+     WHERE admin_id = ? AND session_id = ? AND end_time IS NULL"
+);
+$stmt->bind_param("is", $admin_id, $session_id);
+$stmt->execute();
 
 // If we reach here the session is valid and belongs to the provided admin.
 ?>
