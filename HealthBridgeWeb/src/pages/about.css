@@ -6,9 +6,9 @@
   width: 100%;
   margin: 0 auto;
   text-align: justify;
-  font-family: 'Nunito', 'Poppins', sans-serif;
-  color: #1c3f66;
-  background: #f4f8ff;
+  /*font-family: 'Nunito', 'Poppins', sans-serif;*/
+  color: var(--brand);
+  background: var(--bg);
 }
 
 /* HERO SECTION */
@@ -17,7 +17,7 @@
   height: 550px;
   overflow: hidden;
   border-radius: 0 0 20px 20px;
-  box-shadow: 0 10px 25px rgba(0, 60, 112, 0.15);
+  box-shadow: var(--normal-shadow);
 }
 
 .about-hero img {
@@ -63,13 +63,13 @@
 .info-section {
   width: 550px;
   padding: 40px 40px 20px 40px;
-  background: #e9f2ff;
+  background: var(--box-bg);
   border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,70,150,0.12);
+  box-shadow: var(--normal-shadow);
   opacity: 0;
   transform: translateY(50px);
   transition: all 1s ease-out;
-  border-top: 30px solid #2e6ac7;
+  border-top: 30px solid var(--brand);
   position: relative;
   margin-bottom: 75px;
 }
@@ -87,15 +87,15 @@
   inset-inline: 0;
   margin-inline: auto;
   background: #f4f8ff;
-  border: 5px solid #2e6ac7;
+  border: 5px solid var(--brand);
   border-radius: 50%;
 }
 
 /* HEADINGS */
 .main-container h2 {
-  font-family: 'Poppins', sans-serif;
+  
   font-size: 2.4rem;
-  color: #2a5dc2;
+  color: var(--brand);
   margin-bottom: 15px;
   font-weight: 600;
   margin-top: -5px;
@@ -103,9 +103,9 @@
 
 /* PARAGRAPHS */
 .main-container p {
-  font-family: 'Nunito', sans-serif;
+  
   font-size: 1.25rem;
-  color: #2f4f75;
+  color: var(--text);
   margin-bottom: 14px;
   line-height: 1.7;
   margin-top: 25px;

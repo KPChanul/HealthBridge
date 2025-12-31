@@ -8,9 +8,11 @@
     align-items: center;
     justify-content: space-between;
     position: fixed;
-    background-color: #F9F9F9;
+    background: var(--box-bg);
+    box-shadow: var(--normal-shadow);
     transition: 0.5s linear;
     z-index: 10000;
+    font-weight:600;
     
     
 }
@@ -116,14 +118,14 @@
 
         background-color:white;
         
-        color: #54128a;
+        color: var(--brand);
         margin-top: 1.5rem;
         
     }
 
     .home-link {
 
-        color: #54128a;
+        color:  var(--brand);
         background-color:white;
         padding: 0.75rem;
         border-radius: 10%;
@@ -161,14 +163,14 @@
 
     .home-link:hover {
 
-        background-color: #54128a;
+        background-color:  var(--brand);
         color: white;
         transition: 0.4s all linear;
     }
 
     .donation-linklink:hover {
 
-        background-color: #54128a;
+        background-color: var(--brand);
         color: white;
         transition: 0.4s all linear;
     }

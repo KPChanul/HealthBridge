@@ -20,7 +20,7 @@ function Header() {
       <div className='headIcon' onClick={handleMenuClick}>
           <CiMenuBurger />
       </div>
-      <div className='Header'>
+      <header className='Header'>
 
         <img src={logo} alt="logo" className='logoimage' />
         <div>
@@ -30,9 +30,9 @@ function Header() {
             <MenuLinks linkname="How it works" url="/HowItWorks" className='howitworks-link'/>
             <MenuLinks linkname="Donate" url="/donations" className='donation-linklink'/>
         </div>
-      </div>
+      </header>
 
-      <div className={`menuBar ${active ? "menuBar-active" : ""}`}>
+      <header className={`menuBar ${active ? "menuBar-active" : ""}`}>
 
         <div className='box1'>
           <MenuLinks linkname="About Us" url="/about-us" className='about-link'/>
@@ -50,7 +50,7 @@ function Header() {
           </div>
         </div>
 
-      </div>
+      </header>
     </>
   )
 }

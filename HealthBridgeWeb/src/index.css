@@ -11,11 +11,62 @@
   color: rgba(0, 0, 0, 0.87);
   background-color: #ffffff;
 
+  /* Theme variables (blue theme) */
+  --brand: #033882;
+  --brand-dark: #002a64;
+  --brand-light: #0aa3b5;
+  --accent: #0aa3b5;
+  --bg: #f8f8fb;
+  --surface: #f7fbfb;
+  --box-bg:#ffffff;
+  --border: #033882;
+  --text: #02224f;
+  --muted: rgba(0,0,0,0.6);
+  --success: #2e9d8f;
+  --danger: #d9534f;
+
+  /*shadows*/
+  --normal-shadow:0 10px 25px rgba(0, 60, 112, 0.15);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+}
+
+/* Global base styles using theme variables */
+/*
+html, body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+
+.btn-primary, button.primary {
+  background-color: var(--brand);
+  color: #ffffff;
+  border: 1px solid var(--brand-dark);
+}
+
+a {
+  color: var(--brand);
+}
+
+.card, .panel {
+  background-color: var(--surface);
+  border: 1px solid rgba(3,115,130,0.08);
+}
+
+.header, header, .site-header {
+  background-color: rgba(3,115,130,0.04);
+  color: var(--brand-dark);
+}
+
+.footer, footer, .site-footer {
+  background-color: rgba(3,115,130,0.03);
+  color: var(--muted);
 }
 
 * {
@@ -29,3 +80,4 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+*/
