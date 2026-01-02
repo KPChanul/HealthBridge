@@ -14,7 +14,7 @@ const DailyEmailWidget = () => {
 
         try {
         
-            const response = await fetch('http://localhost/HealthBridge/Server/send_daily_emails.php');
+            const response = await fetch('http://localhost/ServerHB/send_daily_emails.php');
             const data = await response.json();
 
             if (data.success) {
