@@ -4,6 +4,7 @@ import "./contacts.css";
 import Header from "../components/header/Header.jsx"
 import Footer from "../components/Footer/Footer.jsx"
 
+
 function Contacts() {
   return (
     <>
@@ -63,6 +64,7 @@ function Contacts() {
           </div>
         </div>
       </section>
+      
       <Footer/>
     </>
   );
