@@ -104,7 +104,24 @@ window.addEventListener("scroll", () => {
           disruption.
         </p>
       </div>
+        <div
+        id="mission-section"
+        className={`info-section ${
+          visibleSections["mission-section"] ? "visible" : ""
+        }`}
+      >
+        <img src={missionImg}/>
+        <center><h2>Our Values</h2></center>
+        <ul>
+        <li>Honesty: We believe trust is built through transparency.</li>
 
+        <li>Creativity: We encourage new ideas and fresh perspectives.</li>
+
+        <li>Respect: We treat everyone with fairness and kindness.</li>
+        <li>Excellence: We strive to deliver our best work every time.</li>
+        
+        </ul>
+      </div>
       {/* Vision */}
       <div
         id="vision-section"

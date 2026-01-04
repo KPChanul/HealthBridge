@@ -11,15 +11,16 @@
 }
 body h1,h2,h3,h4{
 
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: "Inter" ,Georgia, 'Times New Roman', Times, serif; /*Merriweather*/
+  
   
   
 }
 body header{
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: "Inter",Georgia, 'Times New Roman', Times, serif;
   
 }
-body p{
-  font-family: "lato";
+body p,li{
+  font-family: "Inter";
   
 }
