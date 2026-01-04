@@ -1,0 +1,59 @@
+.subscribe-box {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px 20px;
+  background-color: #f0f8ff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.subscribe-box h3 {
+  margin-bottom: 20px;
+  color: #0a2540;
+  font-size: 1.5rem;
+}
+
+.subscribe-box input[type="email"] {
+  width: 80%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.subscribe-box input[type="email"]:focus {
+  border-color: #0a2540;
+}
+
+.subscribe-box button {
+  padding: 10px 25px;
+  background-color: #0a2540;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.subscribe-box button:hover {
+  background-color: #06203a;
+}
+
+.subscribe-box button:disabled {
+  background-color: #7a7a7a;
+  cursor: not-allowed;
+}
+
+.subscribe-box p.success {
+  color: green;
+  margin-top: 15px;
+}
+
+.subscribe-box p.error {
+  color: red;
+  margin-top: 15px;
+}

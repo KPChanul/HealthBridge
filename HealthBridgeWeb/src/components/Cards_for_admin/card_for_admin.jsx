@@ -16,7 +16,7 @@ const MAX_DESC_LENGTH = 110;
  * * @param {object} props - The case data properties (patientName, goal, raised, etc.)
  */
 const CardInterface_Admin = (props) => {
-    const { adminId, sessionID } = useContext(AdminContext);
+    const { adminId } = useContext(AdminContext);
     const [error, setError] = useState(null);
     // --- STATE MANAGEMENT ---
 
@@ -57,7 +57,7 @@ const CardInterface_Admin = (props) => {
 
     // 2. Date Formatter
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        return new Date(dateString).toLocaleDateString('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' });
     };
 
     // 3. Currency Formatter (LKR)
@@ -94,7 +94,8 @@ const CardInterface_Admin = (props) => {
         bank_name: props.bankName || '', 
         bank_branch: props.branch || '',
         account_holder: props.accountHolder || '',
-        account_number: props.accountNumber || ''
+        account_number: props.accountNumber || '',
+        posted_date:props.postedDate,
     };
     //find chnged key and values.
     const getChangedFields = (current, updated) => {
@@ -189,18 +190,16 @@ const CardInterface_Admin = (props) => {
                     
                     // This triggers when "Save Changes" is clicked on the card's edit form.
                     onSubmit={async(updatedData) => {
-                        
-                        const changedData=getChangedFields(currentCaseData,updatedData)
-                        
-                        const resp = await fetch('http://localhost/serverHB/change_data.php', {
-                                        method: 'POST',
-                                        credentials: 'include',
-                                        headers: { 'Content-Type': 'application/json'  },
-                                        body: JSON.stringify({
-                                            changed_data: changedData,
-                                            admin_id: adminId,
-                                            session_id: sessionID,
-                                            post_id: props.post_id
+                        const changedData = getChangedFields(currentCaseData, updatedData);
+                        const resp = await fetch('http://localhost/serverHB/admin.php', {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                        action: "update",
+                                        changed_data: changedData,
+                                        admin_id: adminId,
+                                        post_id: props.post_id
                                         })
                                     });
 
@@ -226,18 +225,18 @@ const CardInterface_Admin = (props) => {
                     
                     // This triggers when "Delete" is clicked inside the warning popup.
                     onConfirm={async() => {
-                        const data={
+                        const data = {
+                            action: "delete",
                             admin_id: adminId,
-                            session_id:sessionID,
-                            post_id: props.post_id}
-                        
-                        console.log(data)    
-                        const resp = await fetch('http://localhost/serverHB/delete_cases.php', {
-                                        method: 'POST',
-                                        credentials: 'include',
-                                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                                        body: new URLSearchParams(data)
-                                    });
+                            post_id: props.post_id
+                        };
+
+                        const resp = await fetch('http://localhost/serverHB/admin.php', {
+                            method: 'POST',
+                            credentials: 'include',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                            });
                         if (!resp.ok) throw new Error(`Server Error`);
                                 const json = await resp.json();
 

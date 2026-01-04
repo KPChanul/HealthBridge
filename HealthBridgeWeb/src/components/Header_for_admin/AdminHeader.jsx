@@ -19,7 +19,7 @@ import { AdminContext } from '../../pages/admin.jsx';
  * @param {function} onLogOut - Callback to handle user logout.
  */
 const AdminHeader = ({  currentView, onViewChange, onLogOut }) => {
-    const { adminId,sessionID} = useContext(AdminContext);
+    const { adminId} = useContext(AdminContext);
     // --- STATE MANAGEMENT ---
     
     // Tracks if the profile dropdown menu is open or closed

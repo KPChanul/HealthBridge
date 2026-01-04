@@ -6,6 +6,7 @@ import Contacts from "./pages/contacts.jsx";
 import AdminPage from "./pages/admin.jsx";
 import Donations from "./pages/Donation_page/Donation.jsx";
 import HowItWorks from "./pages/HowItWorks.jsx";
+import SubscribePage from "./pages/subscribepage.jsx";
 import './App.css'
 
 
@@ -26,7 +27,7 @@ function App() {
         <Route path="/HowItWorks" element={< HowItWorks />}/>
         
         <Route path="/admin" element={< AdminPage />}/>    {/*this page is include both sysadmin and admin pages after loging in*/}
-        
+        <Route path="/subscribe" element={<SubscribePage />} />
       </Routes>
       
       
