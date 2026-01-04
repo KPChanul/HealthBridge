@@ -1,277 +1,228 @@
-.sysAdminlogOut {
+/* --- Global Theme & Variables --- */
+:root {
+    --primary-navy: #111827;
+    --slate-bg: #1f2937;
+    --accent-blue: #007bff;
+    --text-dark: #1e293b;
+    --text-muted: #94a3b8;
+    --danger-coral: #fca5a5;
+    --bg-light: #f3f4f6;
+    --white: #ffffff;
+    --border: #e2e8f0;
+}
 
-    position: relative;
-    left: 88%;
-    top: 0.8rem;
+body {
+    background-color: var(--bg-light);
+    margin: 0;
+    /* INCREASED top padding to match the new taller header height */
+    padding-top: 160px; 
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text-dark);
+}
+
+/* --- Increased Fixed Header --- */
+.headersysadmin {
+    background-color: var(--primary-navy);
+    padding: 0 60px; 
+    display: flex;
+    justify-content: space-between;
+    /* Aligned to flex-start so we can manually control top spacing */
+    align-items: flex-start; 
+    
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
+    /* HEIGHT INCREASED: From 100px to 140px for a much larger header */
+    height: 180px; 
+    z-index: 1000; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.adminTitle {
+    color: var(--white);
+    font-size: 28px;
+    font-weight: 600;
+    /* Added margin-top to center title vertically in the taller header */
+    margin-top: 50px; 
+}
+
+/* --- Profile Dropdown (Logout Section) --- */
+.adminProfileDropdown {
+    background-color: var(--slate-bg);
+    border-radius: 12px;
     padding: 15px 20px;
-    background-color: #007bff;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: bold;
+    width: 250px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative; 
+    /* TOP GAP ADDED: Moves the logout section down from the header edge */
+    margin-top: 25px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
 
+.adminProfileInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
+.adminIdDisplay {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.adminRoleTag {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.profileDivider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 12px 0;
+}
+
+.sysAdminlogOut {
+    background: transparent;
+    border: none;
+    color: var(--danger-coral);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    transition: all 0.2s ease;
 }
 
 .sysAdminlogOut:hover {
-
-    background-color: #004d9c;
-    cursor: pointer;
-    transition: all 0.15s linear;
+    color: #ff7f7f;
+    transform: translateX(3px);
 }
 
-
-.dataInDataBase {
-
-    text-align: center;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3rem;
-    margin-bottom: 3rem; /* Space at the bottom of the page */
-    min-height: 50vh; /* Changed to min-height to handle long lists */
-    padding: 1rem 1rem;
-    background-color: #fff;
-    box-shadow: 2px 2px 10px 14px rgba(14, 55, 54, 0.15);
-    border-radius: 10px;
-    max-height: 600px;
-    overflow-y: auto;
+/* --- Data Containers (Tables) --- */
+.dataInDataBase, .sessionData {
+    background: var(--white);
+    max-width: 1200px;
+    /* Added margin to give breathing room below the taller header */
+    margin: 80px auto; 
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    
+    max-height: 550px; 
+    overflow-y: auto;  
 }
 
-.dataInDataBase h2 {
-
-    color: lightblue;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-
+.addData {
+    background: var(--white);
+    max-width: 1200px;
+    margin: 40px auto; 
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.dataInDataBase table {
+.adminAccTopiv, .addTopic {
+    font-size: 22px;
+    color: var(--primary-navy);
+    margin-bottom: 25px;
+    border-left: 5px solid var(--accent-blue);
+    padding-left: 15px;
+    font-weight: 700;
+}
 
-    border-radius: 10px;
+/* --- Table Styles --- */
+table {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1.8rem;
-    background-color: #edeae3;
-    border-collapse: collapse; /* Cleaner look for data tables */
-    overflow: hidden; /* Ensures border-radius shows on table */
+    border-collapse: collapse;
 }
 
-.dataInDataBase thead tr th {
-    padding: 15px 10px;
-    font-size: 1.3rem;
-    background-color: #dcd9d0; /* Slightly darker to distinguish header */
-    border-bottom: 2px solid #fff;
-}
-
-
-
-.dataInDataBase tbody tr td {
-    padding: 12px 10px;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #fff;
-}
-
-/* Zebra striping for readability */
-.dataInDataBase tbody tr:nth-child(even) {
-    background-color: #f5f3ee;
-}
-
-/* Hover effect on rows */
-.dataInDataBase tbody tr:hover {
-    background-color: #e2dfd5;
-    transition: background-color 0.2s ease;
-}
-
-/* Status styling for the 'Active' end_time text */
-.dataInDataBase td:contains('Active') {
-    color: #28a745;
-    font-weight: bold;
-}
-
-
-
-/*
 .firstRow th {
-
-    padding: 10px 10px;
-    font-size: 1.3rem;
+    text-align: left;
+    padding: 15px 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 2px solid var(--border);
+    background-color: #f8fafc;
 }
-*/
-.deleteButton {
 
-    background-color: red;
-    padding: 5px;
-    border-radius: 5px;
+td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    color: #334155;
+}
+
+tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* --- Action Buttons --- */
+.editButton, .deleteButton {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-
+    border: none;
+    transition: background 0.2s;
 }
 
 .editButton {
-
-    background-color: blue;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-
+    background-color: #f1f5f9;
+    color: #475569;
+    margin-right: 10px;
 }
 
-.saveButton {
+.editButton:hover { background-color: #e2e8f0; }
 
-    background-color: lightgreen;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: black;
-    margin-right: 1rem;
-    margin-left: 1rem;
-
+.deleteButton {
+    background-color: #fee2e2;
+    color: #ef4444;
 }
 
-.cancelButton {
-
-    background-color: lightgreen;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: black;
-    margin-right: 1rem;
-}
-
-
-.addData {
-
-    text-align: center;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3rem;
-    height: 50vh;
-    padding: 1rem 1rem;
-    background-color: #fff;
-    box-shadow: 2px 2px 10px 14px rgba(14 55 54 /15%/*or 0.15*/);
-    border-radius: 10px;
-}
-
-.addData h2 {
-
-    color: lightblue;
-    font-size: 3rem;
-}
-
-.addData table {
-
-    border-radius: 10px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1.8rem;
-    height: 15rem;
-    background-color: #edeae3;    
-
-}
-
-.addData table tbody tr th label {
-
-    font-size: 1.5rem;
-    margin-right: -3rem;
-}
+.deleteButton:hover { background-color: #fecaca; }
 
 .dataButtonSave {
-
-    border: 3px solid #fff;
-    padding: 15px 15px;
     background-color: #007bff;
-    color: #fff;
-    font-size: 1.5rem;
-    border-radius: 10px;
-    margin-right: 2rem;
-    width: 10rem;
-}
-
-.dataButtonSave:hover {
-
-    background-color: #004d9c;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s linear;
+    float: right;
+    margin-top: 15px;
 }
 
-/* session table */
+.dataButtonSave:hover { background-color: #0056b3; }
 
-/* --- Session Data Section --- */
-
-.sessionData {
-    text-align: center;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3rem;
-    margin-bottom: 3rem; /* Space at the bottom of the page */
-    min-height: 50vh; /* Changed to min-height to handle long lists */
-    padding: 1rem 1rem;
-    background-color: #fff;
-    box-shadow: 2px 2px 10px 14px rgba(14, 55, 54, 0.15);
-    border-radius: 10px;
-    max-height: 600px;
-    overflow-y: auto;
-}
-
-.sessionData h2 {
-    color: lightblue;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.sessionData table {
-    border-radius: 10px;
+input[type="text"], 
+input[type="password"] {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1.8rem;
-    background-color: #edeae3;
-    border-collapse: collapse; /* Cleaner look for data tables */
-    overflow: hidden; /* Ensures border-radius shows on table */
+    padding: 12px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
-
-/* Matching the table headers to the firstRow class you used earlier */
-.sessionData thead tr th {
-    padding: 15px 10px;
-    font-size: 1.3rem;
-    background-color: #dcd9d0; /* Slightly darker to distinguish header */
-    border-bottom: 2px solid #fff;
-}
-
-.sessionData tbody tr td {
-    padding: 12px 10px;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #fff;
-}
-
-/* Zebra striping for readability */
-.sessionData tbody tr:nth-child(even) {
-    background-color: #f5f3ee;
-}
-
-/* Hover effect on rows */
-.sessionData tbody tr:hover {
-    background-color: #e2dfd5;
-    transition: background-color 0.2s ease;
-}
-
-/* Status styling for the 'Active' end_time text */
-.sessionData td:contains('Active') {
-    color: #28a745;
-    font-weight: bold;
-}
-
-/* edn of session table */
-
-/* extra space */
 
 .extraSpace {
-
-    height: 10px;
-    background-color: white;
+    height: 100px;
 }
 
-/* end of it */
+/* Scrollbar Style */
+.dataInDataBase::-webkit-scrollbar,
+.sessionData::-webkit-scrollbar {
+    width: 8px;
+}
+.dataInDataBase::-webkit-scrollbar-thumb,
+.sessionData::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
