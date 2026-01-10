@@ -1,7 +1,5 @@
-/* --- Global Theme & Variables --- */
 :root {
     --primary-navy: #111827;
-    --slate-bg: #1f2937;
     --accent-blue: #007bff;
     --text-dark: #1e293b;
     --text-muted: #94a3b8;
@@ -11,218 +9,176 @@
     --border: #e2e8f0;
 }
 
-body {
-    background-color: var(--bg-light);
+/* --- Body --- */
+.sysbody {
     margin: 0;
-    /* INCREASED top padding to match the new taller header height */
-    padding-top: 160px; 
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-light);
     color: var(--text-dark);
+    padding-top: 100px; /* matches compact header */
 }
 
-/* --- Increased Fixed Header --- */
+/* --- Header --- */
 .headersysadmin {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    padding: 0 40px;
     background-color: var(--primary-navy);
-    padding: 0 60px; 
     display: flex;
     justify-content: space-between;
-    /* Aligned to flex-start so we can manually control top spacing */
-    align-items: flex-start; 
-    
-    position: fixed; 
-    top: 0;
-    left: 0;
-    right: 0;
-    /* HEIGHT INCREASED: From 100px to 140px for a much larger header */
-    height: 180px; 
-    z-index: 1000; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .adminTitle {
     color: var(--white);
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 600;
-    /* Added margin-top to center title vertically in the taller header */
-    margin-top: 50px; 
+    margin: 0;
 }
 
-/* --- Profile Dropdown (Logout Section) --- */
-.adminProfileDropdown {
-    background-color: var(--slate-bg);
-    border-radius: 12px;
-    padding: 15px 20px;
-    width: 250px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative; 
-    /* TOP GAP ADDED: Moves the logout section down from the header edge */
-    margin-top: 25px; 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-
-.adminProfileInfo {
+.adminHeaderRight {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 20px;
 }
 
 .adminIdDisplay {
-    color: var(--white);
-    font-weight: 700;
-    font-size: 15px;
-}
-
-.adminRoleTag {
-    color: var(--text-muted);
-    font-size: 12px;
-}
-
-.profileDivider {
-    border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 12px 0;
+    color: #e5e7eb;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: rgba(255,255,255,0.08);
+    padding: 8px 14px;
+    border-radius: 8px;
 }
 
 .sysAdminlogOut {
-    background: transparent;
+    background-color: #ef4444;
+    color: white;
     border: none;
-    color: var(--danger-coral);
+    padding: 8px 18px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 5px 0;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
 .sysAdminlogOut:hover {
-    color: #ff7f7f;
-    transform: translateX(3px);
+    background-color: #dc2626;
 }
 
-/* --- Data Containers (Tables) --- */
-.dataInDataBase, .sessionData {
-    background: var(--white);
-    max-width: 1200px;
-    /* Added margin to give breathing room below the taller header */
-    margin: 80px auto; 
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    
-    max-height: 550px; 
-    overflow-y: auto;  
+/* --- Ribbon --- */
+.ribbon {
+    display: flex;
+    gap: 10px;
+    padding: 8px 40px;
+    background-color: #1f2937;
+    border-bottom: 3px solid var(--accent-blue);
 }
 
-.addData {
+.ribbon-tab {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    color: #ccc;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: 0.3s;
+}
+
+.ribbon-tab:hover { color: white; }
+.ribbon-tab.active { background: var(--accent-blue); color: white; }
+
+/* --- Tables & Forms --- */
+.dataInDataBase, .sessionData, .addData {
     background: var(--white);
     max-width: 1200px;
-    margin: 40px auto; 
+    margin: 40px auto;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    overflow-x: auto;
 }
 
 .adminAccTopiv, .addTopic {
     font-size: 22px;
     color: var(--primary-navy);
+    font-weight: 700;
     margin-bottom: 25px;
     border-left: 5px solid var(--accent-blue);
     padding-left: 15px;
-    font-weight: 700;
 }
 
-/* --- Table Styles --- */
-table {
+.systable {
     width: 100%;
     border-collapse: collapse;
 }
 
 .firstRow th {
-    text-align: left;
-    padding: 15px 20px;
+    padding: 12px 18px;
     font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: #64748b;
     border-bottom: 2px solid var(--border);
-    background-color: #f8fafc;
+    background: #f8fafc;
 }
 
-td {
-    padding: 15px 20px;
-    border-bottom: 1px solid #f1f5f9;
+.systable td {
+    padding: 12px 18px;
     font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
     color: #334155;
 }
 
-tr:hover {
-    background-color: #fcfcfc;
-}
+.systable tr:hover { background-color: #fcfcfc; }
 
-/* --- Action Buttons --- */
-.editButton, .deleteButton {
-    padding: 8px 18px;
+/* Buttons */
+.editButton, .deleteButton, .saveButton, .cancelButton, .dataButtonSave {
+    padding: 8px 16px;
     border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
     border: none;
-    transition: background 0.2s;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    margin-right: 6px;
+    transition: 0.2s;
 }
 
-.editButton {
-    background-color: #f1f5f9;
-    color: #475569;
-    margin-right: 10px;
-}
-
+.editButton { background-color: #f1f5f9; color: #475569; }
 .editButton:hover { background-color: #e2e8f0; }
 
-.deleteButton {
-    background-color: #fee2e2;
-    color: #ef4444;
-}
-
+.deleteButton { background-color: #fee2e2; color: #ef4444; }
 .deleteButton:hover { background-color: #fecaca; }
 
-.dataButtonSave {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 40px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    float: right;
-    margin-top: 15px;
-}
+.saveButton { background-color: #22c55e; color: white; }
+.saveButton:hover { background-color: #16a34a; }
 
+.cancelButton { background-color: #fbbf24; color: white; }
+.cancelButton:hover { background-color: #f59e0b; }
+
+.dataButtonSave { background-color: var(--accent-blue); color: white; }
 .dataButtonSave:hover { background-color: #0056b3; }
 
-input[type="text"], 
-input[type="password"] {
-    width: 100%;
-    padding: 12px 15px;
+/* Input fields */
+input[type="text"], input[type="password"] {
+    padding: 10px 12px;
+    border-radius: 6px;
     border: 1px solid var(--border);
-    border-radius: 8px;
     font-size: 14px;
+    width: 100%;
     box-sizing: border-box;
 }
 
-.extraSpace {
-    height: 100px;
+/* Inline Edit Row */
+.inlineEditRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* Scrollbar Style */
-.dataInDataBase::-webkit-scrollbar,
-.sessionData::-webkit-scrollbar {
-    width: 8px;
-}
-.dataInDataBase::-webkit-scrollbar-thumb,
-.sessionData::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 10px;
-}
+/* Extra spacing at bottom */
+.extraSpace { height: 100px; }
