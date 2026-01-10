@@ -4,6 +4,7 @@
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json; charset=UTF-8");
 
 // Handle Preflight OPTIONS request
@@ -31,9 +32,18 @@ class DbConnect {
         }
     }
 }
+$admin_id = $_POST['sysadmin-id'] ?? $_GET['sysadmin-id'] ?? null;
 
+// Obtain session id from cookie or request so verifySession can validate it.
+$session_id = $_COOKIE['HB_SESSION'] ?? $_POST['HB_SESSION'] ?? $_GET['HB_SESSION'] ?? '';
+
+// verifySession expects a mysqli $conn. It will include database.php if $conn isn't set.
+require "./verifySession.php";
+
+// Create a PDO connection for data operations and keep mysqli $conn available
+// for the session verification that already ran.
 $objDb = new DbConnect;
-$conn = $objDb->connect();
+$pdo = $objDb->connect();
     
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -47,7 +57,7 @@ switch($method) {
         }
             
         try {
-            $stmt = $conn->prepare($sql);
+            $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             http_response_code(200);
@@ -75,7 +85,7 @@ switch($method) {
                 VALUES (NULL, :name, :password, :last_logged_in)";
             
         try {
-            $stmt = $conn->prepare($sql);
+            $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':name', $data->name);
             $stmt->bindParam(':password', $hashed_password); 
             $stmt->bindParam(':last_logged_in', $Last_logged_in);
@@ -105,11 +115,11 @@ switch($method) {
         $hashed_password = password_hash($data->password, PASSWORD_DEFAULT);
         $sql = "UPDATE admins SET name = :name, password = :password WHERE admin_id = :id";
             
-        try {
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $data->admin_id);
-            $stmt->bindParam(':name', $data->name);
-            $stmt->bindParam(':password', $hashed_password); 
+            try {
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $data->admin_id);
+                $stmt->bindParam(':name', $data->name);
+                $stmt->bindParam(':password', $hashed_password); 
 
             if($stmt->execute()) {
                 http_response_code(200);
@@ -135,11 +145,11 @@ switch($method) {
 
         $sql = "DELETE FROM admins WHERE admin_id = :id";
             
-        try {
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $data->admin_id);
+            try {
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $data->admin_id);
 
-            if($stmt->execute()) {
+                if($stmt->execute()) {
                 http_response_code(200);
                 echo json_encode(["success" => true, "message" => "Record deleted successfully."]);
             } else {

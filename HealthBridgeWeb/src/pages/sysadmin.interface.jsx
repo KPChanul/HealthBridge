@@ -5,6 +5,7 @@ import { AdminContext } from "./admin.jsx";
 import Ribbon from "../components/ribbon";
 
 const API_URL = "http://localhost/serverHB/sysAdmin.php";
+axios.defaults.withCredentials = true;
 
 function SysAdmin({ onLogOut }) {
 
@@ -33,13 +34,13 @@ function SysAdmin({ onLogOut }) {
     }, []);
 
     const getAdmins = () => {
-        axios.get(API_URL).then(res => {
+        axios.get(`${API_URL}?sysadmin-id=${adminId}`).then(res => {
             if (Array.isArray(res.data)) setAdmins(res.data);
         });
     };
 
     const getSessions = () => {
-        axios.get(`${API_URL}?type=sessions`).then(res => {
+        axios.get(`${API_URL}?type=sessions&sysadmin-id=${adminId}`).then(res => {
             if (Array.isArray(res.data)) setSessions(res.data);
         });
     };
@@ -48,7 +49,7 @@ function SysAdmin({ onLogOut }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: value }));
+        setInputs(prev => ({ ...prev, [name]: value,"sysadmin-id":adminId }));
     };
 
     const handleSubmit = (e) => {
@@ -70,7 +71,7 @@ function SysAdmin({ onLogOut }) {
         if (!window.confirm("Delete this admin?")) return;
 
         axios.delete(API_URL, {
-            data: { admin_id: id }
+            data: { admin_id: id,"sysadmin-id":adminId }
         }).then(res => {
             if (res.data.success) {
                 alert("Admin deleted");
@@ -94,7 +95,7 @@ function SysAdmin({ onLogOut }) {
 
     const handleEditChange = (e) => {
         const { name, value } = e.target;
-        setEditInputs(prev => ({ ...prev, [name]: value }));
+        setEditInputs(prev => ({ ...prev, [name]: value,"sysadmin-id":adminId  }));
     };
 
     const handleUpdate = (e) => {

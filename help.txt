@@ -46,10 +46,10 @@ SET GLOBAL event_scheduler = ON;
 CREATE EVENT expire_idle_sessions
 ON SCHEDULE EVERY 2 MINUTE
 DO
-    UPDATE sessions
-    SET end_time = NOW()
-    WHERE end_time IS NULL
-      AND TIMESTAMPDIFF(MINUTE, last_activity, NOW()) >= 10;
+  UPDATE sessions
+  SET end_time = NOW()
+  WHERE end_time IS NULL
+    AND last_activity <= NOW() - INTERVAL 10 MINUTE;
 
 CREATE TABLE active_cases (
     id INT AUTO_INCREMENT PRIMARY KEY,
