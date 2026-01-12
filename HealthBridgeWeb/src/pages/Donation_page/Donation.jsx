@@ -222,7 +222,7 @@ function Donations(){
             <div className="filter-button-container">
                 <button 
                     onClick={() => setFilter('all')}
-                    style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'all' ? '#007bff' : '#d0e0ff', color: filter === 'all' ? 'white' : '#007bff', cursor: 'pointer', transition: '0.2s' }}>
+                    style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'all' ? 'var(--brand)' : '#d0e0ff', color: filter === 'all' ? 'white' : 'var(--brand)', cursor: 'pointer', transition: '0.2s' }}>
                     All Cases ({totalCases})
                 </button>
 
@@ -236,7 +236,7 @@ function Donations(){
                 {/* NEW FULFILLED CASES BUTTON */}
                 <button 
                     onClick={() => setFilter('fulfilled')}
-                    style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'fulfilled' ? '#28a745' : '#e6ffed', color: filter === 'fulfilled' ? 'white' : '#28a745', cursor: 'pointer', transition: '0.2s' }}>
+                    style={{ padding: '10px 20px', border: 'none', borderRadius: '6px', fontWeight: 'bold', backgroundColor: filter === 'fulfilled' ? 'var(--success)' : '#e6ffed', color: filter === 'fulfilled' ? 'white' : 'var(--success)', cursor: 'pointer', transition: '0.2s' }}>
                     Fulfilled Cases ({fulfilledCases})
                 </button>
 

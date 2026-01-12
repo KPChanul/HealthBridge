@@ -126,7 +126,7 @@
 .see-more-button {
     background: none;
     border: none;
-    color: #007bff;
+    color: var(--brand-light);
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;

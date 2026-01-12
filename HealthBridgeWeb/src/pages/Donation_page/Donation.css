@@ -1,4 +1,5 @@
 .page{
+    background-color: var(--bg);
     padding: 120px 20px;
     display:flex;
     flex-direction: column;
@@ -16,7 +17,7 @@
     padding:12px 15px ;                 
     margin-bottom: 25px;                
     border-radius: 8px; 
-    border: 2px solid #1f0d0dff; 
+    border: 2px solid var(--brand-light); 
     color: black;
     font-size: 1rem;
     box-sizing: border-box; 
@@ -26,7 +27,7 @@
 /* --- Focus State Style (The Fix) --- */
 .search-input:focus {
     
-    border-color: #122f4e; 
+    border-color: var(--brand-dark); 
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     outline: none;
 }
@@ -34,7 +35,7 @@
 .page .topic{
     
     font-weight: bold;
-    color:#007bff ;
+    color: var(--brand) ;
     margin-bottom: 5px;
     margin-top: 10px;
 
@@ -42,7 +43,7 @@
 
 .para{
     text-align: center;
-    color: black;
+    color:var(--text);
     margin-bottom: 5px;
 
 }
@@ -97,12 +98,12 @@
 .pagination-item.current {
     font-weight: bold;
     color: #333; /* Dark color for the active page number */
-    border-bottom: 2px solid #007bff; /* Underline effect for active page */
+    border-bottom: 2px solid var(--brand); /* Underline effect for active page */
 }
 
 /* Styles for Previous/Next buttons when active */
 .pagination-item.active {
-    color: #007bff;
+    color: var(--brand);
     font-weight: 600;
 }
 

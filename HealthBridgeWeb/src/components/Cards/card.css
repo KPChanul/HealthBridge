@@ -17,7 +17,7 @@
     padding: 30px; 
     margin: 15px; 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    background-color: white;
+    background-color:var(--box-bg);
     transition: all 0.3s ease-in-out;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .tag-urgent {
-    background-color: #ff4d4f; 
+    background-color: var(--danger); 
     color: white;
     padding: 5px 12px;
     border-radius: 6px;
@@ -56,7 +56,7 @@
 }
 
 .tag-standard {
-    background-color: #007bff;
+    background-color: var(--brand);
     color: white;
     padding: 5px 12px;
     border-radius: 6px;
@@ -65,7 +65,7 @@
 }
 
 .tag-fulfilled {
-    background-color: #138b19;
+    background-color: var(--success);
     color: white;
     padding: 5px 12px;
     border-radius: 6px;
@@ -74,7 +74,7 @@
 }
 
 .health-issue {
-    color: #007bff; 
+    color: var(--brand-light); 
     font-size: 1.2rem;
     font-weight: 500;
     margin-top: 5px;
@@ -98,11 +98,11 @@
     width: 18px;
     height: 18px;
     margin-right: 10px;
-    color: #007bff; 
+    color: var(--brand-light); 
 }
 
 .case-contact-details a {
-    color: #007bff;
+    color: var(--brand-light);
     text-decoration: none;
     
 
@@ -176,6 +176,8 @@
 }
 
 .donate-button {
+
+    background: var(--brand);
     width: 100%;
     padding: 13px;
     color: white;
