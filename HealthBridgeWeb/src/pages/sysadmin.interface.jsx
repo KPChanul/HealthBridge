@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
+import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
 
 // Define the API URL once
 const API_URL = 'http://localhost/serverHB/sysAdmin.php';
@@ -237,7 +238,12 @@ function SysAdmin({ onLogOut }) {
                 </table>
             </div>
             <div className="extraSpace"></div>
+            <div className="widgets-section" style={{ marginTop: '30px'}}>
+                   
+                    <DailyEmailWidget />
+                </div>
         </>
+        
     )
 }
 
