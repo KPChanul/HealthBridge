@@ -23,6 +23,15 @@ function Ribbon({ activeTab, setActiveTab }) {
             >
                 Payment Details
             </button>
+
+           
+            <button 
+                className={activeTab === "contents" ?  "ribbon-tab active" : "ribbon-tab"} 
+                onClick={() => setActiveTab("contents")}
+            >
+                Admin Contents
+            </button>
+
         </div>
     );
 }

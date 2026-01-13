@@ -3,6 +3,7 @@ import axios from "axios";
 import "../pagesCSS/sysAdmin.css";
 import { AdminContext } from "./admin.jsx";
 import Ribbon from "../components/ribbon";
+import CaseTable from "../components/Table/table.jsx";
 
 const API_URL = "http://localhost/serverHB/sysAdmin.php";
 axios.defaults.withCredentials = true;
@@ -25,12 +26,16 @@ function SysAdmin({ onLogOut }) {
     const [inputs, setInputs] = useState({});
     const [editingId, setEditingId] = useState(null);
     const [editInputs, setEditInputs] = useState({});
+    const [selectedAdminId, setSelectedAdminId] = useState("");
+    const [allCases, setAllCases] = useState([]);
+
 
     /* ================= DATA FETCH ================= */
 
     useEffect(() => {
         getAdmins();
         getSessions();
+        getContents();
     }, []);
 
     const getAdmins = () => {
@@ -44,6 +49,17 @@ function SysAdmin({ onLogOut }) {
             if (Array.isArray(res.data)) setSessions(res.data);
         });
     };
+
+    const getContents = () => {
+        axios.get(`http://localhost/serverHB/admin.php?type=all_cases&sysadmin-id=${adminId}`)
+        .then(res => {
+            if (Array.isArray(res.data)) {
+                setAllCases(res.data);
+            } else {
+                console.error("API did not return an array:", res.data);
+            }
+        });
+};
 
     /* ================= CREATE ================= */
 
@@ -293,6 +309,47 @@ function SysAdmin({ onLogOut }) {
                     <div className="dataInDataBase">
                         <h2 className="adminAccTopiv">Payment Details</h2>
                         <p>Payment module coming soon…</p>
+                    </div>
+                )}
+
+
+
+                {/* ========== ADMIN CONTENTS TAB ========== */}
+                {activeTab === "contents" && (
+                    <div className="dataInDataBase">
+                        <h2 className="adminAccTopiv">Admin Contents</h2>
+
+                        <div className="filter-container">
+                            <label htmlFor="admin-select" className="filter-label">Select Admin :</label>
+                            <select 
+                                id="admin-select"
+                                className="filter-select"
+                                value={selectedAdminId} 
+                                onChange={(e) => setSelectedAdminId(e.target.value)}
+                            >
+                                <option value="">All Admins</option>
+                                {admins.map(admin => (
+                                    <option key={admin.admin_id} value={admin.admin_id}>
+                                        {admin.name} ({admin.admin_id})
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+
+                        <hr style={{ margin: "20px 0", opacity: "0.2" }} />
+
+        
+                        <CaseTable 
+                            cases={selectedAdminId 
+                                ? allCases.filter(c => String(c.admin_id) === String(selectedAdminId)) 
+                                : allCases
+                            } 
+                            onEdit={getContents} 
+                            onDelete={getContents} 
+                        />
+                        
+                       
                     </div>
                 )}
 
