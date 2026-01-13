@@ -16,14 +16,14 @@
     border-radius: 10px;
     padding: 30px; 
     margin: 15px; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--normal-shadow);
     background-color:var(--box-bg);
     transition: all 0.3s ease-in-out;
 }
 
 .case-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 10px 35px rgba(0, 60, 112, 0.25); 
 }
 
 /* --- Header and Status --- */
@@ -118,7 +118,7 @@
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(to right, #007bff, #00c6a7); 
+    background: linear-gradient(to right,var(--brand), #00c6a7); 
     border-radius: 6px;
     transition: width 0.5s ease-in-out;
 }
