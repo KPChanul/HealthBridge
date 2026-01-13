@@ -34,7 +34,7 @@ try {
     $session_id = isset($input['session_id']) ? $input['session_id'] : '';
 
     // verify admin and session ids
-    require "verifySession.php";
+    require "./verifySession.php";
 
 
     // --- Validate Required IDs ---

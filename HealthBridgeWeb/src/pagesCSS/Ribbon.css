@@ -1,0 +1,33 @@
+.ribbon {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: #0f172a;
+    display: flex;
+    gap: 20px;
+    padding: 10px 60px;
+    z-index: 900;
+    border-bottom: 3px solid #2563eb;
+}
+
+.ribbon-tab {
+    background: transparent;
+    border: none;
+    color: #cbd5f5;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 8px 8px 0 0;
+    transition: 0.2s;
+}
+
+.ribbon-tab:hover {
+    color: white;
+}
+
+.ribbon-tab.active {
+    background: #2563eb;
+    color: white;
+}

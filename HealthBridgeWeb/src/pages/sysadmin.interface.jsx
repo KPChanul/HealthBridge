@@ -4,238 +4,355 @@ import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
 import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
 
-// Define the API URL once
-const API_URL = 'http://localhost/serverHB/sysAdmin.php';
+const API_URL = "http://localhost/serverHB/sysAdmin.php";
+axios.defaults.withCredentials = true;
 
 function SysAdmin({ onLogOut }) {
-    const { adminId, sessionID } = useContext(AdminContext);
-    const [sessions, setSessions] = useState([]);
+
+    const { adminId } = useContext(AdminContext);
+
+    // 🔐 Persist active tab
+    const [activeTab, setActiveTab] = useState(() => {
+        return localStorage.getItem("sysadmin-active-tab") || "admins";
+    });
+
+    useEffect(() => {
+        localStorage.setItem("sysadmin-active-tab", activeTab);
+    }, [activeTab]);
+
     const [admins, setAdmins] = useState([]);
+    const [sessions, setSessions] = useState([]);
     const [inputs, setInputs] = useState({});
     const [editingId, setEditingId] = useState(null);
     const [editInputs, setEditInputs] = useState({});
+    const [selectedAdminId, setSelectedAdminId] = useState("");
+    const [allCases, setAllCases] = useState([]);
 
-    function getSessions() {
-        axios.get(`${API_URL}?type=sessions`).then(function (response) {
-            if (Array.isArray(response.data)) {
-                const sortedSessions = response.data.sort((a, b) =>
-                    new Date(b.start_time) - new Date(a.start_time)
-                );
-                setSessions(sortedSessions);
-            }
-        }).catch(error => console.error("Error fetching sessions:", error));
-    }
 
-    function getUsers() {
-        axios.get(API_URL).then(function (response) {
-            if (Array.isArray(response.data)) {
-                setAdmins(response.data);
-            } else {
-                console.error("API response is not an array:", response.data);
-                setAdmins([]);
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching admin list:", error);
-        });
-    }
+    /* ================= DATA FETCH ================= */
 
     useEffect(() => {
-        getUsers();
+        getAdmins();
         getSessions();
+        getContents();
     }, []);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setInputs(values => ({ ...values, [name]: value }));
-    }
+    const getAdmins = () => {
+        axios.get(`${API_URL}?sysadmin-id=${adminId}`).then(res => {
+            if (Array.isArray(res.data)) setAdmins(res.data);
+        });
+    };
 
-    // --- UPDATED FOR "success" KEY ---
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.post(API_URL, inputs).then(function (response) {
-            console.log("POST Response:", response.data);
-            
-            // Changed from .status === 1 to .success
-            if (response.data.success) { 
-                alert("Admin created successfully!");
-                getUsers();
-                setInputs({});
+    const getSessions = () => {
+        axios.get(`${API_URL}?type=sessions&sysadmin-id=${adminId}`).then(res => {
+            if (Array.isArray(res.data)) setSessions(res.data);
+        });
+    };
+
+    const getContents = () => {
+        axios.get(`http://localhost/serverHB/admin.php?type=all_cases&sysadmin-id=${adminId}`)
+        .then(res => {
+            if (Array.isArray(res.data)) {
+                setAllCases(res.data);
             } else {
-                alert(`Failed to create admin: ${response.data.message}`);
+                console.error("API did not return an array:", res.data);
             }
-        })
-        .catch(error => {
-            console.error("Error posting data:", error);
-            alert("An error occurred while connecting to the server.");
         });
-    }
+};
 
-    // --- UPDATED FOR "success" KEY ---
-    const handleDelete = (adminId) => {
-        if (!window.confirm("Are you sure you want to delete this admin?")) {
-            return;
-        }
+    /* ================= CREATE ================= */
 
-        axios.delete(API_URL, { data: { admin_id: adminId } })
-            .then(function (response) {
-                // Changed from .status === 1 to .success
-                if (response.data.success) {
-                    alert("Admin deleted successfully!");
-                    getUsers();
-                } else {
-                    alert(`Failed to delete admin: ${response.data.message}`);
-                }
-            })
-            .catch(error => {
-                console.error("Error deleting data:", error);
-                alert("An error occurred during deletion.");
-            });
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInputs(prev => ({ ...prev, [name]: value,"sysadmin-id":adminId }));
+    };
 
-    const handleEditClick = (user) => {
-        setEditingId(user.admin_id);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post(API_URL, inputs).then(res => {
+            if (res.data.success) {
+                alert("Admin created successfully!");
+                setInputs({});
+                getAdmins();
+            } else {
+                alert(res.data.message);
+            }
+        });
+    };
+
+    /* ================= DELETE ================= */
+
+    const handleDelete = (id) => {
+        if (!window.confirm("Delete this admin?")) return;
+
+        axios.delete(API_URL, {
+            data: { admin_id: id,"sysadmin-id":adminId }
+        }).then(res => {
+            if (res.data.success) {
+                alert("Admin deleted");
+                getAdmins();
+            } else {
+                alert(res.data.message);
+            }
+        });
+    };
+
+    /* ================= EDIT ================= */
+
+    const handleEditClick = (admin) => {
+        setEditingId(admin.admin_id);
         setEditInputs({
-            admin_id: user.admin_id,
-            name: user.name,
-            password: '',
+            admin_id: admin.admin_id,
+            name: admin.name,
+            password: ""
         });
     };
 
-    const handleEditChange = (event) => {
-        const { name, value } = event.target;
-        setEditInputs(values => ({ ...values, [name]: value }));
+    const handleEditChange = (e) => {
+        const { name, value } = e.target;
+        setEditInputs(prev => ({ ...prev, [name]: value,"sysadmin-id":adminId  }));
     };
 
-    // --- UPDATED FOR "success" KEY ---
-    const handleUpdate = (event) => {
-        event.preventDefault();
+    const handleUpdate = (e) => {
+        e.preventDefault();
 
         if (!editInputs.name || !editInputs.password) {
-            alert("Name and Password are required for update.");
+            alert("Name and password required");
             return;
         }
 
-        axios.put(API_URL, editInputs)
-            .then(function (response) {
-                // Changed from .status === 1 to .success
-                if (response.data.success) {
-                    alert("Admin updated successfully!");
-                    setEditingId(null);
-                    setEditInputs({});
-                    getUsers();
-                } else {
-                    alert(`Failed to update admin: ${response.data.message}`);
-                }
-            })
-            .catch(error => {
-                console.error("Error updating data:", error);
-                alert("An error occurred during update.");
-            });
+        axios.put(API_URL, editInputs).then(res => {
+            if (res.data.success) {
+                alert("Admin updated");
+                setEditingId(null);
+                setEditInputs({});
+                getAdmins();
+            } else {
+                alert(res.data.message);
+            }
+        });
     };
+
+    /* ================= UI ================= */
 
     return (
         <>
-            <button className="sysAdminlogOut" onClick={onLogOut}>Log Out</button>
+            <div className="sysbody">
+                {/* ========== HEADER ========== */}
+                <div className="headersysadmin">
+                    <h1 className="adminTitle">System Admin Panel</h1>
 
-            <div className="dataInDataBase">
-                <h2 className="adminAccTopiv">Admin Accounts</h2>
-                <table>
-                    <thead>
-                        <tr className="firstRow">
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Last-Logged-In</th>
-                            <th colSpan="2">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {admins.map((user) => (
-                            <tr key={user.admin_id}>
-                                {editingId === user.admin_id ? (
-                                    <td colSpan="5">
-                                        <form onSubmit={handleUpdate} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                                            <span>ID: {user.admin_id}</span>
-                                            <input type="text" name="name" value={editInputs.name || ''} onChange={handleEditChange} required placeholder="Name" />
-                                            <input type="password" name="password" value={editInputs.password || ''} onChange={handleEditChange} required placeholder="New Password" />
-                                            <button type="submit" className="saveButton">Save</button>
-                                            <button type="button" onClick={() => setEditingId(null)} className="cancelButton">Cancel</button>
-                                        </form>
-                                    </td>
-                                ) : (
-                                    <>
-                                        <td>{user.admin_id}</td>
-                                        <td>{user.name}</td>
-                                        <td>{user.last_logged_in}</td>
-                                        <td>
-                                            {user.admin_id === 130000 ? <span>&nbsp;</span> : (
-                                                <button className="editButton" onClick={() => handleEditClick(user)}>Edit</button>
+                    <div className="adminHeaderRight">
+                        <span className="adminIdDisplay">Admin ID: {adminId}</span>
+                        <button className="sysAdminlogOut" onClick={onLogOut}>
+                            Log Out
+                        </button>
+                    </div>
+                </div>
+
+
+                {/* ========== RIBBON ========== */}
+                <Ribbon activeTab={activeTab} setActiveTab={setActiveTab} />
+
+                {/* ========== ADMINS DETAILS TAB ========== */}
+                {activeTab === "admins" && (
+                    <>
+                        <div className="dataInDataBase">
+                            <h2 className="adminAccTopiv">Admin Accounts</h2>
+
+                            <table className="systable">
+                                <thead>
+                                    <tr className="firstRow">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Last Logged In</th>
+                                        <th colSpan="2">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {admins.map(admin => (
+                                        <tr key={admin.admin_id}>
+                                            {editingId === admin.admin_id ? (
+                                                <td colSpan="5">
+                                                    <form onSubmit={handleUpdate} style={{ display: "flex", gap: "10px" }}>
+                                                        <span>ID: {admin.admin_id}</span>
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            value={editInputs.name}
+                                                            onChange={handleEditChange}
+                                                            required
+                                                        />
+                                                        <input
+                                                            type="password"
+                                                            name="password"
+                                                            value={editInputs.password}
+                                                            onChange={handleEditChange}
+                                                            placeholder="New Password"
+                                                            required
+                                                        />
+                                                        <button className="saveButton" type="submit">Save</button>
+                                                        <button
+                                                            type="button"
+                                                            className="cancelButton"
+                                                            onClick={() => setEditingId(null)}
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            ) : (
+                                                <>
+                                                    <td>{admin.admin_id}</td>
+                                                    <td>{admin.name}</td>
+                                                    <td>{admin.last_logged_in}</td>
+                                                    <td>
+                                                        {admin.admin_id === 130000 ? null : (
+                                                            <button
+                                                                className="editButton"
+                                                                onClick={() => handleEditClick(admin)}
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                        )}
+                                                    </td>
+                                                    <td>
+                                                        {admin.admin_id === 130000 ? null : (
+                                                            <button
+                                                                className="deleteButton"
+                                                                onClick={() => handleDelete(admin.admin_id)}
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        )}
+                                                    </td>
+                                                </>
                                             )}
-                                        </td>
-                                        <td>
-                                            {user.admin_id === 130000 ? <span>&nbsp;</span> : (
-                                                <button className="deleteButton" onClick={() => handleDelete(user.admin_id)}>Delete</button>
-                                            )}
-                                        </td>
-                                    </>
-                                )}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-            <div className="addData">
-                <h2 className="addTopic">Add New Admin</h2>
-                <form onSubmit={handleSubmit}>
-                    <table cellSpacing="10">
-                        <tbody>
-                            <tr>
-                                <th><label htmlFor="name">Admin-Name:</label></th>
-                                <td>
-                                    <input placeholder="Create Admin Name" type="text" name="name" id="name" value={inputs.name || ''} onChange={handleChange} required />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th><label htmlFor="password">Password:</label></th>
-                                <td>
-                                    <input placeholder="Create Password" type="password" name="password" id="password" value={inputs.password || ''} onChange={handleChange} required />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2" align="right">
-                                    <button className="dataButtonSave" type="submit">Save</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-            </div>
+                        {/* ADD NEW ADMIN */}
+                        <div className="addData">
+                            <h2 className="addTopic">Add New Admin</h2>
 
-            <div className="sessionData">
-                <h2 className="adminAccTopiv">Admin Sessions</h2>
-                <table>
-                    <thead>
-                        <tr className="firstRow">
-                            <th>Admin ID</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sessions.length > 0 ? (
-                            sessions.map((session, index) => (
-                                <tr key={index}>
-                                    <td>{session.admin_id}</td>
-                                    <td>{session.start_time}</td>
-                                    <td>{session.end_time || "Active"}</td>
+                            <form onSubmit={handleSubmit}>
+                                <table cellSpacing="10" className="systable">
+                                    <tbody>
+                                        <tr>
+                                            <th>Admin Name</th>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    value={inputs.name || ""}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Password</th>
+                                            <td>
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    value={inputs.password || ""}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colSpan="2" align="right">
+                                                <button className="dataButtonSave">Save</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </>
+                )}
+
+                {/* ========== SESSIONS TAB ========== */}
+                {activeTab === "sessions" && (
+                    <div className="sessionData">
+                        <h2 className="adminAccTopiv">Admin Sessions</h2>
+
+                        <table className="systable">
+                            <thead>
+                                <tr className="firstRow">
+                                    <th>Admin ID</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr><td colSpan="3">No session data available</td></tr>
-                        )}
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                {sessions.map((s, i) => (
+                                    <tr key={i}>
+                                        <td>{s.admin_id}</td>
+                                        <td>{s.start_time}</td>
+                                        <td>{s.end_time || "Active"}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
+                {/* ========== PAYMENTS TAB ========== */}
+                {activeTab === "payments" && (
+                    <div className="dataInDataBase">
+                        <h2 className="adminAccTopiv">Payment Details</h2>
+                        <p>Payment module coming soon…</p>
+                    </div>
+                )}
+
+
+
+                {/* ========== ADMIN CONTENTS TAB ========== */}
+                {activeTab === "contents" && (
+                    <div className="dataInDataBase">
+                        <h2 className="adminAccTopiv">Admin Contents</h2>
+
+                        <div className="filter-container">
+                            <label htmlFor="admin-select" className="filter-label">Select Admin :</label>
+                            <select 
+                                id="admin-select"
+                                className="filter-select"
+                                value={selectedAdminId} 
+                                onChange={(e) => setSelectedAdminId(e.target.value)}
+                            >
+                                <option value="">All Admins</option>
+                                {admins.map(admin => (
+                                    <option key={admin.admin_id} value={admin.admin_id}>
+                                        {admin.name} ({admin.admin_id})
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+
+                        <hr style={{ margin: "20px 0", opacity: "0.2" }} />
+
+        
+                        <CaseTable 
+                            cases={selectedAdminId 
+                                ? allCases.filter(c => String(c.admin_id) === String(selectedAdminId)) 
+                                : allCases
+                            } 
+                            onEdit={getContents} 
+                            onDelete={getContents} 
+                        />
+                        
+                       
+                    </div>
+                )}
+
+                <div className="extraSpace"></div>
             </div>
             <div className="extraSpace"></div>
             <div className="widgets-section" style={{ marginTop: '30px'}}>

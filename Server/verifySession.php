@@ -6,7 +6,10 @@
 // are returned on failure so callers can pass them through unchanged.
 
 header('Content-Type: application/json; charset=utf-8');
+if (!isset($conn)){
+    require "./database.php";
 
+}
 // Ensure a session token was provided
 if (!isset($session_id) || $session_id === null || $session_id === '') {
     echo json_encode([
