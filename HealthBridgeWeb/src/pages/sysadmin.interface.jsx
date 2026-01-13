@@ -4,6 +4,7 @@ import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
 import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
 import Ribbon from '../components/Ribbon.jsx';
+import CaseTable_sysadmin from "../components/Table_for_sysadmin/table_sys_admin.jsx";
 
 const API_URL = "http://localhost/serverHB/sysAdmin.php";
 axios.defaults.withCredentials = true;
@@ -340,7 +341,7 @@ function SysAdmin({ onLogOut }) {
                         <hr style={{ margin: "20px 0", opacity: "0.2" }} />
 
         
-                        <CaseTable 
+                        <CaseTable_sysadmin 
                             cases={selectedAdminId 
                                 ? allCases.filter(c => String(c.admin_id) === String(selectedAdminId)) 
                                 : allCases
