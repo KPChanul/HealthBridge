@@ -3,6 +3,7 @@ import axios from "axios";
 import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
 import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
+import Ribbon from '../components/Ribbon.jsx';
 
 const API_URL = "http://localhost/serverHB/sysAdmin.php";
 axios.defaults.withCredentials = true;
