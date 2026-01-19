@@ -1,3 +1,7 @@
+*{
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
 .mainImage {
 
 
@@ -201,7 +205,7 @@
 
 .dis {
 
-    background-color: #edeae3;
+    background-color: #f8f8fb;
     height: 100%;
     width: 60%;
     text-align: center;
@@ -220,9 +224,13 @@
     font-size: 1.2rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    color: #02224f;
+
 }
 
-
+.disTopic{
+    color: #002a64;
+}
 
 .disimage {
 
@@ -243,7 +251,7 @@
     display: inline-block;
     padding: 10px 20px;
     text-decoration: none;
-    background-color: #007bff;
+    background-color: #033882;
     color: white;
     border-radius: 5px;
     font-weight: bold;
@@ -251,7 +259,7 @@
 }
 
 .howitWOrk:hover {
-    background-color: #004d9c;
+    background-color: #002a64;
     cursor: pointer;
 }
 
@@ -262,7 +270,7 @@
 
 /* Variables for easy color adjustments */
 :root {
-    --primary-purple: #007bff;
+    --primary-purple: #033882;
     --light-background: #f7f7fa;
     --dark-text: #212529;
 }
@@ -288,6 +296,7 @@
     color: var(--dark-text);
     line-height: 1.1;
     line-height:normal;
+    color: #02224f;
 }
 
 /* --- Steps Container Layout --- */
