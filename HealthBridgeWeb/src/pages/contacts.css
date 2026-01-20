@@ -17,7 +17,7 @@
 .content h2 {
   font-size: 36px;
   font-weight: 800;
-  color: #2b4c7e;
+  color: var(--brand);
   margin-bottom: 10px;
 }
 
