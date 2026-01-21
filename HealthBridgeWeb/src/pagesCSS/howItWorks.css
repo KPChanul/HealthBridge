@@ -3,7 +3,7 @@
     max-width: 1200px;
     margin: 0 auto ;
     padding: 40px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     color: #333;
 }
 
@@ -17,7 +17,7 @@
 
 .works-header h1 {
     font-size: 2.8em;
-    color: #007bff; /* Primary blue */
+    color: #033882; /* Primary blue */
     margin-bottom: 10px;
 }
 
@@ -78,7 +78,7 @@
 /* ------------------------------------------------------------------ */
 
 .step-content h3 {
-    color: #007bff;
+    color: #033882;
     margin-bottom: 10px;
     font-size: 1.4em;
 }
@@ -145,7 +145,7 @@
 }
 
 .faq-item h3 {
-    color: #007bff;
+    color: #033882;
     margin-bottom: 10px;
     font-size: 1.5em;
 }
