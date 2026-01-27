@@ -4,8 +4,13 @@ import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
 import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import Ribbon from '../components/Ribbon.jsx';
 import CaseTable_sysadmin from "../components/Table_for_sysadmin/table_sys_admin.jsx";
+=======
+import  Ribbon  from '../components/Ribbon.jsx';
+import CaseTable from "../components/Table/table.jsx";
+>>>>>>> Stashed changes
 =======
 import  Ribbon  from '../components/Ribbon.jsx';
 import CaseTable from "../components/Table/table.jsx";
