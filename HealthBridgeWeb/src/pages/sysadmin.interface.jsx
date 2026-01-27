@@ -3,8 +3,13 @@ import axios from "axios";
 import '../pagesCSS/sysAdmin.css';
 import { AdminContext } from './admin.jsx';
 import DailyEmailWidget from '../pages/DailyEmailWidget.jsx';
+<<<<<<< Updated upstream
 import Ribbon from '../components/Ribbon.jsx';
 import CaseTable_sysadmin from "../components/Table_for_sysadmin/table_sys_admin.jsx";
+=======
+import  Ribbon  from '../components/Ribbon.jsx';
+import CaseTable from "../components/Table/table.jsx";
+>>>>>>> Stashed changes
 
 const API_URL = "http://localhost/serverHB/sysAdmin.php";
 axios.defaults.withCredentials = true;
