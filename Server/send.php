@@ -36,14 +36,14 @@ try {
     $mail->isSMTP();                       // Use SMTP to send emails
     $mail->Host = 'smtp.gmail.com';        // Gmail SMTP server
     $mail->SMTPAuth = true;                // Enable SMTP authentication
-    $mail->Username = 'noreply.feedback.hb@gmail.com'; // Your Gmail address
+    $mail->Username = 'feedback.hb@gmail.com'; // Your Gmail address
     $mail->Password = 'vbtievjvvaodvenu';    // Your Gmail App Password
     $mail->SMTPSecure = 'tls';             // Encryption method
     $mail->Port = 587;                     // SMTP port for TLS
 
     // ===== EMAIL CONTENT =====
     $mail->setFrom('noreply.feedback.hb@gmail.com', 'Feedback Form'); // Sender info
-    $mail->addAddress('healthbridge.uom@gmail.com');               // Recipient (your inbox)
+    $mail->addAddress('healthbridge@gmail.com');               // Recipient (your inbox)
     $mail->isHTML(true);                                     // Send HTML email
     $mail->Subject = "New Feedback Submission by $name ";             // Email subject
     $mail->Body = "
